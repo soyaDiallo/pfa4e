@@ -61,7 +61,7 @@ class User implements UserInterface
     protected $nom;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     protected $prenom;
 
@@ -76,7 +76,7 @@ class User implements UserInterface
     protected $telephone;
 
     /**
-     * @ORM\Column(type="date")
+     * @ORM\Column(type="date", nullable=true)
      */
     protected $datenaissance;
 
