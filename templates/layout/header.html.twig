@@ -60,6 +60,61 @@
             <!-- ./End Sub -->
           </li>
           <!-- ./End SubMenu -->
+          <li>
+            <a href="#" class="mn-has-sub menu-link">
+              <span> Gestion des laureats </span>
+              <i data-feather="chevron-down"></i>
+            </a>
+
+            <!-- Sub -->
+            <ul class="mn-sub to-left py-4">
+              <li>
+                <a href="/laureat/">Afficher les laureats</a>
+              </li>
+              <li>
+                <a href="/laureat/new">Ajouter un laurear</a>
+              </li>
+            </ul>
+            <!-- ./End Sub -->
+          </li>
+          <!-- ./End SubMenu -->
+          <li>
+            <a href="#" class="mn-has-sub menu-link">
+              <span> Gestion des specialitees </span>
+              <i data-feather="chevron-down"></i>
+            </a>
+
+            <!-- Sub -->
+            <ul class="mn-sub to-left py-4">
+              <li>
+                <a href="/specialite/">Afficher les specialitees</a>
+              </li>
+              <li>
+                <a href="/specialite/new">Ajouter une specialte</a>
+              </li>
+            </ul>
+            <!-- ./End Sub -->
+          </li>
+          <!-- ./End SubMenu -->
+          <li>
+            <a href="#" class="mn-has-sub menu-link">
+              <span> Gestion des directeurs </span>
+              <i data-feather="chevron-down"></i>
+            </a>
+
+            <!-- Sub -->
+            <ul class="mn-sub to-left py-4">
+              <li>
+                <a href="/directeurPedagogique/">Afficher les directeurs</a>
+              </li>
+              <li>
+                <a href="/directeurPedagogique/new">Ajouter un directeur</a>
+              </li>
+            </ul>
+            <!-- ./End Sub -->
+          </li>
+          <!-- ./End SubMenu -->
+          
           {% endif %}
 
           {% if is_granted('ROLE_DIRECTEUR') %}

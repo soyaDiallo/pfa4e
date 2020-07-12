@@ -5,7 +5,7 @@ namespace App\Controller;
 use App\Entity\User;
 use App\Entity\DirecteurPedagogique;
 use App\Entity\Entreprise;
-use App\Entity\Etabliseement;
+use App\Entity\Etablissement;
 use App\Entity\Laureat;
 use App\Entity\Secretaire;
 use App\Form\RegistrationFormType;
@@ -37,10 +37,10 @@ class RegistrationController extends AbstractController
             if(!in_array($form->get('roles')->getData()[0], $user->getRolesList())){
                 dump($user->getRolesList());
                 dump($form->get('roles')->getData()[0]);
-                die;
-                // return $this->render('registration/register.html.twig', [
-                //     'registrationForm' => $form->createView(),
-                // ]);
+
+                return $this->render('registration/register.html.twig', [
+                    'registrationForm' => $form->createView(),
+                ]);
             }
 
             // Setting appropriate user type

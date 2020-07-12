@@ -16,7 +16,7 @@ class EntrepriseType extends AbstractType
             ->add('nom')
             ->add('prenom')
             ->add('password')
-            ->add('adresse')
+            ->add('addresse')
             ->add('email')
             ->add('telephone')
             ->add('deleted')
