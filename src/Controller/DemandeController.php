@@ -8,6 +8,7 @@ use App\Form\DemandeLaureatType;
 use App\Form\DemandeSecretaireType;
 use App\Form\DemandeType;
 use App\Repository\DemandeRepository;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -32,7 +33,8 @@ class DemandeController extends AbstractController
     }
 
     /**
-     * @Route("/laureat/new", name="laureat_demande_new", methods={"GET","POST"})
+     * @Route("/new", name="laureat_demande_new", methods={"GET","POST"})
+     *  @IsGranted("ROLE_LAUREAT")
      */
     public function new(Request $request): Response
     {
@@ -55,7 +57,8 @@ class DemandeController extends AbstractController
     }
 
     /**
-     * @Route("/entreprise/new", name="entreprise_demande_new", methods={"GET","POST"})
+     * @Route("/new", name="demande_new", methods={"GET","POST"})
+     * @IsGranted("ROLE_ETABLISSEMENT")
     */
     public function newentreprise(Request $request): Response
     {
@@ -78,7 +81,8 @@ class DemandeController extends AbstractController
     }
     
     /**
-     * @Route("/secretaire/validate", name="etablisment_demande_new", methods={"GET","POST"})
+     * @Route("/validate", name="etablissment_demande_new", methods={"GET","POST"})
+     * @IsGranted("ROLE_ETABLISSEMENT")
     */
     public function validateSecretaire(Request $request): Response
     {
