@@ -14,8 +14,8 @@ use Doctrine\ORM\Mapping as ORM;
 class DirecteurPedagogique extends User
 {
     /**
-     * @Id @OneToOne(targetEntity="User")
-     * @JoinColumn(name="id", referencedColumnName="id")
+     * ORM\@Id ORM\@OneToOne(targetEntity="User")
+     * ORM\@JoinColumn(name="id", referencedColumnName="id")
      **/
     private $id;
 
@@ -32,11 +32,6 @@ class DirecteurPedagogique extends User
     public function __construct()
     {
         $this->demandes = new ArrayCollection();
-    }
-
-    public function getId(): ?int
-    {
-        return $this->id;
     }
 
      public function __toString()

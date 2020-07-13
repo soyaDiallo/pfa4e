@@ -18,7 +18,13 @@ class RegistrationFormType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        $user = new User();
         $builder
+            ->add('roles', ChoiceType::class,
+                array('label' => 'Type de compte :',
+                'choices' => $user->getRolesList(),
+                'multiple'=> false)
+            )
             ->add('email')
             ->add('plainPassword', PasswordType::class, [
                 // instead of being set onto the object directly,
@@ -42,18 +48,6 @@ class RegistrationFormType extends AbstractType
             ->add('addresse')
             ->add('telephone')
             ->add('pseudo')
-            ->add('pseudo')
-            ->add('roles', ChoiceType::class,
-                array('label' => 'Type de compte :',
-                'choices' => array(
-                    'Laureat' => 'ROLE_LAUREAT',
-                    'Directeur Pedagogique' => 'ROLE_DIRECTEUR',
-                    'Entreprise' => 'ROLE_ENTREPRISE',
-                    'Secretaire' => 'ROLE_SECRETAIRE',
-                ),
-                //'choice_label' => 'getAreaName',
-                'multiple'=>false)
-            )
         ;
         $builder->get('roles')
             ->addModelTransformer(new CallbackTransformer(
