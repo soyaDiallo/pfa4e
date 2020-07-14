@@ -14,14 +14,12 @@
                 </div>
                 <div class="fx-card-head-toolbar">
                     <div>
-                        <a href="{{ path('laureat_demande_new') }}" class="btn btn-danger mb-0">
-                            <i data-feather="plus" class="pr-1"></i>
-                            <span class="pl-1 align-middle">Create New</span>
-                        </a>
-                        <a href="{{ path('etablissment_demande_new') }}" class="btn btn-danger mb-0">
-                            <i data-feather="plus" class="pr-1"></i>
-                            <span class="pl-1 align-middle">List Demandes</span>
-                        </a>
+                        {% if is_granted(['ROLE_LAUREAT', 'ROLE_ENTREPRISE']) %}
+                            <a href="{{ path('demande_new') }}" class="btn btn-danger mb-0">
+                                <i data-feather="plus" class="pr-1"></i>
+                                <span class="pl-1 align-middle">Create New</span>
+                            </a>
+                        {% endif %}
                     </div>
                 </div>
             </div>
@@ -41,16 +39,33 @@
                     {% for demande in demandes %}
                         <tr>
                             <td>{{ demande.id }}</td>
-                            <td>{{ demande.etat }}</td>
-                            <td>{{ demande.dateValidationSecretaire ? demande.dateValidationSecretaire|date('Y-m-d') : '' }}</td>
-                            <td>{{ demande.dateValidationDP ? demande.dateValidationDP|date('Y-m-d') : '' }}</td>
-                            <td>{{ demande.dateValidationDE ? demande.dateValidationDE|date('Y-m-d') : '' }}</td>
+                            <td> 
+                                {% if demande.etat and demande.dateValidationSecretaire and demande.dateValidationDP and demande.dateValidationDE %}
+                                    <span class="fx-badge fx-badge-success fx-badge-rect"> Valide Diplome </span>
+                                {% elseif not demande.dateValidationSecretaire or not demande.dateValidationDP or not demande.dateValidationDE %}
+                                   <span class="fx-badge fx-badge-warning fx-badge-rect"> In Process </span>
+                                {% else %}
+                                   <span class="fx-badge fx-badge-danger fx-badge-rect"> Not Valide </span>
+                                {% endif %}
+                            </td>
+                            <td>{{ demande.dateValidationSecretaire ? demande.dateValidationSecretaire|date('Y-m-d') : '0000-00-00' }}</td>
+                            <td>{{ demande.dateValidationDP ? demande.dateValidationDP|date('Y-m-d') : '0000-00-00' }}</td>
+                            <td>{{ demande.dateValidationDE ? demande.dateValidationDE|date('Y-m-d') : '0000-00-00' }}</td>
                             <td>
-                                <a class="btn btn-warning btn-sm mb-0" href="{{ path('demande_edit', {'id': demande.id}) }}">
-                                    <i data-feather="edit-3" class="pr-1"></i>
-                                    <span class="pl-1 align-middle"> edit </span>
-                                </a>
-                                {{ include('demande/_delete_form.html.twig', {'button_size': 'btn-sm'}) }}
+                                {% if is_granted(['ROLE_LAUREAT', 'ROLE_ENTREPRISE']) %}
+                                    <a class="btn btn-warning btn-sm mb-0" href="{{ path('demande_edit', {'id': demande.id}) }}">
+                                        <i data-feather="edit-3" class="pr-1"></i>
+                                        <span class="pl-1 align-middle"> edit </span>
+                                    </a>
+                                    {{ include('demande/_delete_form.html.twig', {'button_size': 'btn-sm'}) }}
+                                {% endif %}
+                                {% if is_granted('ROLE_SECRETAIRE') %}
+                                    <a href="{{ path('validate_demande', {'id': demande.id}) }}" class="btn btn-dark btn-soft btn-sm mb-0">
+                                        <i data-feather="check" class="pr-1"></i>
+                                        <span class="pl-1 align-middle">Valider le Demande</span>
+                                    </a>
+                                {% endif %}
+                                
                             </td>
                         </tr>
                     {% else %}

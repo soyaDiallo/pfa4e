@@ -44,7 +44,7 @@
           <!-- Begin::SubMenu -->
           <li>
             <a href="#" class="mn-has-sub menu-link">
-              <span> Gestion des documents </span>
+              <span> documents </span>
               <i data-feather="chevron-down"></i>
             </a>
 
@@ -62,7 +62,7 @@
           <!-- ./End SubMenu -->
           <li>
             <a href="#" class="mn-has-sub menu-link">
-              <span> Gestion des laureats </span>
+              <span> laureats </span>
               <i data-feather="chevron-down"></i>
             </a>
 
@@ -80,7 +80,7 @@
           <!-- ./End SubMenu -->
           <li>
             <a href="#" class="mn-has-sub menu-link">
-              <span> Gestion des specialitees </span>
+              <span> specialitees </span>
               <i data-feather="chevron-down"></i>
             </a>
 
@@ -98,7 +98,7 @@
           <!-- ./End SubMenu -->
           <li>
             <a href="#" class="mn-has-sub menu-link">
-              <span> Gestion des directeurs </span>
+              <span> directeurs </span>
               <i data-feather="chevron-down"></i>
             </a>
 
@@ -128,18 +128,13 @@
           {% endif %}
 
           {% if is_granted('ROLE_ENTREPRISE') %}
-          <!-- Begin::SubMenu -->
+          <!-- Begin::Menu -->
           <li>
-            <a href="#" class="mn-has-sub menu-link">
+            <a href="#" class="menu-link">
               <span> Menu entreprise </span>
             </a>
           </li>
-          <!-- ./End SubMenu -->
-          {% endif %}
-
-          {% if is_granted('ROLE_SECRETAIRE') %}
-          <!-- Begin::LinkMenu -->
-          <!-- Begin::SubMenu -->
+          <!-- ./End Menu -->
           <li>
             <a href="#" class="mn-has-sub menu-link">
               <span> Demandes </span>
@@ -149,26 +144,52 @@
             <!-- Sub -->
             <ul class="mn-sub to-left py-4">
               <li>
-                <a href="/demande/">afficher les demandes</a>
+                <a href="/demande/">Afficher les Demandes</a>
               </li>
               <li>
-                <a href="/demande/new">ajouter un demande</a>
+                <a href="/demande/new">Ajouter un Demande</a>
               </li>
             </ul>
             <!-- ./End Sub -->
           </li>
           <!-- ./End SubMenu -->
-          <!-- ./End LinkMenu -->
+          {% endif %}
+
+          {% if is_granted('ROLE_SECRETAIRE') %}
+          <!-- Begin::SubMenu -->
+          <li>
+            <a href="/demande/" class="menu-link">
+              <span> Demandes </span>
+            </a>
+          </li>
+          <!-- ./End SubMenu -->
           {% endif %}
 
 
           {% if is_granted('ROLE_LAUREAT') %}
-          <!-- Begin::SubMenu -->
+          <!-- Begin::LinkMenu -->
+          <li>
+            <a href="#" class="menu-link">
+              <span> Menu laureat </span>
+            </a>
+          </li>
+          <!-- ./End LinkMenu -->
           <li>
             <a href="#" class="mn-has-sub menu-link">
-              <span> Menu laureat </span>
+              <span> Demandes </span>
               <i data-feather="chevron-down"></i>
             </a>
+
+            <!-- Sub -->
+            <ul class="mn-sub to-left py-4">
+              <li>
+                <a href="/demande/">Afficher les Demandes</a>
+              </li>
+              <li>
+                <a href="/demande/new">Ajouter un Demande</a>
+              </li>
+            </ul>
+            <!-- ./End Sub -->
           </li>
           <!-- ./End SubMenu -->
           {% endif %}
