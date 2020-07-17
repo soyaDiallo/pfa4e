@@ -22,12 +22,12 @@ class Etablissement extends User
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=255, unique=true)
+     * @ORM\Column(type="string", length=255, unique=true, nullable=true)
      */
     private $nomEtablissement;
 
     /**
-     * @ORM\Column(type="string", length=255, unique=true)
+     * @ORM\Column(type="string", length=255, unique=true, nullable=true)
      */
     private $logo;
 
@@ -67,7 +67,7 @@ class Etablissement extends User
 
     public function __toString()
     {
-        return $this->nom;
+        return $this->email;
     }
 
     public function getNomEtablissement(): ?string

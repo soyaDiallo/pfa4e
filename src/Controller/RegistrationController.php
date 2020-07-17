@@ -9,6 +9,11 @@ use App\Entity\Etablissement;
 use App\Entity\Laureat;
 use App\Entity\Secretaire;
 use App\Form\RegistrationFormType;
+use App\Form\EtablissementRegistrationFormType;
+use App\Form\LaureatRegistrationFormType;
+use App\Form\SecretaireRegistrationFormType;
+use App\Form\DirecteurPedagogiqueRegistrationFormType;
+use App\Form\EntrepriseRegistrationFormType;
 use App\Security\LoginFormAuthenticator;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -28,48 +33,49 @@ class RegistrationController extends AbstractController
             return $this->redirectToRoute('home');
         }
 
-        $user = new User();
-        $form = $this->createForm(RegistrationFormType::class, $user);
+        $accountType = $request->query->get('accountType');
+
+        if($accountType == null){
+            return $this->redirectToRoute('home');
+        }
+
+        switch ($accountType) {
+            case 'directeur_pedagogique':
+                $user = new DirecteurPedagogique();
+                $form = $this->createForm(DirecteurPedagogiqueRegistrationFormType::class, $user);
+                $role = ['ROLE_DIRECTEUR'];
+                break;
+            case 'laureat':
+                $user = new Laureat();
+                $form = $this->createForm(LaureatRegistrationFormType::class, $user);
+                $role = ['ROLE_LAUREAT'];
+                break;
+            case 'etablissement':
+                $user = new Etablissement();
+                $form = $this->createForm(EtablissementRegistrationFormType::class, $user);
+                $role = ['ROLE_ETABLISSEMENT'];
+                break;
+            case 'entreprise':
+                $user = new Entreprise();
+                $form = $this->createForm(EntrepriseRegistrationFormType::class, $user);
+                $role = ['ROLE_ENTREPRISE'];
+                break;
+            case 'secretaire':
+                $user = new Secretaire();
+                $form = $this->createForm(SecretaireRegistrationFormType::class, $user);
+                $role = ['ROLE_SECRETAIRE'];
+                break;                            
+            default:
+                return $this->redirectToRoute('home');
+                break;
+        }
+
+        
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            // encode the plain password
-            if(!in_array($form->get('roles')->getData()[0], $user->getRolesList())){
-                dump($user->getRolesList());
-                dump($form->get('roles')->getData()[0]);
-
-                return $this->render('registration/register.html.twig', [
-                    'registrationForm' => $form->createView(),
-                ]);
-            }
-
-            // Setting appropriate user type
-            switch ($form->get('roles')->getData()[0]) {
-                case 'ROLE_DIRECTEUR':
-                    $user = new DirecteurPedagogique();       
-                    break;
-                case 'ROLE_LAUREAT':
-                    $user = new Laureat();       
-                    break;
-                case 'ROLE_ETABLISSEMENT':
-                        $user = new Etablissement();       
-                        break;
-                case 'ROLE_ENTREPRISE':
-                    $user = new Entreprise();       
-                    break;
-                case 'ROLE_SECRETAIRE':
-                    $user = new Secretaire();       
-                    break;                            
-                default:
-                    
-                    break;
-            }
-            
             $user->setEmail($form->get('email')->getData());
-            $user->setNom($form->get('nom')->getData());
-            $user->setPrenom($form->get('prenom')->getData());
-            $user->setTelephone($form->get('telephone')->getData());
-            $user->setDatenaissance($form->get('datenaissance')->getData());
+
             $user->setPassword(
                 $passwordEncoder->encodePassword(
                     $user,
@@ -79,12 +85,11 @@ class RegistrationController extends AbstractController
 
             $user->setDeleted(false);
             
-            $user->setRoles($form->get('roles')->getData());
+            $user->setRoles($role);
 
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($user);
             $entityManager->flush();
-            // do anything else you need here, like send an email
 
             return $guardHandler->authenticateUserAndHandleSuccess(
                 $user,
