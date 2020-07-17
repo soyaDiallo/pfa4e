@@ -17,8 +17,8 @@ class DemandeType extends AbstractType
         $builder
             ->add('etat', ChoiceType::class, [
                 'choices' => [
-                    'Verified' => DemandeController::ETAT_ONE,
-                    'Not Valid' => DemandeController::ETAT_TWO
+                    'Valide deplome' => DemandeController::ETAT_VALIDE,
+                    'Not Valide' => DemandeController::ETAT_NOT_VALIDE
                 ],
                 'required' => true,
                 'expanded' => false,

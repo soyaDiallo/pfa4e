@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\DemandeRepository;
+use App\Controller\DemandeController;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -18,22 +19,22 @@ class Demande
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=1)
+     * @ORM\Column(type="integer", length=1, options={"default" : DemandeController::ETAT_NOT_VALIDE})
      */
-    private $etat;
+    private $etat = DemandeController::ETAT_NOT_VALIDE;
 
     /**
-     * @ORM\Column(type="date")
+     * @ORM\Column(type="date", nullable=true)
      */
     private $dateValidationSecretaire;
 
     /**
-     * @ORM\Column(type="date")
+     * @ORM\Column(type="date", nullable=true)
      */
     private $dateValidationDP;
 
     /**
-     * @ORM\Column(type="date")
+     * @ORM\Column(type="date", nullable=true)
      */
     private $dateValidationDE;
 
@@ -72,15 +73,15 @@ class Demande
         return $this->id;
     }
 
-    public function getEtat(): ?string
+    public function getEtat(): ?int
     {
         return $this->etat;
     }
 
-    public function setEtat(string $etat): self
+    public function setEtat(int $etat): self
     {
         $this->etat = $etat;
-
+        
         return $this;
     }
 
