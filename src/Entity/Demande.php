@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\DemandeRepository;
 use App\Controller\DemandeController;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\Mapping\JoinColumn;
 
 /**
  * @ORM\Entity(repositoryClass=DemandeRepository::class)
@@ -40,6 +41,7 @@ class Demande
 
     /**
      * @ORM\ManyToOne(targetEntity=Diplome::class, inversedBy="demandes")
+     * @JoinColumn(name="diplome_id", referencedColumnName="id")
      */
     private $diplome;
 
@@ -60,6 +62,7 @@ class Demande
 
     /**
      * @ORM\ManyToOne(targetEntity=Etablissement::class, inversedBy="demandes")
+     * @JoinColumn(name="etablissement_id", referencedColumnName="id")
      */
     private $etablissement;
 
