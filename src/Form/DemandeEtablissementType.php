@@ -14,7 +14,7 @@ class DemandeEtablissementType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('etat', ChoiceType::class, [
+            ->add('etatSecretaire', ChoiceType::class, [
                 'choices' => [
                     'Valide deplome' => DemandeController::ETAT_VALIDE,
                     'Not Valide' => DemandeController::ETAT_NOT_VALIDE

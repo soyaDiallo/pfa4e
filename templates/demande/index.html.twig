@@ -40,23 +40,25 @@
                         <tr>
                             <td>{{ demande.id }}</td>
                             <td> 
-                                {% if demande.etat and demande.dateValidationSecretaire and demande.dateValidationDP and demande.dateValidationDE %}
+                                {% if demande.etatSecretaire == constant('App\\Controller\\DemandeController::ETAT_VALIDE') and demande.etatDirecteurPd == constant('App\\Controller\\DemandeController::ETAT_VALIDE') and demande.etatDirecteurGn == constant('App\\Controller\\DemandeController::ETAT_VALIDE') %}
                                     <span class="fx-badge fx-badge-success fx-badge-rect"> Valide Diplome </span>
-                                {% elseif not demande.dateValidationSecretaire or not demande.dateValidationDP or not demande.dateValidationDE %}
-                                   <span class="fx-badge fx-badge-warning fx-badge-rect"> In Process </span>
+                                {% elseif not demande.etatSecretaire or not demande.etatDirecteurPd or not demande.etatDirecteurGn %}
+                                   <span class="fx-badge fx-badge-warning fx-badge-rect"> Not Valide </span>
                                 {% else %}
-                                   <span class="fx-badge fx-badge-danger fx-badge-rect"> Not Valide </span>
+                                   <span class="fx-badge fx-badge-danger fx-badge-rect"> In process </span>
                                 {% endif %}
                             </td>
                             <td>{{ demande.dateValidationSecretaire ? demande.dateValidationSecretaire|date('Y-m-d') : '0000-00-00' }}</td>
                             <td>{{ demande.dateValidationDP ? demande.dateValidationDP|date('Y-m-d') : '0000-00-00' }}</td>
                             <td>{{ demande.dateValidationDE ? demande.dateValidationDE|date('Y-m-d') : '0000-00-00' }}</td>
                             <td>
-                                {% if is_granted(['ROLE_LAUREAT', 'ROLE_ENTREPRISE']) %}
+                                {% if is_granted(['ROLE_LAUREAT', 'ROLE_ENTREPRISE']) and demande.etatSecretaire == constant('App\\Controller\\DemandeController::ETAT_PROCESS') and demande.etatDirecteurPd == constant('App\\Controller\\DemandeController::ETAT_PROCESS') and demande.etatDirecteurGn == constant('App\\Controller\\DemandeController::ETAT_PROCESS') %}
                                     <a class="btn btn-warning btn-sm mb-0" href="{{ path('demande_edit', {'id': demande.id}) }}">
                                         <i data-feather="edit-3" class="pr-1"></i>
                                         <span class="pl-1 align-middle"> edit </span>
                                     </a>
+                                {% endif %}
+                                {% if is_granted(['ROLE_LAUREAT', 'ROLE_ENTREPRISE'])%}
                                     {{ include('demande/_delete_form.html.twig', {'button_size': 'btn-sm'}) }}
                                 {% endif %}
                                 {% if is_granted('ROLE_SECRETAIRE') %}

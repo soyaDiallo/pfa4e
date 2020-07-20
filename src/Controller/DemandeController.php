@@ -21,6 +21,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class DemandeController extends AbstractController
 {
+    const ETAT_PROCESS = 2;
     const ETAT_NOT_VALIDE = 0;
     const ETAT_VALIDE = 1;
 
@@ -37,7 +38,7 @@ class DemandeController extends AbstractController
             case $this->isGranted('ROLE_ENTREPRISE'):
                 $demandes = $demandeRepository->findByEntreprise(['entreprise_id' => $this->getUser()]);      
                 break;
-            case $this->isGranted('ROLE_SECRETAIRE'):
+            case $this->isGranted(["ROLE_SECRETAIRE", "ROLE_DIRECTEUR"]):
                 $demandes = $demandeRepository->findByEtablissement(['etablissement_id' => $this->getUser()->getEtablissement()]);
                 break;                             
             default:
@@ -64,7 +65,7 @@ class DemandeController extends AbstractController
 
 		        if ($form->isSubmitted() && $form->isValid()) {
 		            // dd($demande);
-		            $demande->setLaureat($this->getSecritaire());
+		            $demande->setLaureat($this->getUser());
 		            $entityManager = $this->getDoctrine()->getManager();
 		            $entityManager->persist($demande);
 		            $entityManager->flush();
@@ -115,19 +116,20 @@ class DemandeController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
         	// Setting appropriate user type
-	        switch ($this->getUser()) {
-	            case $this->isGranted('ROLE_SECRETAIRE'):
-	            	$demande->setDateValidationSecretaire(new Assert\Date());
-	            	$demande->setSecretaire("2");
-	            	break;
-	            case $this->isGranted('ROLE_DIRECTEUR'):
-	            	$demande->setDateValidationDP(new \DateTime());
-	            	$demande->setDirecteurPedagogique($this->getUser());
-	            	break;
-	            default:
-	            	break;
-	        }
-
+	        // switch ($this->getUser()) {
+	        //     case $this->isGranted('ROLE_SECRETAIRE'):
+	        //     	$demande->setDateValidationSecretaire(new \DateTime());
+	        //     	$demande->setSecretaire($this->getUser());
+	        //     	break;
+	        //     case $this->isGranted('ROLE_DIRECTEUR'):
+	        //     	$demande->setDateValidationDP(new \DateTime());
+	        //     	$demande->setDirecteurPedagogique($this->getUser());
+	        //     	break;
+	        //     default:
+	        //     	break;
+	        // }
+            $demande->setDateValidationSecretaire(new \DateTime());
+            $demande->setSecretaire($this->getUser());
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($demande);
             $entityManager->flush();
@@ -153,7 +155,6 @@ class DemandeController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
-
             return $this->redirectToRoute('demande_index');
         }
 
