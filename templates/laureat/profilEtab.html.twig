@@ -6,13 +6,23 @@
     <link href="{{ asset('css/laureat/style2.css') }}" rel="stylesheet">
 {% endblock %}
 {% block body %}
+    {% for message in app.flashes('success') %}
+        <div class="alert alert-success" style="width: 25%;margin-left: 36%">
+            {{ message }}
+        </div>
+    {% endfor %}
+    {% for message in app.flashes('erreur') %}
+        <div class="alert alert-danger" style="width: 25%;margin-left: 36%">
+            {{ message }}
+        </div>
+    {% endfor %}
     <div style="width: 25%;position: absolute">
         <img src="{{ asset('uploads/imagesLaureat/'~ laureat.photoUrl) }}" style=" width:70%;height:70%;margin: 10%">
         <br>
         <b style="position: absolute;margin-left: 10%;color: grey">Nationalité</b>  <hr style="width: 60%">
 
 
-        <font face="Agency FB" style="color: black;font-size: 17px;margin-left: 10%"> {{ laureat.nationalite }}</font>
+        <font face="Agency FB" style="color: black;font-size: 17px;margin-left: 10%"> {{ laureat.nationalite }} </font>
         <br><br>
         <b style="position: absolute;margin-left: 10%;color: grey">Date de naissance</b>  <hr style="width: 60%">
         <font face="Agency FB" style="color: black;font-size: 17px;margin-left: 10%"><i class="far fa-calendar-alt"></i> {{ laureat.datenaissance|date("m/d/Y") }}</font>
@@ -21,7 +31,7 @@
     </div>
     <br><br>
     <div style="width: 70%;margin-left: 24%;">
-        <b style="font-size: 24px;color: #F3E7E5 ;margin-left: 87%">Mon espace</b>
+        <b style="font-size: 24px;color: #F3E7E5 ;margin-left: 80%">Mon espace</b>
         <br>
         <b style="font-size: 24px">{{ laureat.prenom }} {{ laureat.nom }} </b>
 
@@ -74,13 +84,16 @@
                 <input type="text" class="form-control" placeholder="Rechercher un etablissement"  name="name">
 
                 <div class="input-group-append">
+
                     <button class="btn btn-outline-secondary" type="submit" id="button-addon2" >
                         <i class="fas fa-search"></i>
                     </button>
                 </div>
+
             </div>
         </form>
         <br>
+
         <div style="display: flex;flex-direction: row">
 
             {% if(name | length != 0 and etablissements | length != 0) %}
@@ -88,11 +101,11 @@
             {% for etablissement in etablissements %}
 
                     <div class="card" style="width: 18rem;box-shadow: 1px 1px 1px #888888;margin-left: 3%">
-                        <img src="{{ asset('images/sup.jpg') }}" class="card-img-top" alt="...">
+                        <img src="{{ asset('images/schoool.PNG') }}" class="card-img-top" alt="...">
                         <div class="card-body">
                             <h5 class="card-title">{{ etablissement.nomEtablissement }}</h5>
                             <b style="color: grey;font-size: 13px"><i class="fas fa-map-marker-alt"></i> {{ etablissement.adresse }}</b><br>
-                            <button type="button" class="btn btn-primary btn-sm" style="margin-left: 60%">Voir profil</button>
+                            <button type="button" class="btn btn-primary btn-sm" onclick="showForm()" id="oo" style="margin-left: 40%">Ajouter demande</button>
                         </div>
                     </div>
             {% endfor %}
@@ -107,4 +120,65 @@
         </div>
 
     </div>
+    <div id="div1">
+        <div class="card" id="div2" style="width: 40%;margin-left: 30%;margin-top: 5%;height: 60%">
+            <div class="card-header">
+                <i class="fas fa-times" id="return" style="position: absolute;margin-left: 92%" ></i>
+                <h5 class="card-title">Ajouter une demande</h5>
+
+            </div>
+            {{ form_start(form,{'action': path('laureat_etablissement', {'id': laureat.id}), 'method': 'POST'}) }}
+
+            <div class="">
+
+                <br>
+                <b style="color: grey;font-size: 13px;margin-left:4%; ">Fichier (PDF)</b>
+                <div style="width: 70%;margin-left: 4%;">
+
+                    {{ form_widget(form.fichier, { 'attr': {'class': 'form-control', 'placeholder': 'fichier','required':'true' } }) }}
+                </div>
+                <br>
+                <b style="color: grey;font-size: 13px;margin-left:4%; ">Année</b>
+                <div style="width: 70%;margin-left: 4%;">
+
+                    {{ form_widget(form.annee, { 'attr': {'class': 'form-control', 'placeholder': 'Année','required':'true' } }) }}
+                </div>
+                <br>
+                <b style="color: grey;font-size: 13px;margin-left:4%; ">Type diplome</b>
+                <div style="width: 70%;margin-left: 4%;">
+
+                    {{ form_widget(form.type, { 'attr': {'class': 'form-control', 'placeholder': 'Type diplome','required':'true' } }) }}
+                </div>
+                <br>
+                <b style="color: grey;font-size: 13px;margin-left:4%; ">Spécialité</b>
+                <div style="width: 70%;margin-left: 4%;">
+
+                    {{ form_widget(form.specialite, { 'attr': {'class': 'form-control', 'placeholder': 'Spécialité','required':'true' } }) }}
+                </div>
+                <input type="hidden" class="form-control"  value="{{ name }}" name="id">
+
+                <button type="submit" class="btn btn-success btn-sm" style="margin-left: 80%;margin-top: 2%">Enregistrer</button>
+
+
+            </div>
+            {{ form_end(form) }}
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    <script src="{{ asset('assets/js/app.js') }}"></script>
+    <script type="text/javascript">
+
+        l1 = document.getElementById("div1");
+        function showForm(){
+            l1.style.display = "flex";
+        }
+
+        document.getElementById('return').addEventListener('click',
+            function () {
+                document.querySelector('#div1').style.display = 'none';
+
+            });
+    </script>
 {% endblock %}
