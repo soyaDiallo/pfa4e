@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\DemandeRepository;
 use App\Controller\DemandeController;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\Mapping\JoinColumn;
 
 /**
  * @ORM\Entity(repositoryClass=DemandeRepository::class)
@@ -49,7 +50,8 @@ class Demande
     private $dateValidationDE;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Diplome::class, inversedBy="demandes")
+     * @ORM\ManyToOne(targetEntity=Diplome::class, inversedBy="demandes",cascade={"persist"})
+     * @JoinColumn(name="diplome_id", referencedColumnName="id")
      */
     private $diplome;
 
@@ -70,6 +72,7 @@ class Demande
 
     /**
      * @ORM\ManyToOne(targetEntity=Etablissement::class, inversedBy="demandes")
+     * @JoinColumn(name="etablissement_id", referencedColumnName="id")
      */
     private $etablissement;
 
