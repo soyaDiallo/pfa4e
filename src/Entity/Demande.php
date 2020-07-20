@@ -40,7 +40,7 @@ class Demande
     private $dateValidationDE;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Diplome::class, inversedBy="demandes")
+     * @ORM\ManyToOne(targetEntity=Diplome::class, inversedBy="demandes",cascade={"persist"})
      * @JoinColumn(name="diplome_id", referencedColumnName="id")
      */
     private $diplome;
