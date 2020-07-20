@@ -37,7 +37,7 @@ class Diplome
     /**
      * @ORM\Column(type="date")
      */
-    private $dateDelivrance;
+    private $dateDepot;
 
     /**
      * @ORM\Column(type="date")
@@ -105,14 +105,14 @@ class Diplome
         return $this;
     }
 
-    public function getDateDelivrance(): ?\DateTimeInterface
+    public function getDateDepot(): ?\DateTimeInterface
     {
-        return $this->dateDelivrance;
+        return $this->dateDepot;
     }
 
-    public function setDateDelivrance(\DateTimeInterface $dateDelivrance): self
+    public function setDateDepot(\DateTimeInterface $dateDepot): self
     {
-        $this->dateDelivrance = $dateDelivrance;
+        $this->dateDepot = $dateDepot;
 
         return $this;
     }
