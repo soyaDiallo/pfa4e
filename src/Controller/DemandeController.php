@@ -4,10 +4,10 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Entity\Demande;
+use App\Entity\Secretaire;
 use App\Form\DemandeEntrepriseType;
 use App\Form\DemandeLaureatType;
-use App\Form\DemandeEtablissementType;
-use App\Form\DemandeType;
+use App\Form\DemandeSecretaireType;
 use App\Repository\DemandeRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -100,17 +100,17 @@ class DemandeController extends AbstractController
             default:
                 
                 break;
-       	}
+        }
     }
     
     /**
-     * @Route("/{id}/validate", name="validate_demande", methods={"GET","POST"})
+     * @Route("/{id}/edit", name="validate_demande", methods={"GET","POST"})
      * @IsGranted({"ROLE_ETABLISSEMENT", "ROLE_SECRETAIRE"})
     */
-    public function validate(Request $request, Demande $demande): Response
+    public function edit(Request $request, Demande $demande): Response
     {
     	$demande = new Demande();
-        $form = $this->createForm(DemandeEtablissementType::class, $demande);
+        $form = $this->createForm(DemandeSecretaireType::class, $demande);
         $form->handleRequest($request);
 
 
@@ -118,23 +118,23 @@ class DemandeController extends AbstractController
         	// Setting appropriate user type
 	        // switch ($this->getUser()) {
 	        //     case $this->isGranted('ROLE_SECRETAIRE'):
-	        //     	$demande->setDateValidationSecretaire(new \DateTime());
+	        //     	$demande->setDateValidationSecretaire(new \DateTime('now'));
 	        //     	$demande->setSecretaire($this->getUser());
 	        //     	break;
 	        //     case $this->isGranted('ROLE_DIRECTEUR'):
-	        //     	$demande->setDateValidationDP(new \DateTime());
+	        //     	$demande->setDateValidationDP(new \DateTime('now'));
 	        //     	$demande->setDirecteurPedagogique($this->getUser());
 	        //     	break;
 	        //     default:
 	        //     	break;
-	        // }
-            $demande->setDateValidationSecretaire(new \DateTime());
+            // }
             $demande->setSecretaire($this->getUser());
+            $demande->setDateValidationSecretaire(new \DateTime('now'));
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($demande);
             $entityManager->flush();
 
-            return $this->redirectToRoute('demande_index');
+            // return $this->redirectToRoute('demande_index');
         }
 
         return $this->render('demande/secretaire_new.html.twig', [
@@ -148,21 +148,21 @@ class DemandeController extends AbstractController
     /**
      * @Route("/{id}/edit", name="demande_edit", methods={"GET","POST"})
      */
-    public function edit(Request $request, Demande $demande): Response
-    {
-        $form = $this->createForm(DemandeType::class, $demande);
-        $form->handleRequest($request);
+    // public function edit(Request $request, Demande $demande): Response
+    // {
+    //     $form = $this->createForm(DemandeType::class, $demande);
+    //     $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $this->getDoctrine()->getManager()->flush();
-            return $this->redirectToRoute('demande_index');
-        }
+    //     if ($form->isSubmitted() && $form->isValid()) {
+    //         $this->getDoctrine()->getManager()->flush();
+    //         return $this->redirectToRoute('demande_index');
+    //     }
 
-        return $this->render('demande/edit.html.twig', [
-            'demande' => $demande,
-            'form' => $form->createView(),
-        ]);
-    }
+    //     return $this->render('demande/edit.html.twig', [
+    //         'demande' => $demande,
+    //         'form' => $form->createView(),
+    //     ]);
+    // }
 
     /**
      * @Route("/{id}", name="demande_delete", methods={"DELETE"})
