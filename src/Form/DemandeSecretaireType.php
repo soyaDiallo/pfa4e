@@ -9,12 +9,12 @@ use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class DemandeEtablissementType extends AbstractType
+class DemandeSecretaireType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('etat', ChoiceType::class, [
+            ->add('etatSecretaire', ChoiceType::class, [
                 'choices' => [
                     'Valide deplome' => DemandeController::ETAT_VALIDE,
                     'Not Valide' => DemandeController::ETAT_NOT_VALIDE
@@ -28,9 +28,6 @@ class DemandeEtablissementType extends AbstractType
                 'required'   => true
             ])
             ->add('laureat', null, [
-                'required'   => true
-            ])
-            ->add('etablissement', null, [
                 'required'   => true
             ])
         ;

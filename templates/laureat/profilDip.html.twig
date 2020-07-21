@@ -2,78 +2,94 @@
 
 {% block title %}Profil{% endblock %}
 
-{% block stylesheets %}
-    <link href="{{ asset('css/laureat/style.css') }}" rel="stylesheet">
-{% endblock %}
-
 {% block body %}
-    <div style="width: 25%;position: absolute">
-     <img src="{{ asset('uploads/imagesLaureat/'~ laureat.photoUrl) }}" style=" width:70%;height:70%;margin: 10%">
-     <br>
-      <b style="position: absolute;margin-left: 10%;color: grey">Nationalité</b>  <hr style="width: 60%">
+    <div class="bg-light py-5">
+        <div class="container">
+            <div class="bg-white shadow-sm mb-4">
+                <div class="px-4 py-5">
+                    <div class="d-sm-flex justify-content-sm-between align-items-sm-center">
+                        <div class="profile-Info">
+                            <div class="d-flex align-items-center">
+                            <img class="fx-avatar fx-avatar-squre fx-avatar-bordered shadow-lg d-inline-block fx-avatar-xl rounded-circle" 
+                                src="
+                                {% if laureat.photoUrl %} 
+                                    {{ asset('uploads/imagesLaureat/'~ laureat.photoUrl) }}
+                                {% else %}
+                                    /build/avatar.jpg
+                                {% endif %}
+                                "
+                                alt="Image Description" />
+                                <div class="ml-4">
+                                    <h2 class="fx-text-dark mb-2 h4">
+                                        <span class="align-middle">{{ laureat.prenom }} {{ laureat.nom }}</span> 
+                                    </h2>
+                                    <p class="fx-font-size-1 mb-1 fx-text-label-2"> From : {{ laureat.nationalite }} </p>
+                                    <p class="fx-font-size-1 mb-1 fx-text-label-2">  
+                                        <i class="align-middle" data-feather="map-icon"></i> 
+                                        <span class="align-middle">{{ laureat.datenaissance|date("m/d/Y") }}</span> 
+                                    </p>
+                                    <p class="fx-font-size-1 mb-1 fx-text-label-2">
+                                        <span class="align-middle">{{ laureat.email }}</span>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="profile-actions">
+                            <!-- Edit Profile -->
+                            <a class="btn btn-lg btn-brand" href="{{ path('laureat_modif', {'id': laureat.id}) }}">
+                                <i class="mr-2" data-feather="edit"></i>
+                                Edit Profile
+                            </a>
+                            <!-- End Edit Profile -->
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-        <font face="Agency FB" style="color: black;font-size: 17px;margin-left: 10%"> {{ laureat.nationalite }}</font>
-        <br><br>
-        <b style="position: absolute;margin-left: 10%;color: grey">Date de naissance</b>  <hr style="width: 60%">
-        <font face="Agency FB" style="color: black;font-size: 17px;margin-left: 10%"><i class="far fa-calendar-alt"></i> {{ laureat.datenaissance|date("m/d/Y") }}</font>
-        <br>
-        <span class="badge badge-info" style="margin: 10%;width: 70%">Laureat</span>
-    </div>
-    <br><br>
-    <div style="width: 70%;margin-left: 24%;">
-        <b style="font-size: 24px;color: #F3E7E5 ;margin-left: 80%">Mon espace</b>
-        <br>
-        <b style="font-size: 24px">{{ laureat.prenom }} {{ laureat.nom }}</b>
+            <div class="fx-card fx-card-tabs">
+                <div class="fx-card-head">
+                    <div class="fx-card-head-container">
+                        <h3 class="fx-card-head-title">
+                            Compte Information
+                        </h3>
+                    </div>
+                    <div class="fx-card-head-toolbar">
+                        <ul class="nav nav-tabs nav-tabs-line nav-tabs-line-right nav-tabs-line-2x" role="tablist">
+                            <li class="nav-item">
+                                <a class="nav-link active" data-toggle="tab" href="#" role="tab">
+                                    Mes diplomes
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" data-toggle="tab" href="{{ path('laureat_etablissement', {'id': laureat.id}) }}" role="tab">
+                                    Etablissement
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" data-toggle="tab" href="{{ path('laureat_apropos', {'id': laureat.id}) }}" role="tab">
+                                    À propos
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" data-toggle="tab" href="{{ path('laureat_desactiver', {'id': laureat.id}) }}" role="tab">
+                                    Désactiver compte
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <!-- card Body -->
+                <div class="fx-card-body">
+                    <div class="card-header">
+                        <h5 class="card-title">Information</h5>
+                    </div>
+                    <div class="card-body">
 
-        <br>
-        <font face="Agency FB" style="color: grey;font-size: 17px"><i class="fas fa-map-marker-alt"></i> {{ laureat.adresse }}</font>
-        <br><br>
-        <ul class="nav justify-content" style="margin-left: 10%">
-            <li class="nav-item" style="border-radius: 5px;">
-                <button type="button" class="btn btn-outline btn1" style="background-color: #F9F4F3">
-                <b style="color: grey"><i class="fas fa-book"></i> Mes diplomes</b>
-                </button>
-            </li>
-            <li class="nav-item" style="margin-left: 5%">
-                <a href="{{ path('laureat_etablissement', {'id': laureat.id}) }}">
-                <button type="button" class="btn btn-outline btn2">
-                    <b style="color: grey"><i class="fas fa-graduation-cap"></i> Etablissement</b>
-                </button>
-                </a>
-            </li>
-            <li class="nav-item" style="margin-left: 5%">
-                <a href="{{ path('laureat_modif', {'id': laureat.id}) }}">
-                <button type="button" class="btn btn-outline btn3">
-                    <b style="color: grey"><i class="fas fa-user-cog"></i> Modifier compte</b>
-                </button>
-                </a>
-            </li>
-            <li class="nav-item" style="margin-left: 5%">
-                <a href="{{ path('laureat_apropos', {'id': laureat.id}) }}">
-                <button type="button" class="btn btn-outline btn4">
-                <b style="color: grey"><i class="far fa-address-card"></i> À propos</b>
-                </button>
-                </a>
-            </li>
-            <li class="nav-item" style="margin-left: 5%">
-                <a href="{{ path('laureat_desactiver', {'id': laureat.id}) }}">
-                <button type="button" class="btn btn-outline btn5">
-                <b style="color: grey"><i class="fas fa-exclamation-circle"></i> Désactiver compte</b>
-                </button>
-                </a>
-            </li>
-        </ul>
-        <hr>
-    </div>
-    <div class="card text-center" style="width: 60%;margin-left: 30%">
-        <div class="card-header">
-            <h5 class="card-title">Information</h5>
+                        <p class="card-text">Aucun diplome trouvé.</p>
+
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="card-body">
-
-            <p class="card-text">Aucun diplome trouvé.</p>
-
-        </div>
-
     </div>
 {% endblock %}

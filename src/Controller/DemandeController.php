@@ -4,10 +4,10 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Entity\Demande;
+use App\Entity\Secretaire;
 use App\Form\DemandeEntrepriseType;
 use App\Form\DemandeLaureatType;
-use App\Form\DemandeEtablissementType;
-use App\Form\DemandeType;
+use App\Form\DemandeSecretaireType;
 use App\Repository\DemandeRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -21,6 +21,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class DemandeController extends AbstractController
 {
+    const ETAT_PROCESS = 2;
     const ETAT_NOT_VALIDE = 0;
     const ETAT_VALIDE = 1;
 
@@ -37,7 +38,7 @@ class DemandeController extends AbstractController
             case $this->isGranted('ROLE_ENTREPRISE'):
                 $demandes = $demandeRepository->findByEntreprise(['entreprise_id' => $this->getUser()]);      
                 break;
-            case $this->isGranted('ROLE_SECRETAIRE'):
+            case $this->isGranted(["ROLE_SECRETAIRE", "ROLE_DIRECTEUR"]):
                 $demandes = $demandeRepository->findByEtablissement(['etablissement_id' => $this->getUser()->getEtablissement()]);
                 break;                             
             default:
@@ -99,14 +100,14 @@ class DemandeController extends AbstractController
             default:
                 
                 break;
-       	}
+        }
     }
     
     /**
-     * @Route("/{id}/validate", name="validate_demande", methods={"GET","POST"})
+     * @Route("/{id}/edit", name="validate_demande", methods={"GET","POST"})
      * @IsGranted({"ROLE_ETABLISSEMENT", "ROLE_SECRETAIRE"})
     */
-    public function validate(Request $request, Demande $demande): Response
+    public function edit(Request $request, Demande $demande): Response
     {
         if(!$demande){
             $demande = new Demande();
@@ -135,7 +136,7 @@ class DemandeController extends AbstractController
             $entityManager->persist($demande);
             $entityManager->flush();
 
-            return $this->redirectToRoute('demande_index');
+            // return $this->redirectToRoute('demande_index');
         }
 
         return $this->render('demande/secretaire_new.html.twig', [
@@ -149,22 +150,21 @@ class DemandeController extends AbstractController
     /**
      * @Route("/{id}/edit", name="demande_edit", methods={"GET","POST"})
      */
-    public function edit(Request $request, Demande $demande): Response
-    {
-        $form = $this->createForm(DemandeType::class, $demande);
-        $form->handleRequest($request);
+    // public function edit(Request $request, Demande $demande): Response
+    // {
+    //     $form = $this->createForm(DemandeType::class, $demande);
+    //     $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $this->getDoctrine()->getManager()->flush();
+    //     if ($form->isSubmitted() && $form->isValid()) {
+    //         $this->getDoctrine()->getManager()->flush();
+    //         return $this->redirectToRoute('demande_index');
+    //     }
 
-            return $this->redirectToRoute('demande_index');
-        }
-
-        return $this->render('demande/edit.html.twig', [
-            'demande' => $demande,
-            'form' => $form->createView(),
-        ]);
-    }
+    //     return $this->render('demande/edit.html.twig', [
+    //         'demande' => $demande,
+    //         'form' => $form->createView(),
+    //     ]);
+    // }
 
     /**
      * @Route("/{id}", name="demande_delete", methods={"DELETE"})

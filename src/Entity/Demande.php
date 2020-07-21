@@ -20,9 +20,19 @@ class Demande
     private $id;
 
     /**
-     * @ORM\Column(type="integer", length=1, options={"default" : DemandeController::ETAT_NOT_VALIDE})
+     * @ORM\Column(type="integer", length=1, options={"default" : DemandeController::ETAT_PROCESS})
      */
-    private $etat = DemandeController::ETAT_NOT_VALIDE;
+    private $etatSecretaire = DemandeController::ETAT_PROCESS;
+
+    /**
+     * @ORM\Column(type="integer", length=1, options={"default" : DemandeController::ETAT_PROCESS})
+     */
+    private $etatDirecteurPd = DemandeController::ETAT_PROCESS;
+
+    /**
+     * @ORM\Column(type="integer", length=1, options={"default" : DemandeController::ETAT_PROCESS})
+     */
+    private $etatDirecteurGn = DemandeController::ETAT_PROCESS;
 
     /**
      * @ORM\Column(type="date", nullable=true)
@@ -74,18 +84,6 @@ class Demande
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function getEtat(): ?int
-    {
-        return $this->etat;
-    }
-
-    public function setEtat(int $etat): self
-    {
-        $this->etat = $etat;
-        
-        return $this;
     }
 
     public function getDateValidationSecretaire(): ?\DateTimeInterface
@@ -192,6 +190,42 @@ class Demande
     public function setDirecteurPedagogique(?DirecteurPedagogique $directeurPedagogique): self
     {
         $this->directeurPedagogique = $directeurPedagogique;
+
+        return $this;
+    }
+
+    public function getEtatDirecteurPd(): ?int
+    {
+        return $this->etatDirecteurPd;
+    }
+
+    public function setEtatDirecteurPd(int $etatDirecteurPd): self
+    {
+        $this->etatDirecteurPd = $etatDirecteurPd;
+
+        return $this;
+    }
+
+    public function getEtatDirecteurGn(): ?int
+    {
+        return $this->etatDirecteurGn;
+    }
+
+    public function setEtatDirecteurGn(int $etatDirecteurGn): self
+    {
+        $this->etatDirecteurGn = $etatDirecteurGn;
+
+        return $this;
+    }
+
+    public function getEtatSecretaire(): ?int
+    {
+        return $this->etatSecretaire;
+    }
+
+    public function setEtatSecretaire(int $etatSecretaire): self
+    {
+        $this->etatSecretaire = $etatSecretaire;
 
         return $this;
     }
