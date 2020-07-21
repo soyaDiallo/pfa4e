@@ -114,7 +114,7 @@ class DemandeController extends AbstractController
         }
 
         //$demande = new Demande();
-        $form = $this->createForm(DemandeEtablissementType::class, $demande);
+        $form = $this->createForm(DemandeSecretaireType::class, $demande);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -122,7 +122,8 @@ class DemandeController extends AbstractController
 	        switch ($this->getUser()) {
 	            case $this->isGranted('ROLE_SECRETAIRE'):
 	            	$demande->setDateValidationSecretaire(new \DateTime());
-	            	$demande->setSecretaire($this->getUser());
+                    $demande->setSecretaire($this->getUser());
+                    $demande->setEtatSecretaire($form->get('etatSecretaire')->getData());
 	            	break;
 	            case $this->isGranted('ROLE_DIRECTEUR'):
 	            	$demande->setDateValidationDP(new \DateTime());
@@ -136,7 +137,7 @@ class DemandeController extends AbstractController
             $entityManager->persist($demande);
             $entityManager->flush();
 
-            // return $this->redirectToRoute('demande_index');
+            return $this->redirectToRoute('demande_index');
         }
 
         return $this->render('demande/secretaire_new.html.twig', [
