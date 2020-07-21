@@ -64,7 +64,7 @@ class DemandeController extends AbstractController
 
 		        if ($form->isSubmitted() && $form->isValid()) {
 		            // dd($demande);
-		            $demande->setLaureat($this->getSecritaire());
+		            $demande->setLaureat($this->getUser());
 		            $entityManager = $this->getDoctrine()->getManager();
 		            $entityManager->persist($demande);
 		            $entityManager->flush();
@@ -108,17 +108,20 @@ class DemandeController extends AbstractController
     */
     public function validate(Request $request, Demande $demande): Response
     {
-    	$demande = new Demande();
+        if(!$demande){
+            $demande = new Demande();
+        }
+
+        //$demande = new Demande();
         $form = $this->createForm(DemandeEtablissementType::class, $demande);
         $form->handleRequest($request);
-
 
         if ($form->isSubmitted() && $form->isValid()) {
         	// Setting appropriate user type
 	        switch ($this->getUser()) {
 	            case $this->isGranted('ROLE_SECRETAIRE'):
-	            	$demande->setDateValidationSecretaire(new Assert\Date());
-	            	$demande->setSecretaire("2");
+	            	$demande->setDateValidationSecretaire(new \DateTime());
+	            	$demande->setSecretaire($this->getUser());
 	            	break;
 	            case $this->isGranted('ROLE_DIRECTEUR'):
 	            	$demande->setDateValidationDP(new \DateTime());

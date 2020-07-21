@@ -19,7 +19,7 @@ class Etablissement extends User
      * @ORM\Id() ORM\@OneToOne(targetEntity="User")
      * ORM\JoinColumn(name="id", referencedColumnName="id")
      **/
-    private $id;
+    protected $id;
 
     /**
      * @ORM\Column(type="string", length=255, unique=true, nullable=true)

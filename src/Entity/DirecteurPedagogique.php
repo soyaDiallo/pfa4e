@@ -17,7 +17,7 @@ class DirecteurPedagogique extends User
      * ORM\@Id ORM\@OneToOne(targetEntity="User")
      * ORM\@JoinColumn(name="id", referencedColumnName="id")
      **/
-    private $id;
+    protected $id;
 
     /**
      * @ORM\OneToMany(targetEntity=Demande::class, mappedBy="directeurPedagogique")
