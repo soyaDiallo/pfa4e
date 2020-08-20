@@ -298,5 +298,5 @@ class LaureatController extends AbstractController
     }
 }
 
-     }
+     
 
