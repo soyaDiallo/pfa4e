@@ -16,11 +16,21 @@
                         <i data-feather="plus" class="pr-1"></i>
                         <span class="pl-1 align-middle">Create New</span>
                     </a>
+
+                     <a href="{{ path('demande_index') }}" class="btn btn-primary btn-sm mb-0">
+                        <i data-feather="eye" class="pr-1"></i>
+                        <span class="pl-1 align-middle">Demande</span>
+                    </a>
                 </div>
             </div>
-        </div>
+
+       
+               
+         </div>
+            
+
         <div class="fx-card-body">
-            <table class="table fx-data-table" id="ResponsiveTable">
+            <table class="table fx-data-table">
                 <thead>
             <tr>
                 <th>Id</th>
@@ -29,13 +39,13 @@
                 <th>Prenom</th>
                 <th>Password</th>
                 <th>Adresse</th>
-                <th>Telephone</th>
                 <th>Email</th>
+                <th>Telephone</th>
                 <th>Deleted</th>
                 <th>NomEtablissement</th>
-                <th>actions</th>
                 <th>Logo</th>
-                
+                <th>actions</th>
+             
             </tr>
         </thead>
                 <tbody>
@@ -52,16 +62,19 @@
                 <td>{{ etablissement.deleted ? 'Yes' : 'No' }}</td>
                 <td>{{ etablissement.nomEtablissement }}</td>
                 <td>{{ etablissement.logo }}</td>
+                <div>
                 <td>
                     <a class="btn btn-primary btn-sm mb-0" href="{{ path('etablissement_show', {'id': etablissement.id}) }}">
                                 <i data-feather="eye" class="pr-1"></i>
                                 <span class="pl-1 align-middle"> show </span>
-                            </a>
-                            <a class="btn btn-warning btn-sm mb-0" href="{{ path('etablissement_edit', {'id': etablissement.id}) }}">
+                    </a>
+                    <a class="btn btn-warning btn-sm mb-0" href="{{ path('etablissement_edit', {'id': etablissement.id}) }}">
                                 <i data-feather="edit-3" class="pr-1"></i>
                                 <span class="pl-1 align-middle"> edit </span>
-                            </a>
+                    </a>
+                    
                 </td>
+                </div>
             </tr>
         {% else %}
             <tr>

@@ -83,12 +83,11 @@ class EtablissementController extends AbstractController
      */
     public function delete(Request $request, Etablissement $etablissement): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$etablissement->getId(), $request->request->get('_token'))) {
+        
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($etablissement);
             $entityManager->flush();
-        }
-
+      
         return $this->redirectToRoute('etablissement_index');
     }
 }

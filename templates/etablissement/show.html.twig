@@ -12,6 +12,7 @@
             </div>
             <div class="fx-card-head-toolbar">
                 <div>
+
                     <a href="{{ path('etablissement_index') }}" class="btn btn-dark mb-0">
                         <i data-feather="arrow-left" class="pr-1"></i>
                         <span class="pl-1 align-middle">Back to List</span>
@@ -20,10 +21,15 @@
                         <i data-feather="edit-3" class="pr-1"></i>
                         <span class="pl-1 align-middle">edit</span>
                     </a>
-                    {{ include('etablissement/_delete_form.html.twig', {'button_size': ''}) }}
+                     <a href="{{ path('etablissement_delete', {'id': etablissement.id}) }}" class="btn btn-danger mb-0 ">
+                        <i data-feather="trash" class="pr-1"></i>
+                        <span class="pl-1 align-middle">delete</span>
+                    </a>
+                </div>
                 </div>
             </div>
         </div>
+
         <div class="fx-card-body">
             <table class="table">
                 <tbody>
@@ -47,7 +53,10 @@
                 <th>Password</th>
                 <td>{{ etablissement.password }}</td>
             </tr>
-            
+            <tr>
+                <th>Adresse</th>
+                <td>{{ etablissement.addresse }}</td>
+            </tr>
             <tr>
                 <th>Email</th>
                 <td>{{ etablissement.email }}</td>

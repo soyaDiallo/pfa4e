@@ -2,14 +2,14 @@
 
 namespace App\Entity;
 
-use App\Entity\User;
+
 use App\Repository\EtablissementRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping\MappedSuperclass; 
 use Doctrine\ORM\Mapping as ORM;
 
-/**
+  /**
  * @ORM\Entity(repositoryClass=EtablissementRepository::class)
  * @MappedSuperclass
  */

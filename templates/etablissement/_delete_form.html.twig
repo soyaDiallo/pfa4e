@@ -3,7 +3,7 @@
     <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ etablissement.id) }}">
     <a href="{{ path('etablissement_index') }}" class="btn btn-danger mb-0 {{button_size}} alertConfirm">
     	<i data-feather="trash" class="pr-1"></i>
-    	<span class="pl-1 align-middle">Supprimer</span>
+    	<span class="pl-1 align-middle">Delete</span>
     </a>
 </form>
 

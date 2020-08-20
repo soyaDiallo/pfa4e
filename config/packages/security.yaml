@@ -30,9 +30,9 @@ security:
     access_control:
         #- { path: /login, roles: IS_ANONYMOUSLY_AUTHENTICATED }
         #- { path: /register, roles: IS_ANONYMOUSLY_AUTHENTICATED }
-        - { path: ^/admin, roles: ROLE_ADMIN }
-        - { path: ^/laureat, roles: [ROLE_ADMIN, ROLE_LAUREAT] }
-        - { path: ^/secretaire, roles: [ROLE_ADMIN, ROLE_SECRETAIRE] }
-        - { path: ^/etablissement, roles: [ROLE_ADMIN, ROLE_ETABLISSMENT] }
-        - { path: ^/entreprise, roles: [ROLE_ADMIN, ROLE_ENTREPRISE] }
-        - { path: ^/directeur, roles: [ROLE_ADMIN, ROLE_DIRECTEUR] }
+        #- { path: ^/admin, roles: ROLE_ADMIN }
+        #- { path: ^/laureat, roles: [ROLE_ADMIN, ROLE_LAUREAT] }
+        #- { path: ^/secretaire, roles: [ROLE_ADMIN, ROLE_SECRETAIRE] }
+        #- { path: ^/etablissement, roles: [ROLE_ADMIN, ROLE_ETABLISSMENT] }
+        #- { path: ^/entreprise, roles: [ROLE_ADMIN, ROLE_ENTREPRISE] }
+        #- { path: ^/directeur, roles: [ROLE_ADMIN, ROLE_DIRECTEUR] }
