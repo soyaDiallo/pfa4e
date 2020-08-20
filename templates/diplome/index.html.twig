@@ -12,7 +12,7 @@
                 <th>Code</th>
                 <th>Fichier</th>
                 <th>DateObtention</th>
-                <th>DateDelivrance</th>
+                <th>Date Depot</th>
                 <th>Annee</th>
                 <th>actions</th>
             </tr>
@@ -24,7 +24,7 @@
                 <td>{{ diplome.code }}</td>
                 <td>{{ diplome.fichier }}</td>
                 <td>{{ diplome.dateObtention ? diplome.dateObtention|date('Y-m-d') : '' }}</td>
-                <td>{{ diplome.dateDelivrance ? diplome.dateDelivrance|date('Y-m-d') : '' }}</td>
+                <td>{{ diplome.dateDepot ? diplome.dateDepot|date('Y-m-d') : '' }}</td>
                 <td>{{ diplome.annee ? diplome.annee|date('Y-m-d') : '' }}</td>
                 <td>
                     <a href="{{ path('diplome_show', {'id': diplome.id}) }}">show</a>

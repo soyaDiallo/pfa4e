@@ -1,12 +1,12 @@
 <!-- ========== HEADER ========== --> 
   <nav class="main-nav light-menu border-bottom">
-    <div class="container relative clearfix">
+    <div class="relative clearfix" style="padding-left: 30px;padding-right:30px;">
       <!-- Logo ( * your text or image into link tag *) -->
       <div class="nav-logo-wrap local-scroll">
-        <a href="#" class="logo pl-md-0 pl-3 fx-text-boldest">
+        <a href="/" class="logo pl-md-0 pl-3 fx-text-boldest">
           <!-- <img class="fx-w-100" src="../assets/img/logos/logo-dark.svg" alt="limbo logo" /> -->
-          <span class="fx-text-primary fx-font-family-default"> Verife </span> 
-          <span class="fx-text-dark fx-font-family-secondary"> Diploma </span>
+          <span class="fx-text-primary fx-font-family-default"> Verification </span> 
+          <span class="fx-text-dark fx-font-family-secondary"> Diplomes </span>
         </a>
       </div>
 
@@ -44,7 +44,7 @@
           <!-- Begin::SubMenu -->
           <li>
             <a href="#" class="mn-has-sub menu-link">
-              <span> Gestion des documents </span>
+              <span> documents </span>
               <i data-feather="chevron-down"></i>
             </a>
 
@@ -60,31 +60,119 @@
             <!-- ./End Sub -->
           </li>
           <!-- ./End SubMenu -->
+          <li>
+            <a href="#" class="mn-has-sub menu-link">
+              <span> laureats </span>
+              <i data-feather="chevron-down"></i>
+            </a>
+
+            <!-- Sub -->
+            <ul class="mn-sub to-left py-4">
+              <li>
+                <a href="/laureat/">Afficher les laureats</a>
+              </li>
+              <li>
+                <a href="/laureat/new">Ajouter un laurear</a>
+              </li>
+            </ul>
+            <!-- ./End Sub -->
+          </li>
+          <!-- ./End SubMenu -->
+          <li>
+            <a href="#" class="mn-has-sub menu-link">
+              <span> specialitees </span>
+              <i data-feather="chevron-down"></i>
+            </a>
+
+            <!-- Sub -->
+            <ul class="mn-sub to-left py-4">
+              <li>
+                <a href="/specialite/">Afficher les specialitees</a>
+              </li>
+              <li>
+                <a href="/specialite/new">Ajouter une specialte</a>
+              </li>
+            </ul>
+            <!-- ./End Sub -->
+          </li>
+          <!-- ./End SubMenu -->
+          <li>
+            <a href="#" class="mn-has-sub menu-link">
+              <span> directeurs </span>
+              <i data-feather="chevron-down"></i>
+            </a>
+
+            <!-- Sub -->
+            <ul class="mn-sub to-left py-4">
+              <li>
+                <a href="/directeurPedagogique/">Afficher les directeurs</a>
+              </li>
+              <li>
+                <a href="/directeurPedagogique/new">Ajouter un directeur</a>
+              </li>
+            </ul>
+            <!-- ./End Sub -->
+          </li>
+          <!-- ./End SubMenu -->
+          
           {% endif %}
 
           {% if is_granted('ROLE_DIRECTEUR') %}
-          <!-- Begin::SubMenu -->
+           <li>
+            <a href="#" class="mn-has-sub menu-link">
+              <span> Demandes </span>
+              <i data-feather="chevron-down"></i>
+            </a>
+
+            <!-- Sub -->
+            <ul class="mn-sub to-left py-4">
+              <li>
+                <a href="/demande/">afficher les demandes</a>
+              </li>
+              <li>
+                <a href="/demande/new">ajouter une demande</a>
+              </li>
+            </ul>
+            <!-- ./End Sub -->
+          </li>
           <li>
             <a href="#" class="mn-has-sub menu-link">
-              <span> Menu directeur </span>
+              <span> documents </span>
+              <i data-feather="chevron-down"></i>
             </a>
+
+            <!-- Sub -->
+            <ul class="mn-sub to-left py-4">
+              <li>
+                <a href="/diplome/">Afficher les documents</a>
+              </li>
+              <li>
+                <a href="/diplome/new">Ajouter un document</a>
+              </li>
+            </ul>
+            <!-- ./End Sub -->
           </li>
-          <!-- ./End SubMenu -->
+          <li>
+            <a href="#" class="mn-has-sub menu-link">
+              <span> specialites </span>
+              <i data-feather="chevron-down"></i>
+            </a>
+
+            <!-- Sub -->
+            <ul class="mn-sub to-left py-4">
+              <li>
+                <a href="/specialite/">Afficher les specialites</a>
+              </li>
+              <li>
+                <a href="/specialite/new">Ajouter une specialite</a>
+              </li>
+            </ul>
+            <!-- ./End Sub -->
+          </li>
           {% endif %}
 
           {% if is_granted('ROLE_ENTREPRISE') %}
-          <!-- Begin::SubMenu -->
-          <li>
-            <a href="#" class="mn-has-sub menu-link">
-              <span> Menu entreprise </span>
-            </a>
-          </li>
-          <!-- ./End SubMenu -->
-          {% endif %}
-
-          {% if is_granted('ROLE_SECRETAIRE') %}
           <!-- Begin::LinkMenu -->
-          <!-- Begin::SubMenu -->
           <li>
             <a href="#" class="mn-has-sub menu-link">
               <span> Demandes </span>
@@ -97,7 +185,7 @@
                 <a href="/demande/">afficher les demandes</a>
               </li>
               <li>
-                <a href="/demande/new">ajouter un demande</a>
+                <a href="/demande/new">ajouter une demande</a>
               </li>
             </ul>
             <!-- ./End Sub -->
@@ -106,16 +194,96 @@
           <!-- ./End LinkMenu -->
           {% endif %}
 
-
-          {% if is_granted('ROLE_LAUREAT') %}
-          <!-- Begin::SubMenu -->
-          <li>
+          {% if is_granted('ROLE_SECRETAIRE') %}
+            <li>
             <a href="#" class="mn-has-sub menu-link">
-              <span> Menu laureat </span>
+              <span> Demandes </span>
               <i data-feather="chevron-down"></i>
             </a>
+
+            <!-- Sub -->
+            <ul class="mn-sub to-left py-4">
+              <li>
+                <a href="/demande/">Afficher les Demandes</a>
+              </li>
+              <li>
+                <a href="/demande/new">ajouter une demande</a>
+              </li>
+            </ul>
+            <!-- ./End Sub -->
           </li>
-          <!-- ./End SubMenu -->
+          <li>
+            <a href="#" class="mn-has-sub menu-link">
+              <span> documents </span>
+              <i data-feather="chevron-down"></i>
+            </a>
+
+            <!-- Sub -->
+            <ul class="mn-sub to-left py-4">
+              <li>
+                <a href="/diplome/">Afficher les documents</a>
+              </li>
+              <li>
+                <a href="/diplome/new">Ajouter un document</a>
+              </li>
+            </ul>
+            <!-- ./End Sub -->
+          </li>
+          <li>
+            <a href="#" class="mn-has-sub menu-link">
+              <span> specialites </span>
+              <i data-feather="chevron-down"></i>
+            </a>
+
+            <!-- Sub -->
+            <ul class="mn-sub to-left py-4">
+              <li>
+                <a href="/specialite/">Afficher les specialites</a>
+              </li>
+              <li>
+                <a href="/specialite/new">Ajouter une specialite</a>
+              </li>
+            </ul>
+            <!-- ./End Sub -->
+          </li>
+          {% endif %}
+
+
+          {% if is_granted('ROLE_LAUREAT') %}
+          <li>
+            <a href="#" class="mn-has-sub menu-link">
+              <span> Mes demandes </span>
+              <i data-feather="chevron-down"></i>
+            </a>
+
+            <!-- Sub -->
+            <ul class="mn-sub to-left py-4">
+              <li>
+                <a href="/demande/">afficher mes demandes</a>
+              </li>
+              <li>
+                <a href="/demande/new">ajouter une demande</a>
+              </li>
+            </ul>
+            <!-- ./End Sub -->
+          </li>
+          <li>
+            <a href="#" class="mn-has-sub menu-link">
+              <span> Mes documents </span>
+              <i data-feather="chevron-down"></i>
+            </a>
+
+            <!-- Sub -->
+            <ul class="mn-sub to-left py-4">
+              <li>
+                <a href="/diplome/">Afficher mes documents</a>
+              </li>
+              <li>
+                <a href="/diplome/new">Ajouter un document</a>
+              </li>
+            </ul>
+            <!-- ./End Sub -->
+          </li>
           {% endif %}
 
           <!-- ./End LinkMenu -->
@@ -234,12 +402,74 @@
               </span>
             </li>
           <li class="mr-2">
-            <span class="menu-link">
-              <a href="/register" class="btn btn-brand text-light">
-                <i data-feather="user" class="fx-svg-icon pr-2"></i>
+            <span class="mn-has-sub menu-link">
+              <a href="#" class="btn btn-brand text-light">
                 <span class="align-middle"> S'inscrire </span>
+                <i data-feather="chevron-down" class="fx-svg-icon pr-2"></i>
               </a>
             </span>
+            
+
+
+          
+
+            <!-- Sub Multilevel -->
+            <ul class="mn-sub to-left mn-has-multi fx-width-300" style="padding: 4px">
+            <li>
+              <div style="margin:3px">
+              <span class="">
+                <a href="/register?accountType=etablissement" class="btn btn-brand text-light p-3">
+                  <i data-feather="user" class="fx-svg-icon pr-2"></i>
+                  <span class="align-middle"> Etablissement </span>
+                </a>
+              </span>
+              </div>
+            </li>
+            <li>
+            <div style="margin:3px">
+              <span class="">
+                <a href="/register?accountType=laureat" class="btn btn-brand text-light p-3">
+                  <i data-feather="user" class="fx-svg-icon pr-2"></i>
+                  <span class="align-middle"> Laureat </span>
+                </a>
+              </span>
+              </div>
+            </li>
+            <li>
+            <div style="margin:3px">
+              <span class="">
+                <a href="/register?accountType=secretaire" class="btn btn-brand text-light p-3">
+                  <i data-feather="user" class="fx-svg-icon pr-2"></i>
+                  <span class="align-middle"> Secretaire </span>
+                </a>
+              </span>
+              </div>
+            </li>
+            <li>
+            <div style="margin:3px">
+              <span class="">
+                <a href="/register?accountType=directeur_pedagogique" class="btn btn-brand text-light p-3">
+                  <i data-feather="user" class="fx-svg-icon pr-2"></i>
+                  <span class="align-middle"> Directeur Pedagogique </span>
+                </a>
+              </span>
+              </div>
+            </li>
+            <li>
+            <div style="margin:3px">
+              <span class="">
+                <a href="/register?accountType=entreprise" class="btn btn-brand text-light p-3">
+                  <i data-feather="user" class="fx-svg-icon pr-2"></i>
+                  <span class="align-middle"> Entreprise </span>
+                </a>
+              </span>
+              </div>
+            </li>
+            </ul>
+
+
+
+
           </li>
           {% endif %}
         </ul>

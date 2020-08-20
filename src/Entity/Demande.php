@@ -3,7 +3,9 @@
 namespace App\Entity;
 
 use App\Repository\DemandeRepository;
+use App\Controller\DemandeController;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\Mapping\JoinColumn;
 
 /**
  * @ORM\Entity(repositoryClass=DemandeRepository::class)
@@ -18,27 +20,38 @@ class Demande
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=1)
+     * @ORM\Column(type="integer", length=1, options={"default" : DemandeController::ETAT_PROCESS})
      */
-    private $etat;
+    private $etatSecretaire = DemandeController::ETAT_PROCESS;
 
     /**
-     * @ORM\Column(type="date")
+     * @ORM\Column(type="integer", length=1, options={"default" : DemandeController::ETAT_PROCESS})
+     */
+    private $etatDirecteurPd = DemandeController::ETAT_PROCESS;
+
+    /**
+     * @ORM\Column(type="integer", length=1, options={"default" : DemandeController::ETAT_PROCESS})
+     */
+    private $etatDirecteurGn = DemandeController::ETAT_PROCESS;
+
+    /**
+     * @ORM\Column(type="date", nullable=true)
      */
     private $dateValidationSecretaire;
 
     /**
-     * @ORM\Column(type="date")
+     * @ORM\Column(type="date", nullable=true)
      */
     private $dateValidationDP;
 
     /**
-     * @ORM\Column(type="date")
+     * @ORM\Column(type="date", nullable=true)
      */
     private $dateValidationDE;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Diplome::class, inversedBy="demandes")
+     * @ORM\ManyToOne(targetEntity=Diplome::class, inversedBy="demandes",cascade={"persist"})
+     * @JoinColumn(name="diplome_id", referencedColumnName="id")
      */
     private $diplome;
 
@@ -59,6 +72,7 @@ class Demande
 
     /**
      * @ORM\ManyToOne(targetEntity=Etablissement::class, inversedBy="demandes")
+     * @JoinColumn(name="etablissement_id", referencedColumnName="id")
      */
     private $etablissement;
 
@@ -70,18 +84,6 @@ class Demande
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function getEtat(): ?string
-    {
-        return $this->etat;
-    }
-
-    public function setEtat(string $etat): self
-    {
-        $this->etat = $etat;
-
-        return $this;
     }
 
     public function getDateValidationSecretaire(): ?\DateTimeInterface
@@ -188,6 +190,42 @@ class Demande
     public function setDirecteurPedagogique(?DirecteurPedagogique $directeurPedagogique): self
     {
         $this->directeurPedagogique = $directeurPedagogique;
+
+        return $this;
+    }
+
+    public function getEtatDirecteurPd(): ?int
+    {
+        return $this->etatDirecteurPd;
+    }
+
+    public function setEtatDirecteurPd(int $etatDirecteurPd): self
+    {
+        $this->etatDirecteurPd = $etatDirecteurPd;
+
+        return $this;
+    }
+
+    public function getEtatDirecteurGn(): ?int
+    {
+        return $this->etatDirecteurGn;
+    }
+
+    public function setEtatDirecteurGn(int $etatDirecteurGn): self
+    {
+        $this->etatDirecteurGn = $etatDirecteurGn;
+
+        return $this;
+    }
+
+    public function getEtatSecretaire(): ?int
+    {
+        return $this->etatSecretaire;
+    }
+
+    public function setEtatSecretaire(int $etatSecretaire): self
+    {
+        $this->etatSecretaire = $etatSecretaire;
 
         return $this;
     }

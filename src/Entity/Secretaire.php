@@ -14,10 +14,10 @@ use Doctrine\ORM\Mapping as ORM;
 class Secretaire extends User
 {
     /**
-     * @Id @OneToOne(targetEntity="User")
-     * @JoinColumn(name="id", referencedColumnName="id")
+     * @ORM\Id @ORM\OneToOne(targetEntity="User")
+     * @ORM\JoinColumn(name="id", referencedColumnName="id")
      **/
-    private $id;
+    protected $id;
 
     /**
      * @ORM\ManyToOne(targetEntity=Etablissement::class, inversedBy="secretaires")

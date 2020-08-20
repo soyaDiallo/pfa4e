@@ -25,11 +25,11 @@ class User implements UserInterface
 {
     const ROLES_LIST = [
         // 'ROLE_ADMIN', admin role is created in a secure way not login
-        'ROLE_LAUREAT',
-        'ROLE_DIRECTEUR',
-        'ETABLISSEMENT',
-        'ROLE_ENTREPRISE',
-        'ROLE_SECRETAIRE',
+        'Laureat' => 'ROLE_LAUREAT',
+        'Etablissement' => 'ROLE_ETABLISSEMENT',
+        'Directeur Pedagogique' => 'ROLE_DIRECTEUR',
+        'Entreprise' => 'ROLE_ENTREPRISE',
+        'Secretaire' => 'ROLE_SECRETAIRE',
     ];
 
     /**
@@ -37,7 +37,7 @@ class User implements UserInterface
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
      */
-    private $id;
+    protected $id;
 
     /**
      * @ORM\Column(type="string", length=180, unique=true)
@@ -56,7 +56,7 @@ class User implements UserInterface
     protected $password;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     protected $nom;
 

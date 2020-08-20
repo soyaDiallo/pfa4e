@@ -47,4 +47,19 @@ class EtablissementRepository extends ServiceEntityRepository
         ;
     }
     */
+    
+    public function findIdEtablissement($name)
+    {
+        $conn = $this->getEntityManager()->getConnection();
+
+        $sql = '
+        SELECT * FROM etablissement e
+        WHERE e.nom_etablissement = :name
+        ';
+        $stmt = $conn->prepare($sql);
+        $stmt->execute(['name' => $name]);
+
+        // returns an array of arrays (i.e. a raw data set)
+        return $stmt->fetchColumn();
+    }
 }

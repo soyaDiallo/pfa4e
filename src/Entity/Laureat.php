@@ -14,33 +14,33 @@ use Doctrine\ORM\Mapping as ORM;
 class Laureat extends User
 {
     /**
-     * @Id @OneToOne(targetEntity="User")
-     * @JoinColumn(name="id", referencedColumnName="id")
+     * ORM\@Id ORM\@OneToOne(targetEntity="User")
+     * ORM\@JoinColumn(name="id", referencedColumnName="id")
      **/
-    private $id;
+    protected $id;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $cinNumSejour;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $lieuNaissance;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $nationalite;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $nomArabe;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $prenomArabe;
 

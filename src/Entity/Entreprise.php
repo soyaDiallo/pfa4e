@@ -14,18 +14,18 @@ use Doctrine\ORM\Mapping as ORM;
 class Entreprise extends User
 {
     /**
-     * @Id @OneToOne(targetEntity="User")
-     * @JoinColumn(name="id", referencedColumnName="id")
+     * @ORM\Id @ORM\OneToOne(targetEntity="User")
+     * @ORM\JoinColumn(name="id", referencedColumnName="id")
      **/
-    private $id;
+    protected $id;
     
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $nomEntreprise;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $logo;
 
@@ -46,7 +46,7 @@ class Entreprise extends User
 
     public function __toString()
     {
-        return $this->nom;
+        return $this->nomEntreprise;
     }
 
 

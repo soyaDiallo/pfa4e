@@ -6,9 +6,9 @@
 	<div class="row">
 	    <div class="col col-md-6 mb-5">
 	        <label for="demande_etat" class="fx-text-dark h5 col-form-label-lg"> 
-		        {{ form_label(form.etat, 'Demande Etat :') }} 
+		        {{ form_label(form.etatSecretaire, 'Demande Etat :') }} 
 		    </label>
-	        {{ form_widget(form.etat, {'attr': {'class': 'form-control form-control-lg'}}) }}
+	        {{ form_widget(form.etatSecretaire, {'attr': {'class': 'form-control form-control-lg'}}) }}
 	    </div>
 
 	    <div class="col col-md-6 mb-5">
@@ -23,13 +23,6 @@
 		        {{ form_label(form.laureat, 'Laureat :') }} 
 		    </label>
 	        {{ form_widget(form.laureat, {'attr': {'class': 'custom-select-lg'}}) }}
-	    </div>
-
-	    <div class="col col-md-6 mb-5">
-	        <label for="demande_etablissement" class="fx-text-dark h5 col-form-label-lg"> 
-		        {{ form_label(form.etablissement, 'Etablissement :') }} 
-		    </label>
-	        {{ form_widget(form.etablissement, {'attr': {'class': 'custom-select-lg'}}) }}
 	    </div>
 	</div>
 	<div class="text-center mt-4">
