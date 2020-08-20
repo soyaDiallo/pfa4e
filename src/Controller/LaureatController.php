@@ -128,7 +128,7 @@ class LaureatController extends AbstractController
     /**
  * @Route("/profiletab/{id}", name="laureat_etablissement", methods={"GET","POST"})
  */
-    public function profiletablissement(Laureat $laureat,Request $request,EtablissementRepository $etablissementRepository,SecretaireRepository $secretaireRepository,\Swift_Mailer $mailer):Response
+    public function profiletablissement(Laureat $laureat,Request $request,EtablissementRepository $etablissementRepository,SecretaireRepository $secretaireRepository,/*\Swift_Mailer $mailer*/):Response
     {
         $diplome = new Diplome();
         $name = $request->request->get("name");
@@ -181,7 +181,7 @@ class LaureatController extends AbstractController
             $entityManager->flush();
 
             // L'envoi d'un Email au secretaire 
-
+            /*
             $secretaire = new Secretaire();
             $email = $secretaireRepository->findEmail($id[0]);
 
@@ -191,7 +191,7 @@ class LaureatController extends AbstractController
             ->setTo('')
             ->setBody("Un laureat à déposé sa demande");
             $mailer->send($message);
-
+            */
             $this->addFlash('success', 'Demande ajoutée avec succes');
 
            }
@@ -296,6 +296,7 @@ class LaureatController extends AbstractController
             'laureat' => $laureat,
         ]);
     }
+}
 
      }
 
