@@ -128,7 +128,7 @@ class LaureatController extends AbstractController
     /**
  * @Route("/profiletab/{id}", name="laureat_etablissement", methods={"GET","POST"})
  */
-    public function profiletablissement(Laureat $laureat,Request $request,EtablissementRepository $etablissementRepository,SecretaireRepository $secretaireRepository,/*\Swift_Mailer $mailer*/):Response
+    public function profiletablissement(Laureat $laureat,Request $request,EtablissementRepository $etablissementRepository,SecretaireRepository $secretaireRepository/*,\Swift_Mailer $mailer*/):Response
     {
         $diplome = new Diplome();
         $name = $request->request->get("name");
