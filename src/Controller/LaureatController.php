@@ -40,7 +40,7 @@ class LaureatController extends AbstractController
     /**
      * @Route("/new", name="laureat_new", methods={"GET","POST"})
      */
-     public function new(Request $request): Response
+    public function new(Request $request): Response
     {
         $laureat = new Laureat();
         $form = $this->createForm(LaureatType::class, $laureat);
@@ -128,7 +128,7 @@ class LaureatController extends AbstractController
     /**
  * @Route("/profiletab/{id}", name="laureat_etablissement", methods={"GET","POST"})
  */
-    public function profiletablissement(Laureat $laureat,Request $request,EtablissementRepository $etablissementRepository,SecretaireRepository $secretaireRepository,/*\Swift_Mailer $mailer*/):Response
+    public function profiletablissement(Laureat $laureat,Request $request,EtablissementRepository $etablissementRepository,SecretaireRepository $secretaireRepository):Response
     {
         $diplome = new Diplome();
         $name = $request->request->get("name");
@@ -184,7 +184,6 @@ class LaureatController extends AbstractController
             /*
             $secretaire = new Secretaire();
             $email = $secretaireRepository->findEmail($id[0]);
-
             $message = (new \Swift_Message('Nouvelle demande !'))
             ->setFrom('')
             // email de la secretaire
