@@ -6,10 +6,13 @@ use App\Entity\Demande;
 use App\Entity\Diplome;
 use App\Entity\Etablissement;
 use App\Entity\Laureat;
+use App\Entity\Secretaire;
 use App\Form\LaureatType;
 use App\Form\DiplomeType;
+use App\Form\SecretaireType;
 use App\Form\EtablissementType;
 use App\Repository\EtablissementRepository;
+use App\Repository\SecretaireRepository;
 use App\Repository\LaureatRepository;
 use App\Repository\DiplomeRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -125,7 +128,7 @@ class LaureatController extends AbstractController
     /**
  * @Route("/profiletab/{id}", name="laureat_etablissement", methods={"GET","POST"})
  */
-    public function profiletablissement(Laureat $laureat,Request $request,EtablissementRepository $etablissementRepository):Response
+    public function profiletablissement(Laureat $laureat,Request $request,EtablissementRepository $etablissementRepository,SecretaireRepository $secretaireRepository,\Swift_Mailer $mailer):Response
     {
         $diplome = new Diplome();
         $name = $request->request->get("name");
@@ -172,10 +175,22 @@ class LaureatController extends AbstractController
             $demande->setEtablissement($etablissementss);
             $demande->setDiplome($diplome);
             $demande->setLaureat($laureat);
-            $demande->setEtat('E'); // L'etat de la demande : E = En cours
+            
 
             $entityManager->persist($demande);
             $entityManager->flush();
+
+            // L'envoi d'un Email au secretaire 
+
+            $secretaire = new Secretaire();
+            $email = $secretaireRepository->findEmail($id[0]);
+
+            $message = (new \Swift_Message('Nouvelle demande !'))
+            ->setFrom('')
+            // email de la secretaire
+            ->setTo('')
+            ->setBody("Un laureat à déposé sa demande");
+            $mailer->send($message);
 
             $this->addFlash('success', 'Demande ajoutée avec succes');
 
@@ -272,7 +287,7 @@ class LaureatController extends AbstractController
         $entityManager->persist($laureat);
         $entityManager->flush();
 
-        
+
         return $this->render('laureat/profilDip.html.twig',[
             'laureat' => $laureat
         ]);
@@ -281,4 +296,4 @@ class LaureatController extends AbstractController
             'laureat' => $laureat
         ]);
     }
-}
+
