@@ -184,7 +184,6 @@ class LaureatController extends AbstractController
             /*
             $secretaire = new Secretaire();
             $email = $secretaireRepository->findEmail($id[0]);
-
             $message = (new \Swift_Message('Nouvelle demande !'))
             ->setFrom('')
             // email de la secretaire
@@ -297,6 +296,4 @@ class LaureatController extends AbstractController
         ]);
     }
 }
-
-     
 

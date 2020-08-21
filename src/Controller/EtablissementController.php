@@ -4,6 +4,9 @@ namespace App\Controller;
 
 use App\Entity\Etablissement;
 use App\Form\EtablissementType;
+use App\Entity\Demande;
+use App\Form\DemandeType;
+use App\Repository\DemandeRepository;
 use App\Repository\EtablissementRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -90,4 +93,21 @@ class EtablissementController extends AbstractController
       
         return $this->redirectToRoute('etablissement_index');
     }
+
+
+
+    /**
+     * @Route("index2/demande", name="etablissement_index2", methods={"GET"})
+     */
+
+     public function index2(DemandeRepository $demandeRepository): Response
+    {
+       
+        return $this->render('etablissement/index2.html.twig', [
+            'demandes' => $demandeRepository->findAll(),
+        ]);
+    }
+
+
+
 }
