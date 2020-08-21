@@ -13,7 +13,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 /**
  * @Route("/specialite")
- * @IsGranted({"ROLE_DIRECTEUR"})
+ * @IsGranted({"ROLE_DIRECTEUR","ROLE_SECRETAIRE", "ROLE_ETABLISSEMENT"})
  */
 class SpecialiteController extends AbstractController
 {

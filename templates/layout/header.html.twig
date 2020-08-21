@@ -328,7 +328,21 @@
               
               <li>
                 <!-- Item -->
-                <a href="#" class="p-3">
+                {% set profilerole = "" %}
+                {% if is_granted('ROLE_ETABLISSEMENT') %}
+                  {% set profilerole = 'etablissement_show' %}
+                {% elseif is_granted('ROLE_DIRECTEUR') %}
+                  {% set profilerole = 'directeur_show' %}
+                {% elseif is_granted('ROLE_ENTREPRISE') %}
+                  {% set profilerole = 'entreprise_show' %}
+                {% elseif is_granted('ROLE_SECRETAIRE') %}
+                  {% set profilerole = 'secretaire_show' %}
+                {% elseif is_granted('ROLE_LAUREAT') %}
+                  {% set profilerole = 'laureat_diplome' %}
+                {% elseif is_granted('ROLE_ADMIN') %}
+                  {% set profilerole = 'admin_show' %}
+                {% endif %}
+                <a href="{{ path(profilerole, {'id': app.user.id}) }}" class="p-3">
                   <div class="media align-items-center">
                     <div class="media-head mr-4">
                       <div class="fx-badge fx-badge-transparent-warning fx-badge-xl">
