@@ -1,11 +1,28 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}TypeDiplome index{% endblock %}
+{% block title %}TypeDiplome Index{% endblock %}
 
 {% block body %}
-    <h1>TypeDiplome index</h1>
-
-    <table class="table">
+<div class="fx-section-space-8 bg-light">
+  <div class="container">
+    <div class="fx-card fx-card-tabs">
+      <div class="fx-card-head align-items-center">
+        <div class="fx-card-head-container">
+            <h3 class="fx-card-head-title text-capitalize">
+                Diplome Type
+            </h3>
+        </div>
+        <div class="fx-card-head-toolbar">
+            <div>
+                <a href="{{ path('type_diplome_new') }}" class="btn btn-danger mb-0">
+                    <i data-feather="plus" class="pr-1"></i>
+                    <span class="pl-1 align-middle">ajouter Type</span>
+                </a>
+            </div>
+        </div>
+      </div>
+      <div class="fx-card-body">
+        <table class="table">
         <thead>
             <tr>
                 <th>Id</th>
@@ -21,8 +38,14 @@
                 <td>{{ type_diplome.designation }}</td>
                 <td>{{ type_diplome.description }}</td>
                 <td>
-                    <a href="{{ path('type_diplome_show', {'id': type_diplome.id}) }}">show</a>
-                    <a href="{{ path('type_diplome_edit', {'id': type_diplome.id}) }}">edit</a>
+                    <a class="btn btn-brand btn-sm mb-0" href="{{ path('type_diplome_show', {'id': type_diplome.id}) }}">
+                        <i data-feather="eye" class="pr-1"></i>
+                        <span class="pl-1 align-middle"> show </span>
+                    </a>
+                    <a class="btn btn-warning btn-sm mb-0" href="{{ path('type_diplome_edit', {'id': type_diplome.id}) }}">
+                        <i data-feather="edit-3" class="pr-1"></i>
+                        <span class="pl-1 align-middle"> edit </span>
+                    </a>
                 </td>
             </tr>
         {% else %}
@@ -32,6 +55,8 @@
         {% endfor %}
         </tbody>
     </table>
-
-    <a href="{{ path('type_diplome_new') }}">Create new</a>
+      </div>
+    </div>
+  </div>
+</div>
 {% endblock %}

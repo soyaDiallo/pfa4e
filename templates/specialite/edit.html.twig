@@ -1,13 +1,31 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Edit Specialite{% endblock %}
+{% block title %}Specialite Edit{% endblock %}
 
 {% block body %}
-    <h1>Edit Specialite</h1>
-
-    {{ include('specialite/_form.html.twig', {'button_label': 'Update'}) }}
-
-    <a href="{{ path('specialite_index') }}">back to list</a>
-
-    {{ include('specialite/_delete_form.html.twig') }}
+<div class="fx-section-space-8 bg-light">
+  <div class="container">
+    <div class="fx-card fx-card-tabs">
+      <div class="fx-card-head align-items-center">
+        <div class="fx-card-head-container">
+          <h3 class="fx-card-head-title text-capitalize">
+            Edit specialite
+          </h3>
+        </div>
+        <div class="fx-card-head-toolbar">
+          <div>
+            <a href="{{ path('specialite_index') }}" class="btn btn-dark mb-0">
+              <i data-feather="arrow-left" class="pr-1"></i>
+              <span class="pl-1 align-middle">Retour</span>
+            </a>
+            {{ include('specialite/_delete_form.html.twig') }}
+          </div>
+        </div>
+      </div>
+      <div class="fx-card-body">
+        {{ include('specialite/_form.html.twig', {'button_label': 'Update'}) }}
+      </div>
+    </div>
+  </div>
+</div>
 {% endblock %}

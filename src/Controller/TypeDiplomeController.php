@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\TypeDiplome;
 use App\Form\TypeDiplomeType;
 use App\Repository\TypeDiplomeRepository;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -12,12 +13,13 @@ use Symfony\Component\Routing\Annotation\Route;
 
 /**
  * @Route("/typeDiplome")
+ * @IsGranted({"ROLE_DIRECTEUR"})
  */
 class TypeDiplomeController extends AbstractController
 {
     /**
-     * @Route("/", name="type_diplome_index", methods={"GET"})
-     */
+    * @Route("/", name="type_diplome_index", methods={"GET"})
+    */
     public function index(TypeDiplomeRepository $typeDiplomeRepository): Response
     {
         return $this->render('type_diplome/index.html.twig', [

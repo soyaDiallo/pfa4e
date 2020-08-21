@@ -1,30 +1,50 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Specialite{% endblock %}
+{% block title %}Specialite index{% endblock %}
 
 {% block body %}
-    <h1>Specialite</h1>
-
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ specialite.id }}</td>
-            </tr>
-            <tr>
-                <th>Designation</th>
-                <td>{{ specialite.designation }}</td>
-            </tr>
-            <tr>
-                <th>Description</th>
-                <td>{{ specialite.description }}</td>
-            </tr>
-        </tbody>
-    </table>
-
-    <a href="{{ path('specialite_index') }}">back to list</a>
-
-    <a href="{{ path('specialite_edit', {'id': specialite.id}) }}">edit</a>
-
-    {{ include('specialite/_delete_form.html.twig') }}
+<div class="fx-section-space-8 bg-light">
+  <div class="container">
+    <div class="fx-card fx-card-tabs">
+      <div class="fx-card-head align-items-center">
+        <div class="fx-card-head-container">
+          <h3 class="fx-card-head-title text-capitalize">
+            specialite
+          </h3>
+        </div>
+        <div class="fx-card-head-toolbar">
+          <div>
+            <a href="{{ path('specialite_index') }}" class="btn btn-dark mb-0">
+              <i data-feather="arrow-left" class="pr-1"></i>
+              <span class="pl-1 align-middle">Retour</span>
+            </a>
+            <a href="{{ path('specialite_edit', {'id': specialite.id}) }}" class="btn btn-brand mb-0">
+              <i data-feather="edit" class="pr-1"></i>
+              <span class="pl-1 align-middle">Editer</span>
+            </a>
+            {{ include('specialite/_delete_form.html.twig') }}
+          </div>
+        </div>
+      </div>
+      <div class="fx-card-body">
+        <table class="table">
+            <tbody>
+                <tr>
+                    <th>Id</th>
+                    <td>{{ specialite.id }}</td>
+                </tr>
+                <tr>
+                    <th>Designation</th>
+                    <td>{{ specialite.designation }}</td>
+                </tr>
+                <tr>
+                    <th>Description</th>
+                    <td>{{ specialite.description }}</td>
+                </tr>
+            </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
 {% endblock %}

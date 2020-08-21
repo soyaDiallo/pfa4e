@@ -118,7 +118,7 @@
           {% endif %}
 
           {% if is_granted('ROLE_DIRECTEUR') %}
-           <li>
+          <li>
             <a href="#" class="mn-has-sub menu-link">
               <span> Demandes </span>
               <i data-feather="chevron-down"></i>
@@ -128,26 +128,6 @@
             <ul class="mn-sub to-left py-4">
               <li>
                 <a href="/demande/">afficher les demandes</a>
-              </li>
-              <li>
-                <a href="/demande/new">ajouter une demande</a>
-              </li>
-            </ul>
-            <!-- ./End Sub -->
-          </li>
-          <li>
-            <a href="#" class="mn-has-sub menu-link">
-              <span> documents </span>
-              <i data-feather="chevron-down"></i>
-            </a>
-
-            <!-- Sub -->
-            <ul class="mn-sub to-left py-4">
-              <li>
-                <a href="/diplome/">Afficher les documents</a>
-              </li>
-              <li>
-                <a href="/diplome/new">Ajouter un document</a>
               </li>
             </ul>
             <!-- ./End Sub -->
@@ -168,6 +148,11 @@
               </li>
             </ul>
             <!-- ./End Sub -->
+          </li>
+          <li>
+            <a href="/typeDiplome/" class="menu-link">
+              <span> Type Diplomes </span>
+            </a>
           </li>
           {% endif %}
 
