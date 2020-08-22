@@ -6,6 +6,8 @@ use App\Entity\Laureat;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
 
 class LaureatType extends AbstractType
 {
@@ -20,8 +22,8 @@ class LaureatType extends AbstractType
             ->add('email')
             ->add('telephone')
             ->add('deleted')
-            ->add('datenaissance')
-            ->add('photoUrl')
+            ->add('datenaissance',DateType::class,['widget'=>'single_text'])
+            ->add('photoUrl', FileType::class,array('label'=>'Image..','data_class'=>null))
             ->add('cinNumSejour')
             ->add('lieuNaissance')
             ->add('nationalite')
