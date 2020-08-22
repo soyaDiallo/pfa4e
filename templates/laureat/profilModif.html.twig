@@ -1,130 +1,153 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Profil{% endblock %}
-
-{# {% block stylesheets %}
-    <link href="{{ asset('css/laureat/style3.css') }}" rel="stylesheet">
-{% endblock %} #}
+{% block title %}Modifier Profil{% endblock %}
 
 {% block body %}
+{% set vars = {'profileDip':'true'} %}
+<div class="bg-light py-5">
+  <div class="container">
+    <div class="row">
+      <!-- Include Profile Information -->
+      <div class="col-lg-4">
+        {{ include('laureat/_profile_information.html.twig') }}
+      </div><!-- ./End Col -->
 
-    <div style="width: 25%;position: absolute">
-        <img src="{{ asset('uploads/imagesLaureat/'~ laureat.photoUrl) }}" style=" width:70%;height:70%;margin: 10%">
-        <br>
-        <b style="position: absolute;margin-left: 10%;color: grey">Nationalité</b>  <hr style="width: 60%">
-
-
-        <font face="Agency FB" style="color: black;font-size: 17px;margin-left: 10%"> {{ laureat.nationalite }}</font>
-        <br><br>
-        <b style="position: absolute;margin-left: 10%;color: grey">Date de naissance</b>  <hr style="width: 60%">
-        <font face="Agency FB" style="color: black;font-size: 17px;margin-left: 10%"><i class="far fa-calendar-alt"></i> {{ laureat.datenaissance|date("m/d/Y") }}</font>
-        <br>
-        <span class="badge badge-info" style="margin: 10%;width: 70%">Laureat</span>
-    </div>
-    <br><br>
-    <div style="width: 70%;margin-left: 24%;">
-        <b style="font-size: 24px;color: #F3E7E5 ;margin-left: 80%">Mon espace</b>
-        <br>
-        <b style="font-size: 24px">{{ laureat.prenom }} {{ laureat.nom }}</b>
-
-
-
-        <br>
-        <font face="Agency FB" style="color: grey;font-size: 17px"><i class="fas fa-map-marker-alt"></i> {{ laureat.addresse }}</font>
-        <br><br>
-        <ul class="nav justify-content" style="margin-left: 10%">
-            <li class="nav-item" style="border-radius: 5px;">
-                <a href="{{ path('laureat_diplome', {'id': laureat.id}) }}">
-                    <button type="button" class="btn btn-outline btn1" >
-                        <b style="color: grey"><i class="fas fa-book"></i> Mes diplomes</b>
-                    </button>
-                </a>
-            </li>
-            <li class="nav-item" style="margin-left: 5%">
-                <a href="{{ path('laureat_etablissement', {'id': laureat.id}) }}">
-                    <button type="button" class="btn btn-outline btn2">
-                        <b style="color: grey"><i class="fas fa-graduation-cap"></i> Etablissement</b>
-                    </button>
-                </a>
-            </li>
-            <li class="nav-item" style="margin-left: 5%">
-                <button type="button" class="btn btn-outline btn3" style="background-color: #F9F4F3">
-                    <b style="color: grey"><i class="fas fa-user-cog"></i> Modifier compte</b>
-                </button>
-            </li>
-            <li class="nav-item" style="margin-left: 5%">
-                <a href="{{ path('laureat_apropos', {'id': laureat.id}) }}">
-                    <button type="button" class="btn btn-outline btn4">
-                        <b style="color: grey"><i class="far fa-address-card"></i> Apropos</b>
-                    </button>
-                </a>
-            </li>
-            <li class="nav-item" style="margin-left: 5%">
-                <a href="{{ path('laureat_desactiver', {'id': laureat.id}) }}">
-                    <button type="button" class="btn btn-outline btn5">
-                        <b style="color: grey"><i class="fas fa-exclamation-circle"></i> Désactiver compte</b>
-                    </button>
-                </a>
-            </li>
-        </ul>
-        <hr>
-    </div>
-
-
-
+      <div class="col-lg-8">
+        <div class="fx-card fx-card-tabs"> 
+          <!-- Include Profile Navigation-->
+          <div class="fx-card-head">
+            {% include('laureat/_profile_navigation.html.twig') with vars %}
+          </div> 
+          <!-- card Body -->
+          <div class="fx-card-body"> 
             {{ form_start(form,{'action': path('laureat_modifier', {'id': laureat.id}), 'method': 'POST'}) }}
-    <div  style="width:70%;margin-left:24%;display: flex;flex-wrap: wrap;box-shadow: 1px 1px 1px 2px #ECEAEA ">
+              <div class="form-group row">
+                <div class="col-lg-6 mb-3">
+                  <label>Full Name:</label>
+                  <div class="fx-input-icon">
+                    {{ form_widget(form.nom, { 'attr': {'class': 'form-control', 'placeholder': 'Nom' } }) }}
+                    <span class="fx-input-icon-child fx-input-icon-child-right">
+                      <span>
+                        <i data-feather="user"></i>
+                      </span>
+                    </span>
+                  </div>
+                </div>
 
-        <div style="width: 30%;position: absolute;margin-left: 3%;margin-top: 1%">
-              {{ form_widget(form.nom, { 'attr': {'class': 'form-control', 'placeholder': 'Nom' } }) }}
-        </div>
-        <div style="width: 43%;margin-left: 50%;margin-top: 1.5%">
-              {{ form_widget(form.prenom, { 'attr': {'class': 'form-control', 'placeholder': 'Prénom' } }) }}
-        </div>
+                <!-- Prenom -->
+                <div class="col-lg-6 mb-3">
+                  <label>Prénom:</label>
+                  <div class="fx-input">
+                    {{ form_widget(form.prenom, { 'attr': {'class': 'form-control', 'placeholder': 'Prénom' } }) }}
+                  </div>
+                </div>
 
-        <div style="width: 30%;margin-left: 3%;margin-top: 4%;position: absolute">
-            {{ form_widget(form.pseudo, { 'attr': {'class': 'form-control', 'placeholder': 'Prénom' } }) }}
-        </div>
-        <div style="width: 43%;margin-left: 50%;margin-top: 1%;">
-            {{ form_widget(form.password, { 'attr': {'class': 'form-control', 'placeholder': 'Mot de passe' } }) }}
-        </div>
-        <div style="width: 30%;margin-left: 3%;margin-top: 7%;position: absolute">
-            {{ form_widget(form.adresse, { 'attr': {'class': 'form-control', 'placeholder': 'Adresse' } }) }}
-        </div>
-        <div style="width: 43%;margin-left: 50%;margin-top: 1%;">
-            {{ form_widget(form.email, { 'attr': {'class': 'form-control', 'placeholder': 'Email' } }) }}
-        </div>
-        <div style="width: 30%;margin-left: 3%;margin-top: 10%;position: absolute">
-            {{ form_widget(form.telephone, { 'attr': {'class': 'form-control', 'placeholder': 'Téléphone' } }) }}
-        </div>
-        <div style="width: 43%;margin-left: 50%;margin-top: 1%;">
-            {{ form_widget(form.datenaissance, { 'attr': {'class': 'form-control', 'placeholder': 'Date de naissance' } }) }}
-        </div>
-        <div style="width: 30%;margin-left: 3%;margin-top: 13%;position: absolute">
-            {{ form_widget(form.photoUrl, { 'attr': {'class': 'form-control', 'placeholder': 'Photo' } }) }}
-        </div>
-        <div style="width: 43%;margin-left: 50%;margin-top: 1%;">
-            {{ form_widget(form.cinNumSejour, { 'attr': {'class': 'form-control', 'placeholder': 'Cin ou Num séjour' } }) }}
-        </div>
-        <div style="width: 30%;margin-left: 3%;margin-top: 16%;position: absolute">
-            {{ form_widget(form.lieuNaissance, { 'attr': {'class': 'form-control', 'placeholder': 'Lieu de naissance' } }) }}
-        </div>
-        <div style="width: 43%;margin-left: 50%;margin-top: 1%;">
-            {{ form_widget(form.nationalite, { 'attr': {'class': 'form-control', 'placeholder': 'Nationalité' } }) }}
-        </div>
-        <div style="width: 30%;margin-left: 3%;margin-top: 19%;position: absolute">
-            {{ form_widget(form.nomArabe, { 'attr': {'class': 'form-control', 'placeholder': 'Nom en arabe' } }) }}
-        </div>
-        <div style="width: 43%;margin-left: 50%;margin-top: 1%;">
-            {{ form_widget(form.prenomArabe, { 'attr': {'class': 'form-control', 'placeholder': 'Prénom en arabe' } }) }}
-        </div>
-              {{ form_widget(form.deleted, { 'attr': {'hidden':'true' } }) }}
-            <button type="submit" class="btn btn-success btn-sm" style="margin-left: 86%;margin-top: 2%">Enregistrer</button>
-   <div style="margin-top: 1%;color: white">.................................</div>
-    </div>
+                <!-- Pseudo Name -->
+                <div class="col-lg-6 mb-3">
+                  <label>Pseudo Name:</label>
+                  <div class="fx-input">
+                    {{ form_widget(form.pseudo, { 'attr': {'class': 'form-control', 'placeholder': 'Prénom' } }) }}
+                  </div>
+                </div>
+
+                <!-- Password -->
+                <div class="col-lg-6 mb-3">
+                  <label>Password:</label>
+                  <div class="fx-input">
+                    {{ form_widget(form.password, { 'attr': {'class': 'form-control', 'placeholder': 'Mot de passe' } }) }}
+                  </div>
+                </div>
+
+                <!-- Adresse -->
+                <div class="col-lg-6 mb-3">
+                  <label>Adresse:</label>
+                  <div class="fx-input">
+                    {{ form_widget(form.addresse, { 'attr': {'class': 'form-control', 'placeholder': 'Adresse' } }) }}
+                  </div>
+                </div>
+
+                <!-- Email -->
+                <div class="col-lg-6 mb-3">
+                  <label>Email Adresse:</label>
+                  <div class="fx-input">
+                    {{ form_widget(form.email, { 'attr': {'class': 'form-control', 'placeholder': 'Email' } }) }}
+                  </div>
+                </div>
+
+                <!-- Telephone -->
+                <div class="col-lg-6 mb-3">
+                  <label>Nemuro de telephone:</label>
+                  <div class="fx-input">
+                    {{ form_widget(form.telephone, { 'attr': {'class': 'form-control', 'placeholder': 'Téléphone' } }) }}
+                  </div>
+                </div>
+
+                <!-- Date Naissance -->
+                <div class="col-lg-6 mb-3">
+                  <label>Date De Naissance:</label>
+                  <div class="fx-input">
+                    {{ form_widget(form.datenaissance, { 'attr': {'class': 'form-control', 'placeholder': 'Date de naissance' } }) }}
+                  </div>
+                </div>
+
+                <!-- Avatar -->
+                <div class="col-lg-6 mb-3">
+                  <label>Avatar:</label>
+                  <div class="fx-input">
+                    {{ form_widget(form.photoUrl, { 'attr': {'class': 'form-control', 'placeholder': 'Photo' } }) }}
+                  </div>
+                </div>
+
+                <!-- CIN -->
+                <div class="col-lg-6 mb-3">
+                  <label>Cin Number:</label>
+                  <div class="fx-input">
+                    {{ form_widget(form.cinNumSejour, { 'attr': {'class': 'form-control', 'placeholder': 'Cin ou Num séjour' } }) }}
+                  </div>
+                </div>
+
+                <!-- Lieu De Naissance -->
+                <div class="col-lg-6 mb-3">
+                  <label>Lieu De Naissance :</label>
+                  <div class="fx-input">
+                    {{ form_widget(form.lieuNaissance, { 'attr': {'class': 'form-control', 'placeholder': 'Lieu de naissance' } }) }}
+                  </div>
+                </div>
+
+                <!-- Nationalite -->
+                <div class="col-lg-6 mb-3">
+                  <label>Nationalité :</label>
+                  <div class="fx-input">
+                    {{ form_widget(form.nationalite, { 'attr': {'class': 'form-control', 'placeholder': 'Nationalité' } }) }}
+                  </div>
+                </div>
+
+                <!-- Arabe Name -->
+                <div class="col-lg-6 mb-3">
+                  <label>Nom en Arabe :</label>
+                  <div class="fx-input">
+                    {{ form_widget(form.nomArabe, { 'attr': {'class': 'form-control', 'placeholder': 'Nom en arabe' } }) }}
+                  </div>
+                </div>
+
+                <!-- Prenom Name -->
+                <div class="col-lg-6 mb-3">
+                  <label>Prénom en Arabe :</label>
+                  <div class="fx-input">
+                    {{ form_widget(form.prenomArabe, { 'attr': {'class': 'form-control', 'placeholder': 'Prénom en arabe' } }) }}
+                  </div>
+                </div>
+
+              </div>
+              <div class="mt-4">
+                {{ form_widget(form.deleted, { 'attr': {'hidden':'true' } }) }}
+                <button type="submit" class="btn btn-success btn-block">Enregistrer</button> 
+              </div>
             {{ form_end(form) }}
-
-
-
-
+            </div>
+        </div>
+      </div><!-- ./End Col -->
+    </div>
+  </div>
+</div>
 {% endblock %}
