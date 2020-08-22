@@ -3,6 +3,7 @@
 {% block title %}Profil{% endblock %}
 
 {% block body %}
+{% set vars = {'profileDip':'true'} %}
 <div class="bg-light py-5">
   <div class="container">
     <div class="row">
@@ -15,7 +16,7 @@
         <div class="fx-card fx-card-tabs"> 
           <!-- Include Profile Navigation-->
           <div class="fx-card-head">
-            {{ include('laureat/_profile_navigation.html.twig') }}
+            {% include('laureat/_profile_navigation.html.twig') with vars %}
           </div> 
           <!-- card Body -->
           <div class="fx-card-body"> 

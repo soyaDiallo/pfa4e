@@ -4,26 +4,26 @@
   </h3>
 </div>
 <div class="fx-card-head-toolbar">
-    <ul class="nav nav-tabs nav-tabs-line nav-tabs-line-right nav-tabs-line-2x">
-        <li class="nav-item">
-            <a class="nav-link" href="{{ path('laureat_diplome', {'id': laureat.id}) }}">
-                Mes diplomes
-            </a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link active" href="{{ path('laureat_etablissement', {'id': laureat.id}) }}">
-                Etablissement
-            </a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="{{ path('laureat_apropos', {'id': laureat.id}) }}">
-                À propos
-            </a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="{{ path('laureat_desactiver', {'id': laureat.id}) }}">
-                Désactiver compte
-            </a>
-        </li>
-    </ul>
+  <ul class="nav nav-tabs nav-tabs-line nav-tabs-line-right nav-tabs-line-2x">
+    <li class="nav-item">
+      <a class="nav-link {% if profileDip is defined %} active {%endif%}" href="{{ path('laureat_diplome', {'id': laureat.id}) }}">
+        Mes diplomes
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link {% if profileEtab is defined %} active {%endif%}" href="{{ path('laureat_etablissement', {'id': laureat.id}) }}">
+        Etablissement
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link {% if profileProps is defined %} active {%endif%}" href="{{ path('laureat_apropos', {'id': laureat.id}) }}">
+        À propos
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link {% if profileDesactivate is defined %} active {%endif%}" href="{{ path('laureat_desactiver', {'id': laureat.id}) }}">
+        Désactiver compte
+      </a>
+    </li>
+  </ul>
 </div>
