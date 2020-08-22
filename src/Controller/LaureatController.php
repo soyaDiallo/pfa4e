@@ -15,6 +15,7 @@ use App\Repository\EtablissementRepository;
 use App\Repository\SecretaireRepository;
 use App\Repository\LaureatRepository;
 use App\Repository\DiplomeRepository;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\Request;
@@ -24,6 +25,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 
 /**
  * @Route("/laureat")
+ * @IsGranted({"ROLE_LAUREAT"})
  */
 class LaureatController extends AbstractController
 {

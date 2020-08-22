@@ -2,9 +2,8 @@
 $(document).ready(function() {
 	"use-strict";
     
-    $body = $('body');
-    
-    if($body.find('#ResponsiveTable')) {
+    $body = $('body'); 
+    if($body.find('#ResponsiveTable').length) {
     	$('#ResponsiveTable').DataTable({
 			responsive: true,
 			language: {

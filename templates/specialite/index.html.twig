@@ -38,14 +38,14 @@
                 <td>{{ specialite.designation }}</td>
                 <td>{{ specialite.description }}</td>
                 <td>
-                    <a class="btn btn-brand btn-sm mb-0" href="{{ path('specialite_show', {'id': specialite.id}) }}">
-                        <i data-feather="eye" class="pr-1"></i>
-                        <span class="pl-1 align-middle"> show </span>
-                    </a>
-                    <a class="btn btn-warning btn-sm mb-0" href="{{ path('specialite_edit', {'id': specialite.id}) }}">
-                        <i data-feather="edit-3" class="pr-1"></i>
-                        <span class="pl-1 align-middle"> edit </span>
-                    </a>
+                  <a class="btn btn-brand btn-sm mb-0" href="{{ path('specialite_show', {'id': specialite.id}) }}">
+                    <i data-feather="eye" class="pr-1"></i>
+                    <span class="pl-1 align-middle"> show </span>
+                  </a>
+                  <a class="btn btn-warning btn-sm mb-0" href="{{ path('specialite_edit', {'id': specialite.id}) }}">
+                    <i data-feather="edit-3" class="pr-1"></i>
+                    <span class="pl-1 align-middle"> edit </span>
+                  </a>
                 </td>
             </tr>
         {% else %}
