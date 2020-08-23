@@ -12,9 +12,9 @@ class HomeController extends AbstractController
     /**
      * @Route("/", name="home")
      */
-    public function index(Sendmail $sendmail)
+    public function index()
     {
-        $sendmail->call("aichasidibe615@gmail.com");
+        // $sendmail->call("aichasidibe615@gmail.com");
 
         return $this->render('home/index.html.twig', [
             'controller_name' => 'HomeController',
