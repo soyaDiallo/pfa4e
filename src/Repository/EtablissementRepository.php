@@ -51,7 +51,6 @@ class EtablissementRepository extends ServiceEntityRepository
     public function findIdEtablissement($name)
     {
         $conn = $this->getEntityManager()->getConnection();
-
         $sql = '
         SELECT * FROM etablissement e
         WHERE e.nom_etablissement = :name

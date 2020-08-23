@@ -30,7 +30,7 @@ class Diplome
     private $fichier;
 
     /**
-     * @ORM\Column(type="date")
+     * @ORM\Column(type="date", nullable=true)
      */
     private $dateObtention;
 

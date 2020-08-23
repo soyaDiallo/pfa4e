@@ -20,14 +20,17 @@ var sticky = new Sticky('.selector');
 require('bootstrap');
 require('popper.js'); 
 
+// Feather Icons
+const feather = require('feather-icons');
+$(document).ready(function() {
+	"use-strict";
+  feather.replace();
+});
+
+require('datatables.net-bs4');
+require('datatables.net-responsive-bs4')();
+
 import './jquery.sticky';
 import './jquery.easing.1.3'; 
 import './header';
 import './script';
-
-// Feather Icons
-const feather = require('feather-icons');
-feather.replace();
-
-require('datatables.net-bs4');
-require('datatables.net-responsive-bs4')();

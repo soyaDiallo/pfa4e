@@ -6,57 +6,58 @@
 
 <div class="bg-light py-5">
     <div class="container">
-    <div class="row">
-      <!-- Include Profile Information -->
-      <div class="col-lg-4">
-      {{ include('directeur_pedagogique/layout/_profile_information.html.twig') }}
-      </div><!-- ./End Col -->
+      <div class="row">
+        <!-- Include Profile Information -->
+        <div class="col-lg-4">
+        {{ include('directeur_pedagogique/layout/_profile_information.html.twig') }}
+        </div><!-- ./End Col -->
 
-      <div class="col-lg-8">
-      <div class="fx-card fx-card-tabs"> 
-        <!-- Include Profile Navigation-->
-        <div class="fx-card-head">
-        {{ include('directeur_pedagogique/layout/_profile_navigation.html.twig') }}
-        </div> 
-        <!-- card Body -->
-        <div class="fx-card-body"> 
-          <div>
-            <h2 class="text-left text-capitalize mt-4 mb-5">À propos</h2>
+        <div class="col-lg-8">
+          <div class="fx-card fx-card-tabs"> 
+            <!-- Include Profile Navigation-->
+            <div class="fx-card-head">
+            {{ include('directeur_pedagogique/layout/_profile_navigation.html.twig') }}
+            </div> 
+            <!-- card Body -->
+            <div class="fx-card-body"> 
+              <div>
+                <h2 class="text-left text-capitalize mt-4 mb-5">À propos</h2>
 
-            <div class="form-group row mb-4">
-              <h5 class="col-sm-4">Pseudo</h5>
-              <div class="col-sm-8">
-                <h6>{{ directeur_pedagogique.pseudo }}</h6>
+                <div class="form-group row mb-4">
+                  <h5 class="col-sm-4">Pseudo</h5>
+                  <div class="col-sm-8">
+                    <h6>{{ directeur_pedagogique.pseudo }}</h6>
+                  </div>
+                </div>
+
+                <div class="form-group row mb-4">
+                  <h5 class="col-sm-4">Adresse</h5>
+                  <div class="col-sm-8">
+                    <h6>{{ directeur_pedagogique.addresse }}</h6>
+                  </div>
+                </div>
+
+                <div class="form-group row mb-4">
+                  <h5 class="col-sm-4">Telephone</h5>
+                  <div class="col-sm-8">
+                    <h6>{{ directeur_pedagogique.telephone }}</h6>
+                  </div>
+                </div>
+
+                <div class="form-group row mb-4">
+                  <h5 class="col-sm-4">Status</h5>
+                  <div class="col-sm-8">
+                    <h6>{{ directeur_pedagogique.deleted ? 
+                      '<span class="fx-badge fx-badge-transparent-danger fx-badge-rect"> Closed </span>'
+                      :
+                      '<span class="fx-badge fx-badge-transparent-success fx-badge-rect"> Active </span>' }}</h6>
+                  </div>
+                </div>
+
               </div>
             </div>
-
-            <div class="form-group row mb-4">
-              <h5 class="col-sm-4">Adresse</h5>
-              <div class="col-sm-8">
-                <h6>{{ directeur_pedagogique.addresse }}</h6>
-              </div>
-            </div>
-
-            <div class="form-group row mb-4">
-              <h5 class="col-sm-4">Telephone</h5>
-              <div class="col-sm-8">
-                <h6>{{ directeur_pedagogique.telephone }}</h6>
-              </div>
-            </div>
-
-            <div class="form-group row mb-4">
-              <h5 class="col-sm-4">Status</h5>
-              <div class="col-sm-8">
-                <h6>{{ directeur_pedagogique.deleted ? 
-                  '<span class="fx-badge fx-badge-transparent-danger fx-badge-rect"> Closed </span>'
-                  :
-                  '<span class="fx-badge fx-badge-transparent-success fx-badge-rect"> Active </span>' }}</h6>
-              </div>
-            </div>
-
-          </div>
+          </div><!-- ./End Col -->
         </div>
-      </div><!-- ./End Col -->
     </div>
   </div>
 </div>

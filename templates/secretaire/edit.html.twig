@@ -1,13 +1,32 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Edit Secretaire{% endblock %}
+{% block title %}Modifier Profil{% endblock %}
 
 {% block body %}
-    <h1>Edit Secretaire</h1>
 
-    {{ include('secretaire/_form.html.twig', {'button_label': 'Update'}) }}
+<div class="bg-light py-5">
+    <div class="container">
+        <div class="row">
+            <!-- Include Profile Information -->
+            <div class="col-lg-4">
+            {{ include('secretaire/layout/_profile_information.html.twig') }}
+            </div><!-- ./End Col -->
 
-    <a href="{{ path('secretaire_index') }}">back to list</a>
-
-    {{ include('secretaire/_delete_form.html.twig') }}
+            <div class="col-lg-8">
+                <div class="fx-card fx-card-tabs"> 
+                <!-- Include Profile Navigation-->
+                <div class="fx-card-head">
+                {{ include('secretaire/layout/_profile_navigation.html.twig') }}
+                </div> 
+                <!-- card Body -->
+                <div class="fx-card-body"> 
+                    {{ include('secretaire/_form.html.twig') }}
+                    {# {{ include('secretaire/_delete_form.html.twig') }} #}
+                </div>
+                </div><!-- ./End Col -->
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock %}
+

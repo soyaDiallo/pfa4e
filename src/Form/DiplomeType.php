@@ -16,7 +16,6 @@ class DiplomeType extends AbstractType
     {
         $builder
             ->add('fichier', FileType::class,array('data_class'=>null))
-            ->add('date_obtention',DateType::class,['widget'=>'single_text'])
             ->add('annee',DateType::class,['widget'=>'single_text'])
             ->add('type')
             ->add('specialite')

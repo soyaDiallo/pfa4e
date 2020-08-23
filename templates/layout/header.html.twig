@@ -168,26 +168,9 @@
           {% endif %}
 
           {% if is_granted('ROLE_SECRETAIRE') %}
-            <li>
-            <a href="#" class="mn-has-sub menu-link">
-              <span> Demandes </span>
-              <i data-feather="chevron-down"></i>
-            </a>
-
-            <!-- Sub -->
-            <ul class="mn-sub to-left py-4">
-              <li>
-                <a href="/demande/">Afficher les Demandes</a>
-              </li>
-              <li>
-                <a href="/demande/new">ajouter une demande</a>
-              </li>
-            </ul>
-            <!-- ./End Sub -->
-          </li>
           <li>
-            <a href="/diplome/" class="menu-link">
-              <span> documents </span>
+            <a href="/demande/" class="menu-link">
+              <span> Demandes </span>
             </a>
           </li>
           <li>
@@ -208,7 +191,6 @@
             <!-- ./End Sub -->
           </li>
           {% endif %}
-
 
           {% if is_granted('ROLE_LAUREAT') %}
           <li>
@@ -277,7 +259,6 @@
                         {{ app.user.email }}
                       {% endif %}
                     </h4>
-                    <span class="font-weight-bold btn btn-soft-danger fx-font-size-1 btn-sm">3 messages</span>
                   </div>
                   <!-- ./End User-->
                 </div>
@@ -288,13 +269,13 @@
                 <!-- Item -->
                 {% set profilerole, profileModif = "", "" %}
                 {% if is_granted('ROLE_ETABLISSEMENT') %}
-                  {% set profilerole, profileModif  = 'etablissement_show', 'laureat_modif' %}
+                  {% set profilerole, profileModif  = 'etablissement_show', 'etablissement_edit' %}
                 {% elseif is_granted('ROLE_DIRECTEUR') %}
                   {% set profilerole, profileModif = 'directeur_pedagogique_show', 'directeur_pedagogique_edit' %}
                 {% elseif is_granted('ROLE_ENTREPRISE') %}
-                  {% set profilerole, profileModif = 'entreprise_show', 'entreprise_modif' %}
+                  {% set profilerole, profileModif = 'entreprise_show', 'entreprise_edit' %}
                 {% elseif is_granted('ROLE_SECRETAIRE') %}
-                  {% set profilerole, profileModif = 'secretaire_show', 'secretaire_modif' %}
+                  {% set profilerole, profileModif = 'secretaire_show', 'secretaire_edit' %}
                 {% elseif is_granted('ROLE_LAUREAT') %}
                   {% set profilerole, profileModif = 'laureat_diplome', 'laureat_modif' %}
                 {% elseif is_granted('ROLE_ADMIN') %}

@@ -4,8 +4,8 @@
       <div class="profile-Info"> 
         <img class="fx-avatar fx-avatar-squre fx-avatar-bordered shadow-lg d-inline-block fx-avatar-xl rounded-circle" 
         src="
-        {% if laureat.photoUrl %} 
-            {{ asset('uploads/imagesLaureat/'~ laureat.photoUrl) }}
+        {% if secretaire.photoUrl %} 
+            {{ asset('uploads/imagesLaureat/'~ secretaire.photoUrl) }}
         {% else %}
             /build/avatar.jpg
         {% endif %}
@@ -13,29 +13,26 @@
         alt="Image Description" />
         <div class="ml-4 my-5">
           <h2 class="fx-text-dark mb-2 h4">
-              <span class="align-middle">{{ laureat.prenom }} {{ laureat.nom }}</span> 
+            <span class="align-middle">{{ secretaire.prenom }} {{ secretaire.nom }}</span> 
           </h2>
-          <p class="fx-font-size-1 mb-1 fx-text-label-2"> 
-            <i class="align-middle pr-2" data-feather="flag"></i>
-            From : {{ laureat.nationalite }} 
-          </p>
           <p class="fx-font-size-1 mb-1 fx-text-label-2">  
-            <i class="align-middle pr-2" data-feather="calendar"></i> 
-            <span class="align-middle">{{ laureat.datenaissance|date("m/d/Y") }}</span> 
+            <i class="align-middle pr-2" data-feather="calendar"></i>
+            <span class="align-middle">{{ secretaire.datenaissance|date("m/d/Y") }}</span> 
           </p>
           <p class="fx-font-size-1 mb-1 fx-text-label-2">
             <i class="align-middle pr-2" data-feather="mail"></i>
-            <span class="align-middle">{{ laureat.email }}</span>
+            <span class="align-middle">{{ secretaire.email }}</span>
           </p>
         </div> 
       </div>
     </div>
     <div class="profile-actions text-center">
       <!-- Edit Profile -->
-      <a class="btn btn-dark" href="{{ path('laureat_modif', {'id': laureat.id}) }}">
+      <a class="btn btn-dark" href="{{ path('secretaire_edit', {'id': secretaire.id}) }}">
         <i data-feather="edit-3" class="pr-2"></i>
         Edit Profile
       </a>
+      {{ include('secretaire/_delete_form.html.twig') }}
     </div>
   </div>
 </div>

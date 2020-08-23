@@ -43,8 +43,8 @@ class DirecteurPedagogiqueType extends AbstractType
                 ]
             ])
             ->add('etablissement')
-            ->add('save', SubmitType::class, [
-                'attr' => ['label' => 'Enregistrer', 'class' => 'btn btn-success btn-block'],
+            ->add('Enregistrer', SubmitType::class, [
+                'attr' => ['class' => 'btn btn-success btn-block'],
             ]);
         ;
     }

@@ -5,54 +5,22 @@ namespace App\Controller;
 use App\Entity\Secretaire;
 use App\Form\SecretaireType;
 use App\Repository\SecretaireRepository;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-
+use Symfony\Component\HttpFoundation\File\Exception\FileException;
 /**
  * @Route("/secretaire")
+ * @IsGranted({"ROLE_SECRETAIRE"})
  */
-class SecretaireController extends AbstractController
-{
-    /**
-     * @Route("/", name="secretaire_index", methods={"GET"})
-     */
-    public function index(SecretaireRepository $secretaireRepository): Response
-    {
-        return $this->render('secretaire/index.html.twig', [
-            'secretaires' => $secretaireRepository->findAll(),
-        ]);
-    }
+class SecretaireController extends AbstractController {
 
     /**
-     * @Route("/new", name="secretaire_new", methods={"GET","POST"})
+     * @Route("/profile/{id}", name="secretaire_show", methods={"GET"})
      */
-    public function new(Request $request): Response
-    {
-        $secretaire = new Secretaire();
-        $form = $this->createForm(SecretaireType::class, $secretaire);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($secretaire);
-            $entityManager->flush();
-
-            return $this->redirectToRoute('secretaire_index');
-        }
-
-        return $this->render('secretaire/new.html.twig', [
-            'secretaire' => $secretaire,
-            'form' => $form->createView(),
-        ]);
-    }
-
-    /**
-     * @Route("/{id}", name="secretaire_show", methods={"GET"})
-     */
-    public function show(Secretaire $secretaire): Response
-    {
+    public function show(Secretaire $secretaire): Response {
         return $this->render('secretaire/show.html.twig', [
             'secretaire' => $secretaire,
         ]);
@@ -67,9 +35,20 @@ class SecretaireController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->getDoctrine()->getManager()->flush();
+            $file = $form['photoUrl']->getData();
+            $fileName = md5(uniqid()).'.'.$file->guessExtension();
 
-            return $this->redirectToRoute('secretaire_index');
+            try{
+                $file->move($this->getParameter('image_directory'),$fileName);
+            }catch (FileException $e){
+
+            }
+
+            $secretaire->setPhotoUrl($fileName);
+            $this->getDoctrine()->getManager()->flush();
+            $this->addFlash('success', 'Le compte a été modifié avec succes');
+
+            return $this->redirectToRoute('secretaire_show',array('id' => $secretaire->getId()));
         }
 
         return $this->render('secretaire/edit.html.twig', [
@@ -85,10 +64,13 @@ class SecretaireController extends AbstractController
     {
         if ($this->isCsrfTokenValid('delete'.$secretaire->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->remove($secretaire);
+            $secretaire->setDeleted(1);
+            // $entityManager->remove($secretaire);
             $entityManager->flush();
+            
+            return $this->redirectToRoute('app_logout');
         }
 
-        return $this->redirectToRoute('secretaire_index');
+        return $this->redirectToRoute('secretaire_show',array('id' => $secretaire->getId()));
     }
 }

@@ -99,15 +99,16 @@ class LaureatController extends AbstractController
 
             $id = $etablissementRepository->findIdEtablissement($nomEtablissement);
             $repository = $this->getDoctrine()->getManager()->getRepository(Etablissement::class);
-            $etablissementss = $repository->find($id[0]);
+            // $etablissementss = $repository->find($id[0]);
+            dd($id[0]);
 
-            $demande->setEtablissement($etablissementss);
-            $demande->setDiplome($diplome);
-            $demande->setLaureat($laureat);
+            // $demande->setEtablissement($etablissementss);
+            // $demande->setDiplome($diplome);
+            // $demande->setLaureat($laureat);
             
 
-            $entityManager->persist($demande);
-            $entityManager->flush();
+            // $entityManager->persist($demande);
+            // $entityManager->flush();
 
             // L'envoi d'un Email au secretaire 
             /*
@@ -202,11 +203,7 @@ class LaureatController extends AbstractController
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($laureat);
             $entityManager->flush();
-
-
-            return $this->render('laureat/profilDip.html.twig',[
-                'laureat' => $laureat,
-            ]);
+            return $this->redirectToRoute('app_logout');
         }
         return $this->render('laureat/profilDesactiver.html.twig',[
             'laureat' => $laureat,

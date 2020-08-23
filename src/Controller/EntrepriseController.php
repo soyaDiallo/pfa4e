@@ -5,52 +5,22 @@ namespace App\Controller;
 use App\Entity\Entreprise;
 use App\Form\EntrepriseType;
 use App\Repository\EntrepriseRepository;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-
+use Symfony\Component\HttpFoundation\File\Exception\FileException;
 /**
  * @Route("/entreprise")
+ * @IsGranted({"ROLE_ENTREPRISE"})
  */
 class EntrepriseController extends AbstractController
 {
-    /**
-     * @Route("/", name="entreprise_index", methods={"GET"})
-     */
-    public function index(EntrepriseRepository $entrepriseRepository): Response
-    {
-        return $this->render('entreprise/index.html.twig', [
-            'entreprises' => $entrepriseRepository->findAll(),
-        ]);
-    }
 
     /**
-     * @Route("/new", name="entreprise_new", methods={"GET","POST"})
-     */
-    public function new(Request $request): Response
-    {
-        $entreprise = new Entreprise();
-        $form = $this->createForm(EntrepriseType::class, $entreprise);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($entreprise);
-            $entityManager->flush();
-
-            return $this->redirectToRoute('entreprise_index');
-        }
-
-        return $this->render('entreprise/new.html.twig', [
-            'entreprise' => $entreprise,
-            'form' => $form->createView(),
-        ]);
-    }
-
-    /**
-     * @Route("/{id}", name="entreprise_show", methods={"GET"})
-     */
+    * @Route("/profile/{id}", name="entreprise_show", methods={"GET"})
+    */
     public function show(Entreprise $entreprise): Response
     {
         return $this->render('entreprise/show.html.twig', [
@@ -59,17 +29,27 @@ class EntrepriseController extends AbstractController
     }
 
     /**
-     * @Route("/{id}/edit", name="entreprise_edit", methods={"GET","POST"})
-     */
+    * @Route("/{id}/edit", name="entreprise_edit", methods={"GET","POST"})
+    */
     public function edit(Request $request, Entreprise $entreprise): Response
     {
         $form = $this->createForm(EntrepriseType::class, $entreprise);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->getDoctrine()->getManager()->flush();
+            $file = $form['photoUrl']->getData(); 
+            $fileName = md5(uniqid()).'.'.$file->guessExtension();
+            try{
+                $file->move($this->getParameter('image_directory'),$fileName);
+            }catch (FileException $e){
 
-            return $this->redirectToRoute('entreprise_index');
+            }
+
+            $entreprise->setPhotoUrl($fileName);
+            $this->getDoctrine()->getManager()->flush();
+            $this->addFlash('success', 'Le compte a été modifié avec succes');
+
+            return $this->redirectToRoute('entreprise_show',array('id' => $entreprise->getId()));
         }
 
         return $this->render('entreprise/edit.html.twig', [
@@ -79,16 +59,17 @@ class EntrepriseController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="entreprise_delete", methods={"DELETE"})
-     */
+    * @Route("/{id}", name="entreprise_delete", methods={"DELETE"})
+    */
     public function delete(Request $request, Entreprise $entreprise): Response
     {
         if ($this->isCsrfTokenValid('delete'.$entreprise->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->remove($entreprise);
+            $entreprise->setDeleted(1);
             $entityManager->flush();
+            return $this->redirectToRoute('app_logout');
         }
 
-        return $this->redirectToRoute('entreprise_index');
+        return $this->redirectToRoute('entreprise_show',array('id' => $entreprise->getId()));
     }
 }

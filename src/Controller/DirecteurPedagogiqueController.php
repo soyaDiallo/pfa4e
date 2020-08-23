@@ -32,8 +32,7 @@ class DirecteurPedagogiqueController extends AbstractController
     /**
      * @Route("/{id}/edit", name="directeur_pedagogique_edit", methods={"GET","POST"})
      */
-    public function edit(Request $request, DirecteurPedagogique $directeurPedagogique): Response
-    {
+    public function edit(Request $request, DirecteurPedagogique $directeurPedagogique): Response {
         $form = $this->createForm(DirecteurPedagogiqueType::class, $directeurPedagogique);
         $form->handleRequest($request);
 
@@ -66,12 +65,12 @@ class DirecteurPedagogiqueController extends AbstractController
     public function delete(Request $request, DirecteurPedagogique $directeurPedagogique): Response
     {
         if ($this->isCsrfTokenValid('delete'.$directeurPedagogique->getId(), $request->request->get('_token'))) {
-            $directeurPedagogique->setDeleted(1);
             $entityManager = $this->getDoctrine()->getManager();
+            $directeurPedagogique->setDeleted(1);
             // $entityManager->remove($directeurPedagogique);
             $entityManager->flush();
             
-            return $this->redirectToRoute('directeur_pedagogique_show',array('id' => $directeurPedagogique->getId()));
+            return $this->redirectToRoute('app_logout');
         }
 
         return $this->redirectToRoute('directeur_pedagogique_show',array('id' => $directeurPedagogique->getId()));
