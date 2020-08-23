@@ -75,7 +75,7 @@ class EtablissementController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
             
-               return $this->render('etablissement/show.html.twig', [
+               return $this->render('etablissement/profilapropos.html.twig', [
             'etablissement' => $etablissement,
         ]);
 
@@ -181,13 +181,14 @@ class EtablissementController extends AbstractController
     /**
  * @Route("/profildemande/{id}", name="etablissement_demande", methods={"GET","POST"})
  */
-    public function profildemande(etablissement $etablissement,Request $request,EtablissementRepository $etablissementRepository,SecretaireRepository $secretaireRepository):Response
+    public function profildemande(etablissement $etablissement):Response
     {
         
-        
-     
-    }
 
+        return $this->render('etablissement/profildemande.html.twig',[
+          'etablissement' => $etablissement
+        ]);
+    }
 
 
 }

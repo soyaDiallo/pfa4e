@@ -33,13 +33,12 @@
                 <th>Pseudo</th>
                 <th>Nom</th>
                 <th>Prenom</th>
-                <th>Password</th>
                 <th>Adresse</th>
                 <th>Email</th>
                 <th>Telephone</th>
-                <th>Deleted</th>
+              
                 <th>NomEtablissement</th>
-                <th>Page</th>
+              
                 <th>actions</th>
              
             </tr>
@@ -51,23 +50,16 @@
                 <td>{{ etablissement.pseudo }}</td>
                 <td>{{ etablissement.nom }}</td>
                 <td>{{ etablissement.prenom }}</td>
-                <td>{{ etablissement.password }}</td>
                 <td>{{ etablissement.addresse }}</td>
                 <td>{{ etablissement.email }}</td>
                 <td>{{ etablissement.telephone }}</td>
-                <td>{{ etablissement.deleted ? 'Yes' : 'No' }}</td>
                 <td>{{ etablissement.nomEtablissement }}</td>
-                <td>{{ etablissement.logo }}</td>
+               
                 <div>
                 <td>
                     <a class="btn btn-primary btn-sm mb-0" href="{{ path('etablissement_show', {'id': etablissement.id}) }}">
                         <i data-feather="eye" class="pr-1"></i>
                         <span class="pl-1 align-middle"> show </span>
-                    </a>
-                    <a class="btn btn-warning btn-sm mb-0" href="{{ path('etablissement_edit', {'id': etablissement.id}) }}">
-                        <i data-feather="edit-3" class="pr-1"></i>
-                        <span class="pl-1 align-middle"> edit </span>
-                    </a>
                     
                 </td>
                 </div>
