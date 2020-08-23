@@ -13,10 +13,6 @@
             <div class="fx-card-head-toolbar">
                 <div>
 
-                    <a href="{{ path('etablissement_index') }}" class="btn btn-dark mb-0">
-                        <i data-feather="arrow-left" class="pr-1"></i>
-                        <span class="pl-1 align-middle">Back to List</span>
-                    </a>
                     <a href="{{ path('etablissement_edit', {'id': etablissement.id}) }}" class="btn btn-warning mb-0">
                         <i data-feather="edit-3" class="pr-1"></i>
                         <span class="pl-1 align-middle">edit</span>
@@ -74,7 +70,7 @@
                 <td>{{ etablissement.nomEtablissement }}</td>
             </tr>
             <tr>
-                <th>Logo</th>
+                <th>Page</th>
                 <td>{{ etablissement.logo }}</td>
             </tr>
         </tbody>

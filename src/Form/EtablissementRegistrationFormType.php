@@ -14,6 +14,13 @@ use Symfony\Component\Validator\Constraints\IsTrue;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Form\CallbackTransformer;
+use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Form\Extension\Core\Type\TelType;
+use Symfony\Component\Form\Extension\Core\Type\UrlType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Validator\Constraints\Url;
+use Symfony\Component\Validator\Constraints as Assert;
+
 
 class EtablissementRegistrationFormType extends AbstractType
 {
@@ -21,7 +28,13 @@ class EtablissementRegistrationFormType extends AbstractType
     {
         $builder
             ->add('nomEtablissement')
-            ->add('email')
+            ->add('email', EmailType::class, [
+                'constraints' => [
+                    new Assert\Email([
+                        'message' => 'Veuillez entrer une adresse email valide Ex: Aicha@gmail.com'
+                    ])
+                ]
+            ])
             ->add('plainPassword', PasswordType::class, [
                 // instead of being set onto the object directly,
                 // this is read and encoded in the controller
@@ -35,11 +48,17 @@ class EtablissementRegistrationFormType extends AbstractType
                         'minMessage' => 'Your password should be at least {{ limit }} characters',
                         // max length allowed by Symfony for security reasons
                         'max' => 4096,
-                    ]),
+                    ])
                 ],
             ])
-            ->add('telephone')
-            ->add('logo')
+            ->add('telephone', TelType::class)
+            ->add('logo', TextType::class, [
+                'constraints'=> [
+                    new Url([
+                        'message' => 'veuillez entrer un lien valide Ex: http://source.com/images.png'
+                    ])
+                ]
+            ])
             ->add('pays')
             ->add('S\'inscrire', SubmitType::class, [
                 'attr' => ['class' => 'btn btn-widest btn-tall btn-primary'],

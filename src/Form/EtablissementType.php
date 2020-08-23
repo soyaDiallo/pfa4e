@@ -6,6 +6,10 @@ use App\Entity\Etablissement;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Form\Extension\Core\Type\PasswordType;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType ;
+
 
 class EtablissementType extends AbstractType
 {
@@ -15,13 +19,13 @@ class EtablissementType extends AbstractType
             ->add('pseudo')
             ->add('nom')
             ->add('prenom')
-            ->add('password')
+            ->add('password',PasswordType::class)
             ->add('addresse')
-            ->add('email')
+            ->add('email',EmailType::class)
             ->add('telephone')
             ->add('deleted')
             ->add('nomEtablissement')
-            ->add('logo')
+            ->add('logo', UrlType::class)
             ->add('pays')
         ;
     }
