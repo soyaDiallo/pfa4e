@@ -13,13 +13,9 @@
             <div class="fx-card-head-toolbar">
                 <div>
 
-                    <a href="{{ path('etablissement_edit', {'id': etablissement.id}) }}" class="btn btn-warning mb-0">
-                        <i data-feather="edit-3" class="pr-1"></i>
-                        <span class="pl-1 align-middle">edit</span>
-                    </a>
-                     <a href="{{ path('etablissement_delete', {'id': etablissement.id}) }}" class="btn btn-danger mb-0 ">
-                        <i data-feather="trash" class="pr-1"></i>
-                        <span class="pl-1 align-middle">delete</span>
+                    <a href="{{ path('etablissement_index', {'id': etablissement.id}) }}" class="btn btn-dark mb-0">
+                        <i data-feather="arrow-left" class="pr-1"></i>
+                        <span class="pl-1 align-middle">Back</span>
                     </a>
                 </div>
                 </div>
@@ -46,10 +42,6 @@
                 <td>{{ etablissement.prenom }}</td>
             </tr>
             <tr>
-                <th>Password</th>
-                <td>{{ etablissement.password }}</td>
-            </tr>
-            <tr>
                 <th>Adresse</th>
                 <td>{{ etablissement.addresse }}</td>
             </tr>
@@ -62,17 +54,10 @@
                 <td>{{ etablissement.telephone }}</td>
             </tr>
             <tr>
-                <th>Deleted</th>
-                <td>{{ etablissement.deleted ? 'Yes' : 'No' }}</td>
-            </tr>
-            <tr>
                 <th>NomEtablissement</th>
                 <td>{{ etablissement.nomEtablissement }}</td>
             </tr>
-            <tr>
-                <th>Page</th>
-                <td>{{ etablissement.logo }}</td>
-            </tr>
+           
         </tbody>
             </table>
         </div>

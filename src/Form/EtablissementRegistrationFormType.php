@@ -35,7 +35,7 @@ class EtablissementRegistrationFormType extends AbstractType
                     ])
                 ]
             ])
-            ->add('plainPassword', PasswordType::class, [
+             ->add('plainPassword', PasswordType::class, [
                 // instead of being set onto the object directly,
                 // this is read and encoded in the controller
                 'mapped' => false,
@@ -48,17 +48,11 @@ class EtablissementRegistrationFormType extends AbstractType
                         'minMessage' => 'Your password should be at least {{ limit }} characters',
                         // max length allowed by Symfony for security reasons
                         'max' => 4096,
-                    ])
+                    ]),
                 ],
             ])
             ->add('telephone', TelType::class)
-            ->add('logo', TextType::class, [
-                'constraints'=> [
-                    new Url([
-                        'message' => 'veuillez entrer un lien valide Ex: http://source.com/images.png'
-                    ])
-                ]
-            ])
+            ->add('logo')
             ->add('pays')
             ->add('S\'inscrire', SubmitType::class, [
                 'attr' => ['class' => 'btn btn-widest btn-tall btn-primary'],

@@ -19,13 +19,13 @@ class EtablissementType extends AbstractType
             ->add('pseudo')
             ->add('nom')
             ->add('prenom')
-            ->add('password',PasswordType::class)
+            ->add('password')
             ->add('addresse')
             ->add('email',EmailType::class)
             ->add('telephone')
             ->add('deleted')
             ->add('nomEtablissement')
-            ->add('logo', UrlType::class)
+            ->add('logo')
             ->add('pays')
         ;
     }
