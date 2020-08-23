@@ -29,76 +29,6 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
  */
 class LaureatController extends AbstractController
 {
-    /**
-     * @Route("/", name="laureat_index", methods={"GET"})
-     */
-    public function index(LaureatRepository $laureatRepository): Response
-    {
-        return $this->render('laureat/index.html.twig', [
-            'laureats' => $laureatRepository->findAll(),
-        ]);
-    }
-
-    /**
-     * @Route("/new", name="laureat_new", methods={"GET","POST"})
-     */
-    public function new(Request $request): Response
-    {
-        $laureat = new Laureat();
-        $form = $this->createForm(LaureatType::class, $laureat);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($laureat);
-            $entityManager->flush();
-
-            return $this->redirectToRoute('laureat_index');
-        }
-
-        return $this->render('laureat/new.html.twig', [
-            'laureat' => $laureat,
-            'form' => $form->createView(),
-        ]);
-    }
-
-    /**
-     * @Route("/{id}", name="laureat_show", methods={"GET"})
-     */
-    public function show(Laureat $laureat): Response
-    {
-        return $this->render('laureat/show.html.twig', [
-            'laureat' => $laureat,
-        ]);
-    }
-
-    /**
-     * @Route("/{id}/edit", name="laureat_edit", methods={"GET","POST"})
-     */
-    public function edit(Request $request, Laureat $laureat): Response
-    {
-        $form = $this->createForm(LaureatType::class, $laureat);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $file = $form['photoUrl']->getData();
-
-            $fileName = md5(uniqid()).'.'.$file->guessExtension();
-
-            try{
-                $file->move($this->getParameter('image_directory'),$fileName);
-            }catch (FileException $e){}
-
-            $this->getDoctrine()->getManager()->flush();
-
-            return $this->redirectToRoute('laureat_index');
-        }
-
-        return $this->render('laureat/edit.html.twig', [
-            'laureat' => $laureat,
-            'form' => $form->createView(),
-        ]);
-    }
 
     /**
      * @Route("/{id}", name="laureat_delete", methods={"DELETE"})
@@ -119,17 +49,15 @@ class LaureatController extends AbstractController
      */
     public function profildiplome(Laureat $laureat):Response
     {
-
         return $this->render('laureat/profilDip.html.twig',[
-          'laureat' => $laureat
+            'laureat' => $laureat
         ]);
     }
 
-
     // Rechercher un etablissement + envoyer une demande (diplome)
     /**
- * @Route("/profiletab/{id}", name="laureat_etablissement", methods={"GET","POST"})
- */
+     * @Route("/profiletab/{id}", name="laureat_etablissement", methods={"GET","POST"})
+     */
     public function profiletablissement(Laureat $laureat,Request $request,EtablissementRepository $etablissementRepository,SecretaireRepository $secretaireRepository):Response
     {
         $diplome = new Diplome();
@@ -157,7 +85,6 @@ class LaureatController extends AbstractController
             }
 
             // Ajout Diplome
-
             $diplome->setFichier($fileName);
             $diplome->setDateDepot(new \DateTime('now'));
             $diplome->setCode(md5(uniqid()));
@@ -199,20 +126,17 @@ class LaureatController extends AbstractController
             else{
                 $this->addFlash('erreur', 'Erreur, probléme de format');
             }
-            return $this->redirectToRoute('laureat_etablissement',array(
+            return $this->redirectToRoute('laureat_etablissement', array(
                 'id' => $laureat->getId()));
         }
-
-
+        
         return $this->render('laureat/profilEtab.html.twig',[
             'laureat' => $laureat,
             'etablissements' => $etablissements,
             'name' => $name,
             'form' => $form->createView()
-
         ]);
     }
-
 
     /**
      * @Route("/profilmodif/{id}", name="laureat_modif", methods={"GET","POST"})
@@ -239,25 +163,21 @@ class LaureatController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $file = $form['photoUrl']->getData();
 
+            $file = $form['photoUrl']->getData();
             $fileName = md5(uniqid()).'.'.$file->guessExtension();
 
             try{
                 $file->move($this->getParameter('image_directory'),$fileName);
-            }catch (FileException $e){}
+            }catch (FileException $e){
+
+            }
 
             $laureat->setPhotoUrl($fileName);
             $this->getDoctrine()->getManager()->flush();
-
             $this->addFlash('success', 'Le compte a été modifié avec succes');
-
-            return $this->redirectToRoute('laureat_apropos',array(
-
-                'id' => $laureat->getId()));
+            return $this->redirectToRoute('laureat_apropos',array('id' => $laureat->getId()));
         }
-
-
     }
 
     /**
@@ -265,33 +185,28 @@ class LaureatController extends AbstractController
      */
     public function profilapropos(Laureat $laureat):Response
     {
-        return $this->render('laureat/profilApropos.html.twig',[
-            'laureat' => $laureat
-        ]);
+        return $this->render('laureat/profilApropos.html.twig',['laureat' => $laureat]);
     }
-
 
     // Désactiver compte laureat
     /**
      * @Route("/profildesactiver/{id}", name="laureat_desactiver", methods={"GET","POST"})
      */
-    public function profildesactiver(Laureat $laureat,Request $request):Response
-    {
+    public function profildesactiver(Laureat $laureat,Request $request):Response {
         $action=$request->request->get("desac");
 
-        if($action)
-        {
+        if($action) {
             // Exemple : 1 = compte désactiver
-        $laureat->setDeleted(1);
+            $laureat->setDeleted(1);
 
-        $entityManager = $this->getDoctrine()->getManager();
-        $entityManager->persist($laureat);
-        $entityManager->flush();
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($laureat);
+            $entityManager->flush();
 
 
-        return $this->render('laureat/profilDip.html.twig',[
-            'laureat' => $laureat,
-        ]);
+            return $this->render('laureat/profilDip.html.twig',[
+                'laureat' => $laureat,
+            ]);
         }
         return $this->render('laureat/profilDesactiver.html.twig',[
             'laureat' => $laureat,

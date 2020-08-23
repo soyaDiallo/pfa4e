@@ -1,13 +1,31 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Edit DirecteurPedagogique{% endblock %}
+{% block title %}Modifier Profil{% endblock %}
 
 {% block body %}
-    <h1>Edit DirecteurPedagogique</h1>
 
-    {{ include('directeur_pedagogique/_form.html.twig', {'button_label': 'Update'}) }}
+<div class="bg-light py-5">
+    <div class="container">
+    <div class="row">
+      <!-- Include Profile Information -->
+      <div class="col-lg-4">
+      {{ include('directeur_pedagogique/layout/_profile_information.html.twig') }}
+      </div><!-- ./End Col -->
 
-    <a href="{{ path('directeur_pedagogique_index') }}">back to list</a>
-
-    {{ include('directeur_pedagogique/_delete_form.html.twig') }}
+      <div class="col-lg-8">
+      <div class="fx-card fx-card-tabs"> 
+        <!-- Include Profile Navigation-->
+        <div class="fx-card-head">
+        {{ include('directeur_pedagogique/layout/_profile_navigation.html.twig') }}
+        </div> 
+        <!-- card Body -->
+        <div class="fx-card-body"> 
+            {{ include('directeur_pedagogique/_form.html.twig') }}
+            {# {{ include('directeur_pedagogique/_delete_form.html.twig') }} #}
+        </div>
+      </div><!-- ./End Col -->
+    </div>
+  </div>
+</div>
 {% endblock %}
+

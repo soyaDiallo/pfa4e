@@ -5,118 +5,129 @@
 {% block body %}
 {% set vars = {'profileEtab':'true'} %}
 <div class="bg-light py-5">
-    <div class="container">
-        {% for message in app.flashes('success') %}
-          <div class="alert alert-success">
-          {{ message }}
-          </div>
-        {% endfor %}
-        <div class="row">
-          <!-- Include Profile Information -->
-          <div class="col-lg-4">
-            {{ include('laureat/_profile_information.html.twig') }}
-          </div><!-- ./End Col -->
+  <div class="container">
+      {% for message in app.flashes('success') %}
+        <div class="alert alert-success">
+        {{ message }}
+        </div>
+      {% endfor %}
+      <div class="row">
+        <!-- Include Profile Information -->
+        <div class="col-lg-4">
+          {{ include('laureat/_profile_information.html.twig') }}
+        </div><!-- ./End Col -->
 
-            <div class="col-lg-8">
-              <div class="fx-card fx-card-tabs">
-                <!-- Include Profile Navigation-->
-                <div class="fx-card-head">
-                  {% include('laureat/_profile_navigation.html.twig') with vars %}
-                </div>
-                <!-- card Body -->
-                <div class="fx-card-body"> 
-                  <form method="post" action="{{ path('laureat_etablissement',{'id': laureat.id}) }}">
-                    <div class="input-group mb-3">
-                      <input type="text" class="form-control" placeholder="Rechercher un etablissement"  name="name">
-                      <div class="input-group-append">
-                        <button class="btn btn-outline-secondary" type="submit" id="button-addon2" >
-                          <i data-feather="edit-3" class="pr-1"></i>
-                        </button>
-                      </div>
-                    </div>
-                  </form> 
-                  <div>
-                    {% if(name | length != 0 and etablissements | length != 0) %}
-                      {% for etablissement in etablissements %}
-                        <div class="card">
-                          <img src="{{ asset('images/schoool.PNG') }}" class="card-img-top" alt="...">
-                          <div class="card-body">
-                              <h5 class="card-title">{{ etablissement.nomEtablissement }}</h5>
-                              <b style="color: grey;font-size: 13px"><i class="fas fa-map-marker-alt"></i> {{ etablissement.addresse }}</b><br>
-                              <button type="button" class="btn btn-primary btn-sm" onclick="showForm()" id="oo" style="margin-left: 40%">Ajouter demande</button>
-                          </div>
-                        </div>
-                      {% endfor %}
-                    {% elseif (etablissements | length == 0 and name | length != 0) %}
-                      <div class="alert alert-danger" role="alert">
-                        Aucun etablissement trouvé pour le nom <b>{{ name }}</b>
-                      </div>
-                    {% endif %}
-                  </div> 
-                </div>
+          <div class="col-lg-8">
+            <div class="fx-card fx-card-tabs">
+              <!-- Include Profile Navigation-->
+              <div class="fx-card-head">
+                {% include('laureat/_profile_navigation.html.twig') with vars %}
               </div>
-              <!-- Button trigger modal -->
-              <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#newdemandemodal">
-                Launch demo modal
-              </button>
+              <!-- card Body -->
+              <div class="fx-card-body">
+                <!-- Ajouter Diplome -->
+                <!-- Button trigger modal -->
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#newdemandemodal">
+                  Ajouter Un Diplome
+                </button>
+                <!-- End Edit Profile -->
 
-              <!-- Add Demande Modal -->
-              <div class="modal fade" id="newdemandemodal" tabindex="-1" role="dialog" aria-labelledby="NewDomandeModalLabel" aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                  <div class="modal-content">
-                    <div class="modal-header">
-                      <i class="fas fa-times" id="return" style="position: absolute;margin-left: 92%" ></i>
-                      <h5 class="card-title">Ajouter une demande</h5>
-
-                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
+                <form method="post" action="{{ path('laureat_etablissement',{'id': laureat.id}) }}">
+                  <div class="input-group mb-3">
+                    <input type="text" class="form-control" placeholder="Rechercher un etablissement"  name="name">
+                    <div class="input-group-append">
+                      <button class="btn btn-outline-secondary" type="submit" id="button-addon2" >
+                        <i data-feather="edit-3" class="pr-1"></i>
                       </button>
                     </div>
-                    <div class="modal-body">
-                      {{ form_start(form,{'action': path('laureat_etablissement', {'id': laureat.id}), 'method': 'POST'}) }}
-                        <div class="form-layer">
-                          <div class="mb-3">
-                            <label for="form-file">Fichier (PDF)</label>
-                            <div> 
-                              {{ form_widget(form.fichier, { 'attr': {'class': 'form-control', 'placeholder': 'fichier','required':'true', 'id': 'form-file' } }) }}
-                            </div> 
-                          </div>
-
-                          <div class="mb-3">
-                            <label for="form-date">Année</label>
-                            <div>
-                              {{ form_widget(form.annee, { 'attr': {'class': 'form-control', 'placeholder': 'Année','required':'true', 'id': 'form-date' } }) }}
-                            </div>
-                          </div>
-                          
-                          <div class="mb-3">
-                            <label for="form-diplome">Type diplome</label>
-                            <div>
-                              {{ form_widget(form.type, { 'attr': {'class': 'form-control', 'placeholder': 'Type diplome','required':'true', 'id': 'form-diplome' } }) }}
-                            </div>
-                          </div>
-
-                          <div class="mb-3">
-                            <label for="form-specialite">Spécialité</label>
-                            <div>
-                              {{ form_widget(form.specialite, { 'attr': {'class': 'form-control', 'placeholder': 'Spécialité','required':'true', 'id': 'form-specialite' } }) }}
-                            </div>
-                          </div>
-
-                          <input type="hidden" class="form-control"  value="{{ name }}" name="id">
-                          <button type="submit" class="btn btn-success btn-block">Enregistrer</button>
-                        </div>
-                      {{ form_end(form) }}
-                    </div>
-                    <div class="modal-footer">
-                      <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
-                    </div>
                   </div>
-                </div>
+                </form> 
+                <div>
+                  {% if(name | length != 0 and etablissements | length != 0) %}
+                    {% for etablissement in etablissements %}
+                      <div class="card">
+                        <img src="{{ asset('images/schoool.PNG') }}" class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ etablissement.nomEtablissement }}</h5>
+                            <b style="color: grey;font-size: 13px"><i class="fas fa-map-marker-alt"></i> {{ etablissement.addresse }}</b><br>
+                            <button type="button" class="btn btn-primary btn-sm" onclick="showForm()" id="oo" style="margin-left: 40%">Ajouter demande</button>
+                        </div>
+                      </div>
+                    {% endfor %}
+                  {% elseif (etablissements | length == 0 and name | length != 0) %}
+                    <div class="alert alert-danger" role="alert">
+                      Aucun etablissement trouvé pour le nom <b>{{ name }}</b>
+                    </div>
+                  {% endif %}
+                </div> 
               </div>
-            </div><!-- ./End Col -->
-        </div>
+            </div>
+            
+          </div><!-- ./End Col -->
+      </div>
+  </div>
+</div>
+
+<!-- Add Diplome Modal -->
+<div class="modal fade" id="newdemandemodal" tabindex="-1" role="dialog" aria-labelledby="NewDomandeModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <i class="fas fa-times" id="return" style="position: absolute;margin-left: 92%" ></i>
+        <h5 class="card-title">Ajouter un diplome</h5>
+
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <b data-feather="close">&times;</b>
+        </button>
+      </div>
+      <div class="modal-body">
+        {{ form_start(form,{'action': path('laureat_etablissement', {'id': laureat.id}), 'method': 'POST'}) }}
+          <div class="form-layer">
+            <div class="mb-3">
+              <label for="form-file">Fichier (PDF)</label>
+              <div> 
+                {{ form_widget(form.fichier, { 'attr': {'class': 'form-control', 'placeholder': 'fichier','required':'true', 'id': 'form-file' } }) }}
+              </div> 
+            </div>
+
+            <div class="mb-3">
+              <label for="form-date">Date d'obtention</label>
+              <div>
+                {{ form_widget(form.date_obtention, { 'attr': {'class': 'form-control', 'placeholder': 'Date obtention du diplome','required':'true', 'id': 'form-date' } }) }}
+              </div>
+            </div>
+
+            <div class="mb-3">
+              <label for="form-date">Année</label>
+              <div>
+                {{ form_widget(form.annee, { 'attr': {'class': 'form-control', 'placeholder': 'Année','required':'true', 'id': 'form-date' } }) }}
+              </div>
+            </div>
+            
+            <div class="mb-3">
+              <label for="form-diplome">Type diplome</label>
+              <div>
+                {{ form_widget(form.type, { 'attr': {'class': 'form-control', 'placeholder': 'Type diplome','required':'true', 'id': 'form-diplome' } }) }}
+              </div>
+            </div>
+
+            <div class="mb-3">
+              <label for="form-specialite">Spécialité</label>
+              <div>
+                {{ form_widget(form.specialite, { 'attr': {'class': 'form-control', 'placeholder': 'Spécialité','required':'true', 'id': 'form-specialite' } }) }}
+              </div>
+            </div>
+
+            <input type="hidden" class="form-control"  value="{{ name }}" name="id">
+            <button type="submit" class="btn btn-success btn-block">Enregistrer</button>
+          </div>
+        {{ form_end(form) }}
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+      </div>
     </div>
+  </div>
 </div>
 {% endblock %}
 

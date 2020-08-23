@@ -1,62 +1,63 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}DirecteurPedagogique{% endblock %}
+{% block title %}My Profil{% endblock %}
 
 {% block body %}
-    <h1>DirecteurPedagogique</h1>
 
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ directeur_pedagogique.id }}</td>
-            </tr>
-            <tr>
-                <th>Pseudo</th>
-                <td>{{ directeur_pedagogique.pseudo }}</td>
-            </tr>
-            <tr>
-                <th>Nom</th>
-                <td>{{ directeur_pedagogique.nom }}</td>
-            </tr>
-            <tr>
-                <th>Prenom</th>
-                <td>{{ directeur_pedagogique.prenom }}</td>
-            </tr>
-            <tr>
-                <th>Password</th>
-                <td>{{ directeur_pedagogique.password }}</td>
-            </tr>
-            <tr>
-                <th>Adresse</th>
-                <td>{{ directeur_pedagogique.addresse }}</td>
-            </tr>
-            <tr>
-                <th>Email</th>
-                <td>{{ directeur_pedagogique.email }}</td>
-            </tr>
-            <tr>
-                <th>Telephone</th>
-                <td>{{ directeur_pedagogique.telephone }}</td>
-            </tr>
-            <tr>
-                <th>Deleted</th>
-                <td>{{ directeur_pedagogique.deleted ? 'Yes' : 'No' }}</td>
-            </tr>
-            <tr>
-                <th>DateNaissance</th>
-                <td>{{ directeur_pedagogique.dateNaissance ? directeur_pedagogique.dateNaissance|date('Y-m-d') : '' }}</td>
-            </tr>
-            <tr>
-                <th>PhotoUrl</th>
-                <td>{{ directeur_pedagogique.photoUrl }}</td>
-            </tr>
-        </tbody>
-    </table>
+<div class="bg-light py-5">
+    <div class="container">
+    <div class="row">
+      <!-- Include Profile Information -->
+      <div class="col-lg-4">
+      {{ include('directeur_pedagogique/layout/_profile_information.html.twig') }}
+      </div><!-- ./End Col -->
 
-    <a href="{{ path('directeur_pedagogique_index') }}">back to list</a>
+      <div class="col-lg-8">
+      <div class="fx-card fx-card-tabs"> 
+        <!-- Include Profile Navigation-->
+        <div class="fx-card-head">
+        {{ include('directeur_pedagogique/layout/_profile_navigation.html.twig') }}
+        </div> 
+        <!-- card Body -->
+        <div class="fx-card-body"> 
+          <div>
+            <h2 class="text-left text-capitalize mt-4 mb-5">À propos</h2>
 
-    <a href="{{ path('directeur_pedagogique_edit', {'id': directeur_pedagogique.id}) }}">edit</a>
+            <div class="form-group row mb-4">
+              <h5 class="col-sm-4">Pseudo</h5>
+              <div class="col-sm-8">
+                <h6>{{ directeur_pedagogique.pseudo }}</h6>
+              </div>
+            </div>
 
-    {{ include('directeur_pedagogique/_delete_form.html.twig') }}
+            <div class="form-group row mb-4">
+              <h5 class="col-sm-4">Adresse</h5>
+              <div class="col-sm-8">
+                <h6>{{ directeur_pedagogique.addresse }}</h6>
+              </div>
+            </div>
+
+            <div class="form-group row mb-4">
+              <h5 class="col-sm-4">Telephone</h5>
+              <div class="col-sm-8">
+                <h6>{{ directeur_pedagogique.telephone }}</h6>
+              </div>
+            </div>
+
+            <div class="form-group row mb-4">
+              <h5 class="col-sm-4">Status</h5>
+              <div class="col-sm-8">
+                <h6>{{ directeur_pedagogique.deleted ? 
+                  '<span class="fx-badge fx-badge-transparent-danger fx-badge-rect"> Closed </span>'
+                  :
+                  '<span class="fx-badge fx-badge-transparent-success fx-badge-rect"> Active </span>' }}</h6>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div><!-- ./End Col -->
+    </div>
+  </div>
+</div>
 {% endblock %}
