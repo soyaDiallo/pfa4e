@@ -81,8 +81,8 @@
         </button>
       </div>
       <div class="modal-body">
-        {{ form_start(form,{'action': path('laureat_etablissement', {'id': laureat.id}), 'method': 'POST'}) }}
           <div class="form-layer">
+           {{ form_start(form,{'action': path('laureat_etablissement', {'id': laureat.id}), 'method': 'POST'}) }}
             <div class="mb-3">
               <label for="form-file">Fichier (PDF)</label>
               <div> 
@@ -113,8 +113,9 @@
 
             <input type="hidden" class="form-control"  value="{{ name }}" name="id">
             <button type="submit" class="btn btn-success btn-block">Enregistrer</button>
+            {{ form_end(form) }}
           </div>
-        {{ form_end(form) }}
+        
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
