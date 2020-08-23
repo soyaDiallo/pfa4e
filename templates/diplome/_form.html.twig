@@ -1,4 +1,9 @@
 {{ form_start(form) }}
     {{ form_widget(form) }}
-    <button class="btn">{{ button_label|default('Save') }}</button>
+    <div class="text-center mt-4">
+		<button class="btn btn-widest btn-tall btn-primary">
+			<i data-feather="save" class="pr-1"></i>
+			<span class="pr-2">{{ button_label|default('Save') }}</span>
+		</button>
+	</div>
 {{ form_end(form) }}

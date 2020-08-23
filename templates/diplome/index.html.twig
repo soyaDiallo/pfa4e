@@ -1,11 +1,28 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Diplome index{% endblock %}
+{% block title %}Mes Diplomes{% endblock %}
 
 {% block body %}
-    <h1>Diplome index</h1>
-
-    <table class="table">
+<div class="fx-section-space-8 bg-light">
+  <div class="container">
+    <div class="fx-card fx-card-tabs">
+      <div class="fx-card-head align-items-center">
+        <div class="fx-card-head-container">
+          <h3 class="fx-card-head-title text-capitalize">
+            Mes Diplomes
+          </h3>
+        </div>
+        <div class="fx-card-head-toolbar">
+          <div>
+            <a href="{{ path('diplome_new') }}" class="btn btn-dark mb-0">
+              <i data-feather="plus" class="pr-1"></i>
+              <span class="pl-1 align-middle">Ajouter un deiplome</span>
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="fx-card-body">
+        {# <table class="table">
         <thead>
             <tr>
                 <th>Id</th>
@@ -37,7 +54,9 @@
             </tr>
         {% endfor %}
         </tbody>
-    </table>
-
-    <a href="{{ path('diplome_new') }}">Create new</a>
+    </table> #}
+      </div>
+    </div>
+  </div>
+</div>
 {% endblock %}

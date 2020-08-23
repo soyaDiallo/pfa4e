@@ -1,11 +1,33 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}TypeDiplome{% endblock %}
+{% block title %}Type Diplome{% endblock %}
 
 {% block body %}
-    <h1>TypeDiplome</h1>
-
-    <table class="table">
+<div class="fx-section-space-8 bg-light">
+  <div class="container">
+    <div class="fx-card fx-card-tabs">
+      <div class="fx-card-head align-items-center">
+        <div class="fx-card-head-container">
+          <h3 class="fx-card-head-title text-capitalize">
+            specialite
+          </h3>
+        </div>
+        <div class="fx-card-head-toolbar">
+          <div>
+            <a href="{{ path('type_diplome_index') }}" class="btn btn-dark mb-0">
+              <i data-feather="arrow-left" class="pr-1"></i>
+              <span class="pl-1 align-middle">Retour</span>
+            </a>
+            <a href="{{ path('type_diplome_edit', {'id': type_diplome.id}) }}" class="btn btn-brand mb-0">
+              <i data-feather="edit" class="pr-1"></i>
+              <span class="pl-1 align-middle">Editer</span>
+            </a>
+            {{ include('type_diplome/_delete_form.html.twig') }}
+          </div>
+        </div>
+      </div>
+      <div class="fx-card-body">
+        <table class="table">
         <tbody>
             <tr>
                 <th>Id</th>
@@ -21,10 +43,13 @@
             </tr>
         </tbody>
     </table>
-
-    <a href="{{ path('type_diplome_index') }}">back to list</a>
-
-    <a href="{{ path('type_diplome_edit', {'id': type_diplome.id}) }}">edit</a>
-
-    {{ include('type_diplome/_delete_form.html.twig') }}
+      </div>
+    </div>
+  </div>
+</div>
 {% endblock %}
+
+
+
+
+

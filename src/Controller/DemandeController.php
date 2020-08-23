@@ -17,7 +17,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Validator\Constraints as Assert;
 /**
  * @Route("/demande")
- * @IsGranted({"ROLE_LAUREAT", "ROLE_ENTREPRISE", "ROLE_SECRETAIRE", "ROLE_ETABLISSEMENT"})
+ * @IsGranted({"ROLE_LAUREAT", "ROLE_ENTREPRISE", "ROLE_SECRETAIRE", "ROLE_ETABLISSEMENT", "ROLE_DIRECTEUR"})
  */
 class DemandeController extends AbstractController
 {
@@ -60,23 +60,23 @@ class DemandeController extends AbstractController
         switch ($this->getUser()) {
             case $this->isGranted('ROLE_LAUREAT'):
                 $demande = new Demande();
-		        $form = $this->createForm(DemandeLaureatType::class, $demande);
-		        $form->handleRequest($request);
+                $form = $this->createForm(DemandeLaureatType::class, $demande);
+                $form->handleRequest($request);
 
-		        if ($form->isSubmitted() && $form->isValid()) {
-		            // dd($demande);
-		            $demande->setLaureat($this->getUser());
-		            $entityManager = $this->getDoctrine()->getManager();
-		            $entityManager->persist($demande);
-		            $entityManager->flush();
+                if ($form->isSubmitted() && $form->isValid()) {
+                    // dd($demande);
+                    $demande->setLaureat($this->getUser());
+                    $entityManager = $this->getDoctrine()->getManager();
+                    $entityManager->persist($demande);
+                    $entityManager->flush();
 
-		            return $this->redirectToRoute('demande_index');
-		        }
+                    return $this->redirectToRoute('demande_index');
+                }
 
-		        return $this->render('demande/laureat_new.html.twig', [
-		            'demande' => $demande,
-		            'form' => $form->createView(),
-		        ]);   
+                return $this->render('demande/laureat_new.html.twig', [
+                    'demande' => $demande,
+                    'form' => $form->createView(),
+                ]);   
                 break;
             case $this->isGranted('ROLE_ENTREPRISE'):
                 $demande = new Demande();

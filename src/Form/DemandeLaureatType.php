@@ -13,8 +13,12 @@ class DemandeLaureatType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('diplome')
-            ->add('etablissement')
+            ->add('diplome', null, [
+                'required'   => true
+            ])
+            ->add('etablissement', null, [
+                'required'   => true
+            ])
         ;
     }
 

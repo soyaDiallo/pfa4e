@@ -5,51 +5,22 @@ namespace App\Controller;
 use App\Entity\DirecteurPedagogique;
 use App\Form\DirecteurPedagogiqueType;
 use App\Repository\DirecteurPedagogiqueRepository;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\File\Exception\FileException;
 
 /**
  * @Route("/directeurPedagogique")
+ * @IsGranted({"ROLE_DIRECTEUR"})
  */
 class DirecteurPedagogiqueController extends AbstractController
 {
-    /**
-     * @Route("/", name="directeur_pedagogique_index", methods={"GET"})
-     */
-    public function index(DirecteurPedagogiqueRepository $directeurPedagogiqueRepository): Response
-    {
-        return $this->render('directeur_pedagogique/index.html.twig', [
-            'directeur_pedagogiques' => $directeurPedagogiqueRepository->findAll(),
-        ]);
-    }
 
     /**
-     * @Route("/new", name="directeur_pedagogique_new", methods={"GET","POST"})
-     */
-    public function new(Request $request): Response
-    {
-        $directeurPedagogique = new DirecteurPedagogique();
-        $form = $this->createForm(DirecteurPedagogiqueType::class, $directeurPedagogique);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($directeurPedagogique);
-            $entityManager->flush();
-
-            return $this->redirectToRoute('directeur_pedagogique_index');
-        }
-
-        return $this->render('directeur_pedagogique/new.html.twig', [
-            'directeur_pedagogique' => $directeurPedagogique,
-            'form' => $form->createView(),
-        ]);
-    }
-
-    /**
-     * @Route("/{id}", name="directeur_pedagogique_show", methods={"GET"})
+     * @Route("/profile/{id}", name="directeur_pedagogique_show", methods={"GET"})
      */
     public function show(DirecteurPedagogique $directeurPedagogique): Response
     {
@@ -67,9 +38,20 @@ class DirecteurPedagogiqueController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->getDoctrine()->getManager()->flush();
+            
+            $file = $form['photoUrl']->getData();
+            $fileName = md5(uniqid()).'.'.$file->guessExtension();
 
-            return $this->redirectToRoute('directeur_pedagogique_index');
+            try{
+                $file->move($this->getParameter('image_directory'),$fileName);
+            }catch (FileException $e){
+
+            }
+
+            $directeurPedagogique->setPhotoUrl($fileName);
+            $this->getDoctrine()->getManager()->flush();
+            $this->addFlash('success', 'Le compte a été modifié avec succes');
+            return $this->redirectToRoute('directeur_pedagogique_show',array('id' => $directeurPedagogique->getId()));
         }
 
         return $this->render('directeur_pedagogique/edit.html.twig', [
@@ -84,11 +66,14 @@ class DirecteurPedagogiqueController extends AbstractController
     public function delete(Request $request, DirecteurPedagogique $directeurPedagogique): Response
     {
         if ($this->isCsrfTokenValid('delete'.$directeurPedagogique->getId(), $request->request->get('_token'))) {
+            $directeurPedagogique->setDeleted(1);
             $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->remove($directeurPedagogique);
+            // $entityManager->remove($directeurPedagogique);
             $entityManager->flush();
+            
+            return $this->redirectToRoute('directeur_pedagogique_show',array('id' => $directeurPedagogique->getId()));
         }
 
-        return $this->redirectToRoute('directeur_pedagogique_index');
+        return $this->redirectToRoute('directeur_pedagogique_show',array('id' => $directeurPedagogique->getId()));
     }
 }

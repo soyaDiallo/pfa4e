@@ -1,0 +1,37 @@
+<div class="bg-white shadow-sm mb-4">
+  <div class="px-4 py-5">
+    <div class="text-center">
+      <div class="profile-Info"> 
+        <img class="fx-avatar fx-avatar-squre fx-avatar-bordered shadow-lg d-inline-block fx-avatar-xl rounded-circle" 
+        src="
+        {% if laureat.photoUrl %} 
+            {{ asset('uploads/imagesLaureat/'~ laureat.photoUrl) }}
+        {% else %}
+            /build/avatar.jpg
+        {% endif %}
+        "
+        alt="Image Description" />
+        <div class="ml-4 my-5">
+          <h2 class="fx-text-dark mb-2 h4">
+              <span class="align-middle">{{ laureat.prenom }} {{ laureat.nom }}</span> 
+          </h2>
+          <p class="fx-font-size-1 mb-1 fx-text-label-2"> From : {{ laureat.nationalite }} </p>
+          <p class="fx-font-size-1 mb-1 fx-text-label-2">  
+              <i class="align-middle" data-feather="map-icon"></i> 
+              <span class="align-middle">{{ laureat.datenaissance|date("m/d/Y") }}</span> 
+          </p>
+          <p class="fx-font-size-1 mb-1 fx-text-label-2">
+              <span class="align-middle">{{ laureat.email }}</span>
+          </p>
+        </div> 
+      </div>
+    </div>
+    <div class="profile-actions text-center">
+      <!-- Edit Profile -->
+      <a class="btn btn-dark" href="{{ path('laureat_modif', {'id': laureat.id}) }}">
+        <i data-feather="edit"></i>
+        Edit Profile
+      </a>
+    </div>
+  </div>
+</div>

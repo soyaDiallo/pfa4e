@@ -1,11 +1,30 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}New TypeDiplome{% endblock %}
+{% block title %}TypeDiplome New{% endblock %}
 
 {% block body %}
-    <h1>Create new TypeDiplome</h1>
-
-    {{ include('type_diplome/_form.html.twig') }}
-
-    <a href="{{ path('type_diplome_index') }}">back to list</a>
+<div class="fx-section-space-8 bg-light">
+  <div class="container">
+    <div class="fx-card fx-card-tabs">
+      <div class="fx-card-head align-items-center">
+        <div class="fx-card-head-container">
+            <h3 class="fx-card-head-title text-capitalize">
+                Ajouter Nouveau Type
+            </h3>
+        </div>
+        <div class="fx-card-head-toolbar">
+            <div>
+                <a href="{{ path('type_diplome_index') }}" class="btn btn-danger mb-0">
+                    <i data-feather="arrow-left" class="pr-1"></i>
+                    <span class="pl-1 align-middle">Retour vers List</span>
+                </a>
+            </div>
+        </div>
+      </div>
+      <div class="fx-card-body">
+        {{ include('type_diplome/_form.html.twig') }}
+      </div>
+    </div>
+  </div>
+</div>
 {% endblock %}

@@ -43,21 +43,9 @@
           {% if is_granted('ROLE_ETABLISSEMENT') %}
           <!-- Begin::SubMenu -->
           <li>
-            <a href="#" class="mn-has-sub menu-link">
+            <a href="/diplome/" class="menu-link">
               <span> documents </span>
-              <i data-feather="chevron-down"></i>
             </a>
-
-            <!-- Sub -->
-            <ul class="mn-sub to-left py-4">
-              <li>
-                <a href="/diplome/">Afficher les documents</a>
-              </li>
-              <li>
-                <a href="/diplome/new">Ajouter un document</a>
-              </li>
-            </ul>
-            <!-- ./End Sub -->
           </li>
           <!-- ./End SubMenu -->
           <li>
@@ -72,7 +60,7 @@
                 <a href="/laureat/">Afficher les laureats</a>
               </li>
               <li>
-                <a href="/laureat/new">Ajouter un laurear</a>
+                <a href="/laureat/new">Ajouter un laureat</a>
               </li>
             </ul>
             <!-- ./End Sub -->
@@ -118,7 +106,7 @@
           {% endif %}
 
           {% if is_granted('ROLE_DIRECTEUR') %}
-           <li>
+          <li>
             <a href="#" class="mn-has-sub menu-link">
               <span> Demandes </span>
               <i data-feather="chevron-down"></i>
@@ -128,26 +116,6 @@
             <ul class="mn-sub to-left py-4">
               <li>
                 <a href="/demande/">afficher les demandes</a>
-              </li>
-              <li>
-                <a href="/demande/new">ajouter une demande</a>
-              </li>
-            </ul>
-            <!-- ./End Sub -->
-          </li>
-          <li>
-            <a href="#" class="mn-has-sub menu-link">
-              <span> documents </span>
-              <i data-feather="chevron-down"></i>
-            </a>
-
-            <!-- Sub -->
-            <ul class="mn-sub to-left py-4">
-              <li>
-                <a href="/diplome/">Afficher les documents</a>
-              </li>
-              <li>
-                <a href="/diplome/new">Ajouter un document</a>
               </li>
             </ul>
             <!-- ./End Sub -->
@@ -168,6 +136,11 @@
               </li>
             </ul>
             <!-- ./End Sub -->
+          </li>
+          <li>
+            <a href="/typeDiplome/" class="menu-link">
+              <span> Type Diplomes </span>
+            </a>
           </li>
           {% endif %}
 
@@ -213,21 +186,9 @@
             <!-- ./End Sub -->
           </li>
           <li>
-            <a href="#" class="mn-has-sub menu-link">
+            <a href="/diplome/" class="menu-link">
               <span> documents </span>
-              <i data-feather="chevron-down"></i>
             </a>
-
-            <!-- Sub -->
-            <ul class="mn-sub to-left py-4">
-              <li>
-                <a href="/diplome/">Afficher les documents</a>
-              </li>
-              <li>
-                <a href="/diplome/new">Ajouter un document</a>
-              </li>
-            </ul>
-            <!-- ./End Sub -->
           </li>
           <li>
             <a href="#" class="mn-has-sub menu-link">
@@ -267,23 +228,6 @@
             </ul>
             <!-- ./End Sub -->
           </li>
-          <li>
-            <a href="#" class="mn-has-sub menu-link">
-              <span> Mes documents </span>
-              <i data-feather="chevron-down"></i>
-            </a>
-
-            <!-- Sub -->
-            <ul class="mn-sub to-left py-4">
-              <li>
-                <a href="/diplome/">Afficher mes documents</a>
-              </li>
-              <li>
-                <a href="/diplome/new">Ajouter un document</a>
-              </li>
-            </ul>
-            <!-- ./End Sub -->
-          </li>
           {% endif %}
 
           <!-- ./End LinkMenu -->
@@ -316,7 +260,7 @@
                     <img class="fx-avatar fx-avatar-md rounded-circle fx-avatar-bordered shadow-lg d-inline-block" 
                     src="
                       {% if app.user.photoUrl %} 
-                        {{ app.user.photoUrl }}
+                        {{ asset('uploads/imagesLaureat/'~ app.user.photoUrl) }}
                       {% else %}
                         /build/avatar.jpg
                       {% endif %}
@@ -339,11 +283,24 @@
                 </div>
                 <!-- ./End Head -->
               </li>
-              <!-- ./End Header Sub -->
-              
+              <!-- ./End Header Sub -->             
               <li>
                 <!-- Item -->
-                <a href="#" class="p-3">
+                {% set profilerole, profileModif = "", "" %}
+                {% if is_granted('ROLE_ETABLISSEMENT') %}
+                  {% set profilerole, profileModif  = 'etablissement_show', 'laureat_modif' %}
+                {% elseif is_granted('ROLE_DIRECTEUR') %}
+                  {% set profilerole, profileModif = 'directeur_pedagogique_show', 'directeur_pedagogique_edit' %}
+                {% elseif is_granted('ROLE_ENTREPRISE') %}
+                  {% set profilerole, profileModif = 'entreprise_show', 'entreprise_modif' %}
+                {% elseif is_granted('ROLE_SECRETAIRE') %}
+                  {% set profilerole, profileModif = 'secretaire_show', 'secretaire_modif' %}
+                {% elseif is_granted('ROLE_LAUREAT') %}
+                  {% set profilerole, profileModif = 'laureat_diplome', 'laureat_modif' %}
+                {% elseif is_granted('ROLE_ADMIN') %}
+                  {% set profilerole, profileModif = 'admin_show', 'admin_modif' %}
+                {% endif %}
+                <a href="{{ path(profilerole, {'id': app.user.id}) }}" class="p-3">
                   <div class="media align-items-center">
                     <div class="media-head mr-4">
                       <div class="fx-badge fx-badge-transparent-warning fx-badge-xl">
@@ -360,16 +317,16 @@
               </li>
               <li>
                 <!-- Item -->
-                <a href="#" class="p-3">
+                <a href="{{ path(profileModif, {'id': app.user.id}) }}" class="p-3">
                   <div class="media align-items-center">
                     <div class="media-head mr-4">
                       <div class="fx-badge fx-badge-transparent-success fx-badge-xl">
-                        <i data-feather="message-square" class="fx-text-success"></i>
+                        <i data-feather="edit" class="fx-text-success"></i>
                       </div>
                     </div>
                     <div class="media-body">
-                      <h5 class="font-weight-bold h6">Notifications</h5>
-                      <p class="text-muted fx-font-size-1"> show messages and notifications.. </p>
+                      <h5 class="font-weight-bold h6">Profile Modification</h5>
+                      <p class="text-muted fx-font-size-1"> modifier votre profile </p>
                     </div>
                   </div>
                 </a>
