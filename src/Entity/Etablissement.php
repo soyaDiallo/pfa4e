@@ -8,6 +8,10 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping\MappedSuperclass; 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Mapping\ClassMetadata;
+use Symfony\Component\Validator\Constraints as Assert;
+
+
 
   /**
  * @ORM\Entity(repositoryClass=EtablissementRepository::class)
@@ -228,6 +232,15 @@ class Etablissement extends User
         }
 
         return $this;
+    }
+
+    public static function loadValidatorMetadata(ClassMetadata $metadata)
+    {
+        $metadata->addPropertyConstraint('telephone', new Assert\Regex([
+            'pattern' => '/^[0-9]{2}[0-9]{2}[0-9]{2}[0-9]{2}[0-9]{2}$/',
+            'htmlPattern' => '^[0-9]{2}[0-9]{2}[0-9]{2}[0-9]{2}[0-9]{2}$',
+            'message' => 'Votre numero de telephone n\'est pas valide Ex:78436721'
+        ]));
     }
     
 }

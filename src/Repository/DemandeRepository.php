@@ -47,4 +47,19 @@ class DemandeRepository extends ServiceEntityRepository
         ;
     }
     */
+    public function updateDemande($id,$datee,$etat)
+    {
+        $conn = $this->getEntityManager()->getConnection();
+
+        $sql = '
+        Update demande
+         SET date_validation_de = :datee ,
+         etat_directeur_gn = :etat
+        WHERE id = :id
+        ';
+        $stmt = $conn->prepare($sql);
+        $stmt->execute(['id' => $id,'datee' => $datee->format('Y-m-d H:i:s'),'etat' => $etat]);
+
+        return true;
+    }
 }
