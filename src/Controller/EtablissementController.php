@@ -130,6 +130,22 @@ class EtablissementController extends AbstractController
     }
 
     /**
+     * @Route("/annuler/demande/{id}", name="etablissement_annuler", methods={"GET","POST"})
+     */
+    public function annulerDemande(DemandeRepository $demandeRepository,EtablissementRepository $etablissementRepository,$id): Response
+    {
+        $date = new \DateTime('now');
+
+         $demandeRepository->annulerDemande($id,0);
+
+        return $this->render('etablissement/index.html.twig', [
+            'etablissements' => $etablissementRepository->findAll(),
+        ]);
+
+    }
+
+
+    /**
      * @Route("/profiletab/{id}", name="etablissement_profil", methods={"GET"})
      */
     public function profiletablissement(Etablissement $etablissement):Response
@@ -189,6 +205,8 @@ class EtablissementController extends AbstractController
           'etablissement' => $etablissement
         ]);
     }
+
+
 
 
 }

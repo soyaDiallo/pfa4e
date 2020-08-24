@@ -62,4 +62,19 @@ class DemandeRepository extends ServiceEntityRepository
 
         return true;
     }
+
+    public function annulerDemande($id,$etat)
+    {
+        $conn = $this->getEntityManager()->getConnection();
+
+        $sql = '
+        Update demande
+         SET etat_directeur_gn = :etat
+        WHERE id = :id
+        ';
+        $stmt = $conn->prepare($sql);
+        $stmt->execute(['id' => $id,'etat' => $etat]);
+
+        return true;
+    }
 }
