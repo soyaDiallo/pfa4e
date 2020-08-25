@@ -126,7 +126,7 @@ class EtablissementController extends AbstractController
          $idEtab = $demandeRepository->getEtab($id);
 
         return $this->redirectToRoute('etablissement_profil', array(
-            'id' => $idEtab[0]));
+            'id' => $idEtab));
 
     }
     /**
@@ -141,7 +141,7 @@ class EtablissementController extends AbstractController
         $idEtab = $demandeRepository->getEtab($id);
 
         return $this->redirectToRoute('etablissement_profil', array(
-            'id' => $idEtab[0]));
+            'id' => $idEtab));
 
     }
 
