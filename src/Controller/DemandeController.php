@@ -7,7 +7,7 @@ use App\Entity\Demande;
 use App\Entity\Secretaire;
 use App\Form\DemandeEntrepriseType;
 use App\Form\DemandeLaureatType;
-use App\Form\DemandeSecretaireType;
+use App\Form\DemandeStatusType;
 use App\Repository\DemandeRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -30,24 +30,34 @@ class DemandeController extends AbstractController
      */
     public function index(DemandeRepository $demandeRepository): Response
     {
-        // Setting appropriate user type
-        switch ($this->getUser()) {
-            case $this->isGranted('ROLE_LAUREAT'):
-                $demandes = $demandeRepository->findByLaureat(['laureat_id' => $this->getUser()]);      
-                break;
-            case $this->isGranted('ROLE_ENTREPRISE'):
-                $demandes = $demandeRepository->findByEntreprise(['entreprise_id' => $this->getUser()]);      
-                break;
-            case $this->isGranted(["ROLE_SECRETAIRE", "ROLE_DIRECTEUR"]):
-                $demandes = $demandeRepository->findByEtablissement(['etablissement_id' => $this->getUser()->getEtablissement()]);
-                break;                             
-            default:
-                
-                break;
-        }
-        return $this->render('demande/index.html.twig', [
-            'demandes' => $demandes
-        ]);
+      // Setting appropriate user type
+      switch ($this->getUser()) {
+        case $this->isGranted('ROLE_LAUREAT'):
+          $demandes = $demandeRepository->findByLaureat(['laureat_id' => $this->getUser()]);      
+          break;
+        case $this->isGranted('ROLE_ENTREPRISE'):
+          $demandes = $demandeRepository->findByEntreprise(['entreprise_id' => $this->getUser()]);      
+          break;
+        case $this->isGranted(["ROLE_SECRETAIRE"]):
+          // get demandes already validate by Secretaire
+          $demandes = $demandeRepository->findByEtablissement(['etablissement_id' => $this->getUser()->getEtablissement()]);
+          break; 
+        case $this->isGranted(["ROLE_DIRECTEUR"]):
+          // get demandes already validate by Secretaire
+          $demandes = $demandeRepository->findDemandeDirecteur($this->getUser()->getEtablissement(), self::ETAT_VALIDE);
+          break; 
+        case $this->isGranted(["ROLE_ETABLISSEMENT"]):
+          // get demandes already validate by Secretaire and Directeur
+          $demandes = $demandeRepository->findDemandeEtablissment($this->getUser(), self::ETAT_VALIDE);
+          break;                          
+        default:
+          $demandes = null;
+          break;
+      }
+      // dd($demandes);
+      return $this->render('demande/index.html.twig', [
+        'demandes' => $demandes
+      ]);
     }
 
     /**
@@ -111,7 +121,7 @@ class DemandeController extends AbstractController
         }
 
         //$demande = new Demande();
-        $form = $this->createForm(DemandeSecretaireType::class, $demande);
+        $form = $this->createForm(DemandeStatusType::class, $demande);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -127,7 +137,12 @@ class DemandeController extends AbstractController
               $demande->setDirecteurPedagogique($this->getUser());
               $demande->setEtatDirecteurPd($form->get('etatSecretaire')->getData());
               break;
+            case $this->isGranted('ROLE_ETABLISSEMENT'):
+              $demande->setDateValidationDE(new \DateTime());
+              $demande->setEtatDirecteurGn($form->get('etatSecretaire')->getData());
+              break;
             default:
+              $demande = null;
               break;
           }
 
@@ -146,23 +161,23 @@ class DemandeController extends AbstractController
 
     
 
-    /**
-     * @Route("/{id}/edit", name="demande_edit", methods={"GET","POST"})
-     */
-    // public function edit(Request $request, Demande $demande): Response
+    // /**
+    //  * @Route("/{id}/modify", name="demande_edit", methods={"GET","POST"})
+    //  */
+    // public function modify(Request $request, Demande $demande): Response
     // {
-    //     $form = $this->createForm(DemandeType::class, $demande);
-    //     $form->handleRequest($request);
+    //   $form = $this->createForm(DemandeType::class, $demande);
+    //   $form->handleRequest($request);
 
-    //     if ($form->isSubmitted() && $form->isValid()) {
-    //         $this->getDoctrine()->getManager()->flush();
-    //         return $this->redirectToRoute('demande_index');
-    //     }
+    //   if ($form->isSubmitted() && $form->isValid()) {
+    //     $this->getDoctrine()->getManager()->flush();
+    //     return $this->redirectToRoute('demande_index');
+    //   }
 
-    //     return $this->render('demande/edit.html.twig', [
-    //         'demande' => $demande,
-    //         'form' => $form->createView(),
-    //     ]);
+    //   return $this->render('demande/edit.html.twig', [
+    //     'demande' => $demande,
+    //     'form' => $form->createView(),
+    //   ]);
     // }
 
     /**

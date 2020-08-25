@@ -1,0 +1,35 @@
+
+{% extends 'base.html.twig' %}
+
+{% block title %}Profil{% endblock %}
+
+{% block body %}
+<div class="bg-light py-5">
+  <div class="container">
+    <div class="row">
+      <!-- Include Profile Information -->
+      <div class="col-lg-4">
+        {{ include('etablissement/_profile_information.html.twig') }}
+      </div><!-- ./End Col -->
+
+      <div class="col-lg-8">
+        <div class="fx-card fx-card-tabs"> 
+          <!-- Include Profile Navigation-->
+          <div class="fx-card-head">
+            {% include('etablissement/_profile_navigation.html.twig') %}
+          </div> 
+          <!-- card Body -->
+          <div class="fx-card-body"> 
+            <div >
+              <h2>Demande</h2>
+      <a class="btn btn-dark" href="{{ path('etablissement_index2', {'id': etablissement.id}) }}">
+      <i class="mr-2" data-feather="edit"></i>Validate request 
+      </a>
+            </div>
+          </div>
+        </div>
+      </div><!-- ./End Col -->
+    </div>
+  </div>
+</div>
+{% endblock %}

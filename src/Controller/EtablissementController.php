@@ -24,36 +24,6 @@ use Symfony\Component\HttpFoundation\File\Exception\FileException;
  */
 class EtablissementController extends AbstractController
 {
-    // /**
-    // * @Route("/", name="etablissement_index", methods={"GET"})
-    // */
-    // public function index(EtablissementRepository $etablissementRepository): Response {
-    //     return $this->render('etablissement/index.html.twig', [
-    //         'etablissements' => $etablissementRepository->findAll(),
-    //     ]);
-    // }
-
-    // /**
-    // * @Route("/new", name="etablissement_new", methods={"GET","POST"})
-    // */
-    // public function new(Request $request): Response {
-    //     $etablissement = new Etablissement();
-    //     $form = $this->createForm(EtablissementType::class, $etablissement);
-    //     $form->handleRequest($request);
-
-    //     if ($form->isSubmitted() && $form->isValid()) {
-    //         $entityManager = $this->getDoctrine()->getManager();
-    //         $entityManager->persist($etablissement);
-    //         $entityManager->flush();
-
-    //         return $this->redirectToRoute('etablissement_index');
-    //     }
-
-    //     return $this->render('etablissement/new.html.twig', [
-    //         'etablissement' => $etablissement,
-    //         'form' => $form->createView(),
-    //     ]);
-    // }
 
     /**
      * @Route("/profile/{id}", name="etablissement_show", methods={"GET"})
@@ -111,16 +81,16 @@ class EtablissementController extends AbstractController
     }
 
 
-//     /**
-//     * @Route("/index2/demande/{id}", name="etablissement_index2", methods={"GET"})
-//     */
-//     public function index2(DemandeRepository $demandeRepository,$id): Response
-//     {
+    // /**
+    // * @Route("/demande/{id}", name="etablissement_index2", methods={"GET"})
+    // */
+    // public function index2(DemandeRepository $demandeRepository,$id): Response
+    // {
 
-//         return $this->render('etablissement/index2.html.twig', [
-//             'demandes' => $demandeRepository->findBy(['etablissement' => $id]),
-//         ]);
-//     }
+    //     return $this->render('etablissement/index2.html.twig', [
+    //         'demandes' => $demandeRepository->findBy(['etablissement' => $id]),
+    //     ]);
+    // }
 
 //     /**
 //      * @Route("/valide/demande/{id}", name="etablissement_valide", methods={"GET","POST"})

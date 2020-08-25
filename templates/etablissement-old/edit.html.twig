@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Demande{% endblock %}
+
+{% block body %}
+    <div class="fx-card fx-card-tabs">
+        <div class="fx-card-head align-items-center">
+            <div class="fx-card-head-container">
+              <h3 class="fx-card-head-title text-capitalize">
+                Edit Etablissement
+              </h3>
+            </div>
+            <div class="fx-card-head-toolbar">
+                
+            </div>
+        </div>
+        <div class="fx-card-body">
+    		{{ include('etablissement/_form.html.twig', {'button_label': 'Update'}) }}
+     	</div>
+    </div>
+
+{% endblock %}

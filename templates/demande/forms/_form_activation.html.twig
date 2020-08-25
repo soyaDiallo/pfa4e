@@ -13,6 +13,20 @@
 		</div>
 
 		<div class="col col-md-6 mb-5">
+			<label for="demande_etat" class="fx-text-dark h5 col-form-label-lg"> 
+				{{ form_label(form.etatDirecteurPd, 'Demande Etat :') }} 
+			</label>
+			{{ form_widget(form.etatDirecteurPd, {'attr': {'class': 'form-control form-control-lg'}}) }}
+		</div>
+
+		<div class="col col-md-6 mb-5">
+			<label for="demande_etat" class="fx-text-dark h5 col-form-label-lg"> 
+				{{ form_label(form.etatDirecteurGn, 'Demande Etat :') }} 
+			</label>
+			{{ form_widget(form.etatDirecteurGn, {'attr': {'class': 'form-control form-control-lg'}}) }}
+		</div>
+
+		<div class="col col-md-6 mb-5">
 				<label for="demande_laureat" class="fx-text-dark h5 col-form-label-lg"> 
 					{{ form_label(form.laureat, 'Laureat :') }} 
 			</label>

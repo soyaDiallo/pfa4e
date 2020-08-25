@@ -4,8 +4,6 @@ namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
-use App\Service\Sendmail;
-
 
 class HomeController extends AbstractController
 {
@@ -14,8 +12,6 @@ class HomeController extends AbstractController
      */
     public function index()
     {
-        // $sendmail->call("aichasidibe615@gmail.com");
-
         return $this->render('home/index.html.twig', [
             'controller_name' => 'HomeController',
         ]);
