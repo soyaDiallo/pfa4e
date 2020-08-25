@@ -77,4 +77,18 @@ class DemandeRepository extends ServiceEntityRepository
 
         return true;
     }
+
+    public function getEtab($id)
+    {
+        $conn = $this->getEntityManager()->getConnection();
+        $sql = '
+        SELECT etablissement_id FROM demande d
+        WHERE d.id = :id
+        ';
+        $stmt = $conn->prepare($sql);
+        $stmt->execute(['id' => $id]);
+
+        // returns an array of arrays (i.e. a raw data set)
+        return $stmt->fetchColumn();
+    }
 }

@@ -123,12 +123,12 @@ class EtablissementController extends AbstractController
 
          $demandeRepository->updateDemande($id,$date,1);
 
-        return $this->render('etablissement/index.html.twig', [
-            'etablissements' => $etablissementRepository->findAll(),
-        ]);
+         $idEtab = $demandeRepository->getEtab($id);
+
+        return $this->redirectToRoute('etablissement_profil', array(
+            'id' => $idEtab[0]));
 
     }
-
     /**
      * @Route("/annuler/demande/{id}", name="etablissement_annuler", methods={"GET","POST"})
      */
@@ -138,9 +138,10 @@ class EtablissementController extends AbstractController
 
          $demandeRepository->annulerDemande($id,0);
 
-        return $this->render('etablissement/index.html.twig', [
-            'etablissements' => $etablissementRepository->findAll(),
-        ]);
+        $idEtab = $demandeRepository->getEtab($id);
+
+        return $this->redirectToRoute('etablissement_profil', array(
+            'id' => $idEtab[0]));
 
     }
 

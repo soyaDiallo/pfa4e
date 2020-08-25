@@ -1,0 +1,71 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Etablissement{% endblock %}
+
+{% block body %}
+<div class="fx-card fx-card-tabs">
+        <div class="fx-card-head align-items-center">
+            <div class="fx-card-head-container">
+              <h3 class="fx-card-head-title text-capitalize">
+                Etablissement {{etablissement.id }}
+              </h3>
+            </div>
+            <div class="fx-card-head-toolbar">
+                <div>
+                   <a href="{{ path('etablissement_profil', {'id': etablissement.id}) }}" class="btn btn-dark mb-0">
+                        <i data-feather="arrow-left" class="pr-1"></i>
+                        <span class="pl-1 align-middle">Back</span>
+                    </a>
+                </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="fx-card-body">
+            <table class="table">
+                <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ etablissement.id }}</td>
+            </tr>
+            <tr>
+                <th>Pseudo</th>
+                <td>{{ etablissement.pseudo }}</td>
+            </tr>
+            <tr>
+                <th>Nom</th>
+                <td>{{ etablissement.nom }}</td>
+            </tr>
+            <tr>
+                <th>Prenom</th>
+                <td>{{ etablissement.prenom }}</td>
+            </tr>
+            <tr>
+                <th>Password</th>
+                <td>{{ etablissement.password }}</td>
+            </tr>
+            <tr>
+                <th>Adresse</th>
+                <td>{{ etablissement.addresse }}</td>
+            </tr>
+            <tr>
+                <th>Email</th>
+                <td>{{ etablissement.email }}</td>
+            </tr>
+            <tr>
+                <th>Telephone</th>
+                <td>{{ etablissement.telephone }}</td>
+            </tr>
+
+            <tr>
+                <th>NomEtablissement</th>
+                <td>{{ etablissement.nomEtablissement }}</td>
+            </tr>
+            
+        </tbody>
+            </table>
+        </div>
+    </div>
+    
+{% endblock %}
+

@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Profil{% endblock %}
+
+{% block body %}
+{% set vars = {'profileDip':'true'} %}
+<div class="bg-light py-5">
+  <div class="container">
+    <div class="row">
+      <!-- Include Profile Information -->
+      <div class="col-lg-4">
+        {{ include('etablissement/_profile_information.html.twig') }}
+      </div><!-- ./End Col -->
+
+      <div class="col-lg-8">
+        <div class="fx-card fx-card-tabs"> 
+          <!-- Include Profile Navigation-->
+          <div class="fx-card-head">
+            {% include('etablissement/_profile_navigation.html.twig') with vars %}
+          </div> 
+          <!-- card Body -->
+          <div class="fx-card-body"> 
+            <h5 class="card-title">Information</h5> 
+            <div class="card-body">
+              <p class="card-text">Le Lorem Ipsum est simplement du faux texte employé dans la composition et la mise en page avant impression. Le Lorem Ipsum est le faux texte standard de l'imprimerie depuis les années 1500, quand un imprimeur anonyme assembla ensemble des morceaux de texte pour réaliser un livre spécimen de polices de texte. Il n'a pas fait que survivre cinq siècles, mais s'est aussi adapté à la bureautique informatique, sans que son contenu n'en soit modifié.</p>
+            </div>
+          </div>
+        </div>
+      </div><!-- ./End Col -->
+    </div>
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,24 @@
+<div class="fx-card-head-container">
+  <h3 class="fx-card-head-title">
+    Compte Information
+  </h3>
+</div>
+<div class="fx-card-head-toolbar">
+  <ul class="nav nav-tabs nav-tabs-line nav-tabs-line-right nav-tabs-line-2x">
+    <li class="nav-item">
+      <a class="nav-link {% if profileEtab is defined %} active {%endif%}" href="{{ path('etablissement_demande', {'id': etablissement.id}) }}">
+        Demande
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link {% if profileProps is defined %} active {%endif%}" href="{{ path('etablissement_apropos', {'id': etablissement.id}) }}">
+        À propos
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link {% if profileDesactivate is defined %} active {%endif%}" href="{{ path('etablissement_desactiver', {'id': etablissement.id}) }}">
+        Désactiver compte
+      </a>
+    </li>
+  </ul>
+</div>
