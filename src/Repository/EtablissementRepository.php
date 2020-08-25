@@ -48,11 +48,11 @@ class EtablissementRepository extends ServiceEntityRepository
     }
     */
     
-    public function findIdEtablissement($name)
+    public function findIdEtablissement($name): string
     {
         $conn = $this->getEntityManager()->getConnection();
         $sql = '
-        SELECT * FROM etablissement e
+        SELECT id FROM etablissement e
         WHERE e.nom_etablissement = :name
         ';
         $stmt = $conn->prepare($sql);
