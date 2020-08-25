@@ -25,10 +25,12 @@ class DemandeSecretaireType extends AbstractType
                 'label' => 'Etat de Demande' 
             ])
             ->add('diplome', null, [
-                'required'   => true
+                'required'   => true,
+                'attr' => ['disabled' => 'disabled']
             ])
             ->add('laureat', null, [
-                'required'   => true
+                'required'   => true,
+                'attr' => ['disabled' => 'disabled']
             ])
         ;
     }

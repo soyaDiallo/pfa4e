@@ -1,22 +1,32 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Edit Demande{% endblock %}
+{% block title %}Modifier Profil{% endblock %}
 
 {% block body %}
-    <div class="fx-card fx-card-tabs">
-        <div class="fx-card-head align-items-center">
-            <div class="fx-card-head-container">
-              <h3 class="fx-card-head-title text-capitalize">
-                Edit Etablissement
-              </h3>
-            </div>
-            <div class="fx-card-head-toolbar">
-                
-            </div>
-        </div>
-        <div class="fx-card-body">
-    		{{ include('etablissement/_form.html.twig', {'button_label': 'Update'}) }}
-     	</div>
-    </div>
 
+<div class="bg-light py-5">
+  <div class="container">
+    <div class="row">
+      <!-- Include Profile Information -->
+      <div class="col-lg-4">
+      {{ include('etablissement/layout/_profile_information.html.twig') }}
+      </div><!-- ./End Col -->
+
+      <div class="col-lg-8">
+        <div class="fx-card fx-card-tabs"> 
+          <!-- Include Profile Navigation-->
+          <div class="fx-card-head">
+          {{ include('etablissement/layout/_profile_navigation.html.twig') }}
+          </div> 
+          <!-- card Body -->
+          <div class="fx-card-body"> 
+              {{ include('etablissement/_form.html.twig') }}
+              {# {{ include('etablissement/_delete_form.html.twig') }} #}
+          </div>
+        </div><!-- ./End Col -->
+      </div>
+    </div>
+  </div>
+</div>
 {% endblock %}
+

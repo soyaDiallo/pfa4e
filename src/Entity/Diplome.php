@@ -186,6 +186,6 @@ class Diplome
 
     public function __toString()
     {
-        return $this->code;
+        return $this->fichier;
     }
 }

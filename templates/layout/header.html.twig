@@ -107,18 +107,9 @@
 
           {% if is_granted('ROLE_DIRECTEUR') %}
           <li>
-            <a href="#" class="mn-has-sub menu-link">
+            <a href="/demande/" class="menu-link">
               <span> Demandes </span>
-              <i data-feather="chevron-down"></i>
             </a>
-
-            <!-- Sub -->
-            <ul class="mn-sub to-left py-4">
-              <li>
-                <a href="/demande/">afficher les demandes</a>
-              </li>
-            </ul>
-            <!-- ./End Sub -->
           </li>
           <li>
             <a href="#" class="mn-has-sub menu-link">
@@ -242,7 +233,7 @@
                     <img class="fx-avatar fx-avatar-md rounded-circle fx-avatar-bordered shadow-lg d-inline-block" 
                     src="
                       {% if app.user.photoUrl %} 
-                        {{ asset('uploads/imagesLaureat/'~ app.user.photoUrl) }}
+                        {{ asset('uploads/imagesProfiles/'~ app.user.photoUrl) }}
                       {% else %}
                         /build/avatar.jpg
                       {% endif %}

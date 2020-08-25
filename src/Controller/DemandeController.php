@@ -54,8 +54,7 @@ class DemandeController extends AbstractController
      * @Route("/new", name="demande_new", methods={"GET","POST"})
      * @IsGranted({"ROLE_LAUREAT", "ROLE_ENTREPRISE"})
      */
-    public function new(Request $request): Response
-    {
+    public function new(Request $request): Response {
     	// Setting appropriate user type
         switch ($this->getUser()) {
             case $this->isGranted('ROLE_LAUREAT'):
@@ -64,7 +63,6 @@ class DemandeController extends AbstractController
                 $form->handleRequest($request);
 
                 if ($form->isSubmitted() && $form->isValid()) {
-                    // dd($demande);
                     $demande->setLaureat($this->getUser());
                     $entityManager = $this->getDoctrine()->getManager();
                     $entityManager->persist($demande);
@@ -105,12 +103,11 @@ class DemandeController extends AbstractController
     
     /**
      * @Route("/{id}/edit", name="validate_demande", methods={"GET","POST"})
-     * @IsGranted({"ROLE_ETABLISSEMENT", "ROLE_SECRETAIRE"})
+     * @IsGranted({"ROLE_ETABLISSEMENT", "ROLE_SECRETAIRE", "ROLE_DIRECTEUR"})
     */
-    public function edit(Request $request, Demande $demande): Response
-    {
+    public function edit(Request $request, Demande $demande): Response {
         if(!$demande){
-            $demande = new Demande();
+          $demande = new Demande();
         }
 
         //$demande = new Demande();
@@ -118,20 +115,21 @@ class DemandeController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-        	// Setting appropriate user type
-	        switch ($this->getUser()) {
-	            case $this->isGranted('ROLE_SECRETAIRE'):
-	            	$demande->setDateValidationSecretaire(new \DateTime());
-                    $demande->setSecretaire($this->getUser());
-                    $demande->setEtatSecretaire($form->get('etatSecretaire')->getData());
-	            	break;
-	            case $this->isGranted('ROLE_DIRECTEUR'):
-	            	$demande->setDateValidationDP(new \DateTime());
-	            	$demande->setDirecteurPedagogique($this->getUser());
-	            	break;
-	            default:
-	            	break;
-	        }
+          // Setting appropriate user type
+          switch ($this->getUser()) {
+            case $this->isGranted('ROLE_SECRETAIRE'):
+              $demande->setDateValidationSecretaire(new \DateTime());
+              $demande->setSecretaire($this->getUser());
+              $demande->setEtatSecretaire($form->get('etatSecretaire')->getData());
+              break;
+            case $this->isGranted('ROLE_DIRECTEUR'):
+              $demande->setDateValidationDP(new \DateTime());
+              $demande->setDirecteurPedagogique($this->getUser());
+              $demande->setEtatDirecteurPd($form->get('etatSecretaire')->getData());
+              break;
+            default:
+              break;
+          }
 
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($demande);

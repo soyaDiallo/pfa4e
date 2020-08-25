@@ -1,29 +1,37 @@
 
 {{ form_start(form) }}
-    <div class="my-custom-class-for-errors">
-        {{ form_errors(form) }}
-    </div>
+	<div class="my-custom-class-for-errors">
+		{{ form_errors(form) }}
+	</div>
+	{% set key = form.diplome.vars.choices|first %}
 	<div class="row">
-	    <div class="col col-md-6 mb-5">
-	        <label for="demande_etat" class="fx-text-dark h5 col-form-label-lg"> 
-		        {{ form_label(form.etatSecretaire, 'Demande Etat :') }} 
-		    </label>
-	        {{ form_widget(form.etatSecretaire, {'attr': {'class': 'form-control form-control-lg'}}) }}
-	    </div>
+		<div class="col col-md-6 mb-5">
+			<label for="demande_etat" class="fx-text-dark h5 col-form-label-lg"> 
+				{{ form_label(form.etatSecretaire, 'Demande Etat :') }} 
+			</label>
+			{{ form_widget(form.etatSecretaire, {'attr': {'class': 'form-control form-control-lg'}}) }}
+		</div>
 
-	    <div class="col col-md-6 mb-5">
-	        <label for="demande_diplome" class="fx-text-dark h5 col-form-label-lg"> 
-		        {{ form_label(form.diplome, 'Diplome :') }} 
-		    </label>
-	        {{ form_widget(form.diplome, {'attr': {'class': 'custom-select-lg'}}) }}
-	    </div>
+		<div class="col col-md-6 mb-5">
+				<label for="demande_laureat" class="fx-text-dark h5 col-form-label-lg"> 
+					{{ form_label(form.laureat, 'Laureat :') }} 
+			</label>
+				{{ form_widget(form.laureat, {'attr': {'class': 'custom-select-lg'}}) }}
+		</div>
+
+		<div class="col col-md-6 mb-5">
+			<label for="demande_diplome" class="fx-text-dark h5 col-form-label-lg"> 
+				{{ form_label(form.diplome, 'diplome :') }} 
+			</label>
+			{{ form_widget(form.diplome, {'attr': {'class': 'custom-select-lg'}}) }}
+		</div>
 		
-	    <div class="col col-md-6 mb-5">
-	        <label for="demande_laureat" class="fx-text-dark h5 col-form-label-lg"> 
-		        {{ form_label(form.laureat, 'Laureat :') }} 
-		    </label>
-	        {{ form_widget(form.laureat, {'attr': {'class': 'custom-select-lg'}}) }}
-	    </div>
+		<object type="application/pdf" width="100%" height="100%">
+			<param name="src" value="{{ asset('uploads/diplomeLaureat/'~ key.data.fichier) }}" />
+			<p>It appears your Web browser is not configured to display PDF files.
+				No worries, just <a href="{{ asset('uploads/diplomeLaureat/'~ key.data.fichier) }}">click here to download the PDF file.</a>
+			</p>
+		</object>
 	</div>
 	<div class="text-center mt-4">
 		<button class="btn btn-widest btn-tall btn-primary">

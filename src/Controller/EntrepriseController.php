@@ -69,7 +69,6 @@ class EntrepriseController extends AbstractController
             $entityManager->flush();
             return $this->redirectToRoute('app_logout');
         }
-
         return $this->redirectToRoute('entreprise_show',array('id' => $entreprise->getId()));
     }
 }

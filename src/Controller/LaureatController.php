@@ -99,16 +99,16 @@ class LaureatController extends AbstractController
 
             $id = $etablissementRepository->findIdEtablissement($nomEtablissement);
             $repository = $this->getDoctrine()->getManager()->getRepository(Etablissement::class);
-            // $etablissementss = $repository->find($id[0]);
-            dd($id[0]);
+            $etablissementss = $repository->find($id[0]);
+            // dd($id[0]);
 
-            // $demande->setEtablissement($etablissementss);
-            // $demande->setDiplome($diplome);
-            // $demande->setLaureat($laureat);
+            $demande->setEtablissement($etablissementss);
+            $demande->setDiplome($diplome);
+            $demande->setLaureat($laureat);
             
 
-            // $entityManager->persist($demande);
-            // $entityManager->flush();
+            $entityManager->persist($demande);
+            $entityManager->flush();
 
             // L'envoi d'un Email au secretaire 
             /*
