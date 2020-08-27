@@ -52,7 +52,6 @@ class EtablissementRegistrationFormType extends AbstractType
                 ],
             ])
             ->add('telephone', TelType::class)
-            ->add('logo')
             ->add('pays')
             ->add('S\'inscrire', SubmitType::class, [
                 'attr' => ['class' => 'btn btn-widest btn-tall btn-primary'],

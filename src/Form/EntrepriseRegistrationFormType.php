@@ -41,7 +41,6 @@ class EntrepriseRegistrationFormType extends AbstractType
                 ],
             ])
             ->add('telephone')
-            ->add('logo')
             ->add('S\'inscrire', SubmitType::class, [
                 'attr' => ['class' => 'btn btn-widest btn-tall btn-primary'],
             ])

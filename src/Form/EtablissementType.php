@@ -43,26 +43,6 @@ class EtablissementType extends AbstractType
                     ])
                 ]
             ])
-            ->add('logo', FileType::class, [
-                'label' => 'Logo De Letablissment (image file)',
-                // unmapped means that this field is not associated to any entity property
-                'mapped' => false,
-                // make it optional so you don't have to re-upload the PDF file
-                // every time you edit the Product details
-                'required' => false,
-                'data_class'=> null,
-                // unmapped fields can't define their validation using annotations
-                // in the associated entity, so you can use the PHP constraint classes
-                'constraints' => [
-                    new File([
-                        'maxSize' => '1024k',
-                        'mimeTypes' => [
-                            'image/*'
-                        ],
-                        'mimeTypesMessage' => 'Please upload a valid Image file',
-                    ])
-                ]
-            ])
             ->add('Enregistrer', SubmitType::class, [
                 'attr' => ['class' => 'btn btn-success btn-block'],
             ]);

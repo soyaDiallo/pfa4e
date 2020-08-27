@@ -25,11 +25,6 @@ class Entreprise extends User
     private $nomEntreprise;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $logo;
-
-    /**
      * @ORM\OneToMany(targetEntity=Demande::class, mappedBy="entreprise")
      */
     private $demandes;
@@ -58,18 +53,6 @@ class Entreprise extends User
     public function setNomEntreprise(string $nomEntreprise): self
     {
         $this->nomEntreprise = $nomEntreprise;
-
-        return $this;
-    }
-
-    public function getLogo(): ?string
-    {
-        return $this->logo;
-    }
-
-    public function setLogo(string $logo): self
-    {
-        $this->logo = $logo;
 
         return $this;
     }

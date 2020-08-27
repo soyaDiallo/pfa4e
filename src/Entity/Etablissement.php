@@ -31,11 +31,6 @@ class Etablissement extends User
     private $nomEtablissement;
 
     /**
-     * @ORM\Column(type="string", length=255, unique=true, nullable=true)
-     */
-    private $logo;
-
-    /**
      * @ORM\ManyToOne(targetEntity=Pays::class, inversedBy="etablissements")
      */
     private $pays;
@@ -86,17 +81,6 @@ class Etablissement extends User
         return $this;
     }
 
-    public function getLogo(): ?string
-    {
-        return $this->logo;
-    }
-
-    public function setLogo(string $logo): self
-    {
-        $this->logo = $logo;
-
-        return $this;
-    }
 
     public function getPays(): ?Pays
     {
