@@ -2,12 +2,12 @@
 
 namespace App\Controller;
 
-use App\Entity\User;
 use App\Entity\Demande;
-use App\Entity\Secretaire;
 use App\Form\DemandeEntrepriseType;
 use App\Form\DemandeLaureatType;
-use App\Form\DemandeStatusType;
+use App\Form\DemandeSecretaireStatusType;
+use App\Form\DemandeDirecteurStatusType;
+use App\Form\DemandeEtablStatusType;
 use App\Repository\DemandeRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -120,42 +120,51 @@ class DemandeController extends AbstractController
           $demande = new Demande();
         }
 
-        //$demande = new Demande();
-        $form = $this->createForm(DemandeStatusType::class, $demande);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
+        
           // Setting appropriate user type
           switch ($this->getUser()) {
             case $this->isGranted('ROLE_SECRETAIRE'):
-              $demande->setDateValidationSecretaire(new \DateTime());
-              $demande->setSecretaire($this->getUser());
-              $demande->setEtatSecretaire($form->get('etatSecretaire')->getData());
+              $form = $this->createForm(DemandeSecretaireStatusType::class, $demande);
+              $form->handleRequest($request);
+              if ($form->isSubmitted() && $form->isValid()) {
+                $demande->setDateValidationSecretaire(new \DateTime());
+                $demande->setSecretaire($this->getUser());
+                $entityManager = $this->getDoctrine()->getManager();
+                $entityManager->persist($demande);
+                $entityManager->flush();
+                return $this->redirectToRoute('demande_index');
+              }
               break;
             case $this->isGranted('ROLE_DIRECTEUR'):
-              $demande->setDateValidationDP(new \DateTime());
-              $demande->setDirecteurPedagogique($this->getUser());
-              $demande->setEtatDirecteurPd($form->get('etatSecretaire')->getData());
+              $form = $this->createForm(DemandeDirecteurStatusType::class, $demande);
+              $form->handleRequest($request);
+              if ($form->isSubmitted() && $form->isValid()) {
+                $demande->setDateValidationDP(new \DateTime());
+                $demande->setDirecteurPedagogique($this->getUser());
+                $entityManager = $this->getDoctrine()->getManager();
+                $entityManager->persist($demande);
+                $entityManager->flush();
+                return $this->redirectToRoute('demande_index');
+              }
               break;
             case $this->isGranted('ROLE_ETABLISSEMENT'):
-              $demande->setDateValidationDE(new \DateTime());
-              $demande->setEtatDirecteurGn($form->get('etatSecretaire')->getData());
+              $form = $this->createForm(DemandeEtablStatusType::class, $demande);
+              $form->handleRequest($request);
+              if ($form->isSubmitted() && $form->isValid()) {
+                $demande->setDateValidationDE(new \DateTime());
+                $entityManager = $this->getDoctrine()->getManager();
+                $entityManager->persist($demande);
+                $entityManager->flush();
+                return $this->redirectToRoute('demande_index');
+              }
               break;
             default:
               $demande = null;
               break;
           }
-
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($demande);
-            $entityManager->flush();
-
-            return $this->redirectToRoute('demande_index');
-        }
-
         return $this->render('demande/secretaire_new.html.twig', [
-            'demande' => $demande,
-            'form' => $form->createView(),
+          'demande' => $demande,
+          'form' => $form->createView(),
         ]);
     }
 

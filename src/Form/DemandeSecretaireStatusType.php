@@ -9,29 +9,24 @@ use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class DemandeDirecteurPdType extends AbstractType
+class DemandeStatusType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        
         $builder
-            ->add('etatDirecteurPd', ChoiceType::class, [
+            ->add('etatSecretaire', ChoiceType::class, [
                 'choices' => [
                     'Valide deplome' => DemandeController::ETAT_VALIDE,
-                    'Not Valide' => DemandeController::ETAT_NOT_VALIDE
+                    'Not Valide' => DemandeController::ETAT_NOT_VALIDE,
+                    'On Process' => DemandeController::ETAT_PROCESS
                 ],
                 'required' => true,
                 'expanded' => false,
                 'multiple' => false,
                 'label' => 'Etat de Demande' 
             ])
-            ->add('diplome', null, [
-                'required'   => true,
-                'attr' => ['disabled' => 'disabled']
-            ])
-            ->add('laureat', null, [
-                'required'   => true,
-                'attr' => ['disabled' => 'disabled']
-            ])
+            ->add('diplome',null, ['disabled' => true])
         ;
     }
 
