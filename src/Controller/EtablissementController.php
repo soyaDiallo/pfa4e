@@ -17,6 +17,10 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
+use App\Repository\DiplomeRepository;
+use App\Repository\LaureatRepository;
+use Endroid\QrCode\QrCode;
+use setasign\Fpdi\Fpdi;
 
 /**
  * @Route("/etablissement")
@@ -92,20 +96,54 @@ class EtablissementController extends AbstractController
     //     ]);
     // }
 
-//     /**
-//      * @Route("/valide/demande/{id}", name="etablissement_valide", methods={"GET","POST"})
-//      */
-//     public function valideDemande(DemandeRepository $demandeRepository,EtablissementRepository $etablissementRepository,$id): Response
-//     {
-//         $date = new \DateTime('now');
+    /**
+     * @Route("/valide/demande/{id}", name="etablissement_valide", methods={"GET","POST"})
+     */
+    public function valideDemande(DemandeRepository $demandeRepository,EtablissementRepository $etablissementRepository,$id,DiplomeRepository $diplomeRepository,LaureatRepository $laureatRepository, UserRepository $userRepository): Response
+    {
+        $date = new \DateTime('now');
 
-//         $demandeRepository->updateDemande($id,$date,1);
+         $demandeRepository->updateDemande($id,$date,1);
 
-//         return $this->render('etablissement/index.html.twig', [
-//             'etablissements' => $etablissementRepository->findAll(),
-//         ]);
+         $idEtab = $demandeRepository->getEtab($id);
+         $idDiplome = $demandeRepository->getIdDiplome($id);
 
-//     }
+         $nameDiplome = $diplomeRepository->getNameDiplome($idDiplome);
+         $codeDiplome = $diplomeRepository->getCode($idDiplome);
+         $idLaureat = $demandeRepository->getIdLaureat($id);
+
+         $getnom = $userRepository->getnom($idLaureat);
+         $getprenom = $userRepository->getprenom($idLaureat);
+         $getcin = $laureatRepository->getcin($idLaureat);
+
+        //dd('iddip : '.$idDiplome.' code: '.$codeDiplome);
+
+
+        // Create a QR code
+        $qrCode = new QrCode($getnom.' '.$getprenom."\n".'Cin/sejour: '.$getcin."\n".'Code diplome: '.$codeDiplome);
+        $qrCode->setSize(300);
+        $qrCode->setMargin(10);
+        $qrCode->setEncoding('UTF-8');
+        $source1 = $this->getParameter('QrCode_directory');
+        $qrCode->writeFile($source1.'/QRcode'.$id.'.png');
+
+        // la generation de QR code au niveau de pdf
+        $pdf = new FPDI();
+        $source = $this->getParameter('diplome_directory');
+        $pdf->setSourceFile($source.'/'.$nameDiplome);
+        $template = $pdf->importPage(1);
+        $pdf->AddPage();
+        $pdf->useTemplate($template);
+        $pdf->Image($source1.'/QRcode'.$id.'.png',6,270,20,20);
+        $source2 = $this->getParameter('Autentifier_directory');
+        $fichier = 'diplome'.$id.'L'.$idLaureat.'.pdf';
+        $pdf->Output($source2.'/'.$fichier,'F');
+
+        $diplomeRepository->updateDiplome($idDiplome,$fichier,$date);
+
+        return $this->redirectToRoute('etablissement_profil', array(
+            'id' => $idEtab));
+    }
 
 //     /**
 //      * @Route("/profiletab/{id}", name="etablissement_profil", methods={"GET"})
