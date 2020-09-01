@@ -64,4 +64,32 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
         ;
     }
     */
+    
+    public function getnom($id)
+    {
+        $conn = $this->getEntityManager()->getConnection();
+        $sql = '
+        SELECT nom FROM `user` u
+        WHERE u.id = :id
+        ';
+        $stmt = $conn->prepare($sql);
+        $stmt->execute(['id' => $id]);
+
+        // returns an array of arrays (i.e. a raw data set)
+        return $stmt->fetchColumn();
+    }
+
+    public function getprenom($id)
+    {
+        $conn = $this->getEntityManager()->getConnection();
+        $sql = '
+        SELECT prenom FROM `user` u
+        WHERE u.id = :id
+        ';
+        $stmt = $conn->prepare($sql);
+        $stmt->execute(['id' => $id]);
+
+        // returns an array of arrays (i.e. a raw data set)
+        return $stmt->fetchColumn();
+    }
 }
