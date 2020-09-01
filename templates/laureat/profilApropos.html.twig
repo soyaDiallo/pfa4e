@@ -6,6 +6,11 @@
 {% set vars = {'profileapropos':'true'} %}
 <div class="bg-light py-5">
   <div class="container">
+   {% for message in app.flashes('success') %}
+        <div class="alert alert-success">
+        {{ message }}
+        </div>
+      {% endfor %}
     <div class="row">
       <!-- Include Profile Information -->
       <div class="col-lg-4">
