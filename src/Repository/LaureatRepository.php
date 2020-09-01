@@ -47,4 +47,37 @@ class LaureatRepository extends ServiceEntityRepository
         ;
     }
     */
+    public function getcin($id)
+    {
+        $conn = $this->getEntityManager()->getConnection();
+        $sql = '
+        SELECT cin_num_sejour FROM laureat l
+        WHERE l.id = :id
+        ';
+        $stmt = $conn->prepare($sql);
+        $stmt->execute(['id' => $id]);
+
+        // returns an array of arrays (i.e. a raw data set)
+        return $stmt->fetchColumn();
+    }
+
+    public function getDiplomesAuth($id)
+    {
+        $conn = $this->getEntityManager()->getConnection();
+        $sql = '
+       SELECT diplome.fichier,
+              diplome.date_obtention
+       FROM diplome
+       INNER JOIN demande
+       ON diplome.id = demande.diplome_id
+       INNER JOIN laureat
+       ON demande.laureat_id = laureat.id
+       where laureat.id = :id
+        ';
+        $stmt = $conn->prepare($sql);
+        $stmt->execute(['id' => $id]);
+
+        // returns an array of arrays (i.e. a raw data set)
+        return $stmt->fetchAll();
+    }
 }
