@@ -11,6 +11,7 @@ use App\Form\SecretaireType;
 use App\Repository\DemandeRepository;
 use App\Repository\SecretaireRepository;
 use App\Repository\EtablissementRepository;
+use App\Repository\UserRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
