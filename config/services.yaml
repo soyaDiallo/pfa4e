@@ -6,6 +6,8 @@
 parameters:
     image_directory: '%kernel.project_dir%/public/uploads/imagesProfiles'
     diplome_directory: '%kernel.project_dir%/public/uploads/diplomeLaureat'
+    QrCode_directory: '%kernel.project_dir%/public//uploads/QRcode'
+    Autentifier_directory: '%kernel.project_dir%/public/uploads/DiplomesAuthentifies'
 services:
     # default configuration for services in *this* file
     _defaults:
