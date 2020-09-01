@@ -21,9 +21,33 @@
           <!-- card Body -->
           <div class="fx-card-body"> 
             <h5 class="card-title">Information</h5> 
-            <div class="card-body">
-              <p class="card-text">Aucun diplome trouvé.</p>
-            </div>
+            
+           {% if verif == 0 %}
+                <div class="card-body">
+                  <p>Aucun diplome trouvé.</p>
+                </div>
+                  {% endif %}
+              {% for diplomes in diplomesAuth %}
+
+                  {% if diplomes.date_obtention is null %}
+                    <div class="card-body">
+                      <a>
+                        <img src="{{ asset('images/pdff.png') }}" style="width: 6%;height: 6%">
+                      </a>
+                      <b style="color: grey">Diplome En cours</b>
+                    </div>
+                  {% else %}
+
+                <div class="card-body">
+                  <a href="{{ asset('uploads/DiplomesAuthentifies/'~diplomes.fichier ) }}" target="_blanck">
+                    <img src="{{ asset('images/pdff.png') }}" style="width: 6%;height: 6%">
+                  </a>
+                  <b style="color: #5578eb">Diplome Authentifié <i class="fas fa-check-circle"></i></b>
+                  <b style="margin-left: 55%;color: grey;font-size: small">{{ diplomes.date_obtention }}</b>
+                </div>
+                  {% endif %}
+              {% endfor %}
+            
           </div>
         </div>
       </div><!-- ./End Col -->
