@@ -104,4 +104,33 @@ class DemandeRepository extends ServiceEntityRepository
         // returns an array of arrays (i.e. a raw data set)
         return $stmt->fetchColumn();
     }
+    
+    public function getIdDiplome($id)
+    {
+        $conn = $this->getEntityManager()->getConnection();
+        $sql = '
+        SELECT diplome_id FROM demande d
+        WHERE d.id = :id
+        ';
+        $stmt = $conn->prepare($sql);
+        $stmt->execute(['id' => $id]);
+
+        // returns an array of arrays (i.e. a raw data set)
+        return $stmt->fetchColumn();
+    }
+
+    public function getIdLaureat($id)
+    {
+        $conn = $this->getEntityManager()->getConnection();
+        $sql = '
+        SELECT laureat_id FROM demande d
+        WHERE d.id = :id
+        ';
+        $stmt = $conn->prepare($sql);
+        $stmt->execute(['id' => $id]);
+
+        // returns an array of arrays (i.e. a raw data set)
+        return $stmt->fetchColumn();
+    }
+
 }
