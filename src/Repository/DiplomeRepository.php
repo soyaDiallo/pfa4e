@@ -47,4 +47,48 @@ class DiplomeRepository extends ServiceEntityRepository
         ;
     }
     */
+    
+    public function getNameDiplome($id): string
+    {
+        $conn = $this->getEntityManager()->getConnection();
+        $sql = '
+        SELECT fichier FROM diplome d
+        WHERE d.id = :id
+        ';
+        $stmt = $conn->prepare($sql);
+        $stmt->execute(['id' => $id]);
+
+        // returns an array of arrays (i.e. a raw data set)
+        return $stmt->fetchColumn();
+    }
+
+    public function getCode($id): string
+    {
+        $conn = $this->getEntityManager()->getConnection();
+        $sql = '
+        SELECT code FROM diplome d
+        WHERE d.id = :id
+        ';
+        $stmt = $conn->prepare($sql);
+        $stmt->execute(['id' => $id]);
+
+        // returns an array of arrays (i.e. a raw data set)
+        return $stmt->fetchColumn();
+    }
+
+    public function updateDiplome($id,$fichier,$datee)
+    {
+        $conn = $this->getEntityManager()->getConnection();
+
+        $sql = '
+        Update diplome
+         SET date_obtention = :datee,
+             fichier = :fichier
+        WHERE id = :id
+        ';
+        $stmt = $conn->prepare($sql);
+        $stmt->execute(['id' => $id,'fichier' => $fichier,'datee' => $datee->format('Y-m-d H:i:s')]);
+
+        return true;
+    }
 }
