@@ -89,6 +89,8 @@ class LaureatController extends AbstractController
             $diplome->setDateDepot(new \DateTime('now'));
             $diplome->setCode(md5(uniqid()));
 
+
+
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($diplome);
             $entityManager->flush();
@@ -100,16 +102,16 @@ class LaureatController extends AbstractController
             $id = $etablissementRepository->findIdEtablissement($nomEtablissement);
 
             $repository = $this->getDoctrine()->getManager()->getRepository(Etablissement::class);
-            $etablissementss = $repository->find(intval($id));
+             $etablissementss = $repository->find(intval($id));
 
+
+             $demande->setEtablissement($etablissementss);
+             $demande->setDiplome($diplome);
+             $demande->setLaureat($laureat);
             
-            $demande->setEtablissement($etablissementss);
-            $demande->setDiplome($diplome);
-            $demande->setLaureat($laureat);
-        
 
-            $entityManager->persist($demande);
-            $entityManager->flush();
+             $entityManager->persist($demande);
+             $entityManager->flush();
 
             // L'envoi d'un Email au secretaire 
             /*
@@ -121,13 +123,14 @@ class LaureatController extends AbstractController
             ->setTo('')
             ->setBody("Un laureat à déposé sa demande");
             $mailer->send($message);
-            */
+*/
             $this->addFlash('success', 'Demande ajoutée avec succes');
 
            }
             else{
                 $this->addFlash('erreur', 'Erreur, probléme de format');
             }
+
             return $this->redirectToRoute('laureat_etablissement', array(
                 'id' => $laureat->getId()));
         }
