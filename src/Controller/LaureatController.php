@@ -44,13 +44,24 @@ class LaureatController extends AbstractController
         return $this->redirectToRoute('laureat_index');
     }
 
-    /**
+   /**
      * @Route("/profildip/{id}", name="laureat_diplome", methods={"GET"})
      */
-    public function profildiplome(Laureat $laureat):Response
+    public function profildiplome(Laureat $laureat,LaureatRepository $laureatRepository,$id):Response
     {
+        $diplomes = $laureatRepository->getDiplomesAuth($id);
+
+        //dd($diplomes);
+        if (empty($diplomes)) {
+            $verif = 0;
+        }else{
+            $verif = 1;
+        }
+
         return $this->render('laureat/profilDip.html.twig',[
-            'laureat' => $laureat
+            'laureat' => $laureat,
+            'diplomesAuth' => $diplomes,
+            'verif' => $verif
         ]);
     }
 
