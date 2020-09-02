@@ -160,7 +160,7 @@ class EtablissementController extends AbstractController
 
     }
 
-    
+
 
      /**
       * @Route("/profiletab/{id}", name="etablissement_profil", methods={"GET"})
