@@ -143,6 +143,22 @@ class EtablissementController extends AbstractController
         return $this->redirectToRoute('etablissement_profil', array(
             'id' => $idEtab));
     }
+    
+    /**
+     * @Route("/annuler/demande/{id}", name="etablissement_annuler", methods={"GET","POST"})
+     */
+    public function annulerDemande(DemandeRepository $demandeRepository,EtablissementRepository $etablissementRepository,$id): Response
+    {
+        $date = new \DateTime('now');
+
+         $demandeRepository->annulerDemande($id,0);
+
+        $idEtab = $demandeRepository->getEtab($id);
+
+        return $this->redirectToRoute('etablissement_profil', array(
+            'id' => $idEtab));
+
+    }
 
     /**
      * @Route("/annuler/demande/{id}", name="etablissement_annuler", methods={"GET","POST"})
