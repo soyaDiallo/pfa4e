@@ -86,16 +86,16 @@ class EtablissementController extends AbstractController
     }
 
 
-    // /**
-    // * @Route("/demande/{id}", name="etablissement_index2", methods={"GET"})
-    // */
-    // public function index2(DemandeRepository $demandeRepository,$id): Response
-    // {
+     /**
+     * @Route("/demande/{id}", name="etablissement_index2", methods={"GET"})
+     */
+     public function index2(DemandeRepository $demandeRepository,$id): Response
+     {
 
-    //     return $this->render('etablissement/index2.html.twig', [
-    //         'demandes' => $demandeRepository->findBy(['etablissement' => $id]),
-    //     ]);
-    // }
+         return $this->render('etablissement/index2.html.twig', [
+             'demandes' => $demandeRepository->findBy(['etablissement' => $id]),
+         ]);
+     }
 
     /**
      * @Route("/valide/demande/{id}", name="etablissement_valide", methods={"GET","POST"})
@@ -116,8 +116,6 @@ class EtablissementController extends AbstractController
          $getnom = $userRepository->getnom($idLaureat);
          $getprenom = $userRepository->getprenom($idLaureat);
          $getcin = $laureatRepository->getcin($idLaureat);
-
-        //dd('iddip : '.$idDiplome.' code: '.$codeDiplome);
 
 
         // Create a QR code
@@ -146,63 +144,79 @@ class EtablissementController extends AbstractController
             'id' => $idEtab));
     }
 
-//     /**
-//      * @Route("/profiletab/{id}", name="etablissement_profil", methods={"GET"})
-//      */
-//     public function profiletablissement(Etablissement $etablissement):Response
-//     {
+    /**
+     * @Route("/annuler/demande/{id}", name="etablissement_annuler", methods={"GET","POST"})
+     */
+    public function annulerDemande(DemandeRepository $demandeRepository,EtablissementRepository $etablissementRepository,$id): Response
+    {
+        $date = new \DateTime('now');
 
-//         return $this->render('etablissement/profilEtab.html.twig',[
-//           'etablissement' => $etablissement
-//         ]);
-//     }
+        $demandeRepository->annulerDemande($id,0);
 
-//     /**
-//      * @Route("/profilapropos/{id}", name="etablissement_apropos", methods={"GET"})
-//      */
-//     public function profilapropos(etablissement $etablissement):Response
-//     {
-//         return $this->render('etablissement/profilApropos.html.twig',[
-//             'etablissement' => $etablissement
-//         ]);
-//     }
+        $idEtab = $demandeRepository->getEtab($id);
 
-//     // Désactiver compte etablissement
-//     /**
-//      * @Route("/profildesactiver/{id}", name="etablissement_desactiver", methods={"GET","POST"})
-//      */
-//     public function profildesactiver(etablissement $etablissement,Request $request):Response
-//     {
-//         $action=$request->request->get("desac");
+        return $this->redirectToRoute('etablissement_profil', array(
+            'id' => $idEtab));
 
-//         if($action)
-//         {
-//             // Exemple : 1 = compte désactiver
-//         $etablissement->setDeleted(1);
+    }
 
-//         $entityManager = $this->getDoctrine()->getManager();
-//         $entityManager->persist($etablissement);
-//         $entityManager->flush();
+     /**
+      * @Route("/profiletab/{id}", name="etablissement_profil", methods={"GET"})
+      */
+     public function profiletablissement(Etablissement $etablissement):Response
+     {
+
+         return $this->render('etablissement/profilEtab.html.twig',[
+           'etablissement' => $etablissement
+         ]);
+     }
+
+     /**
+      * @Route("/profilapropos/{id}", name="etablissement_apropos", methods={"GET"})
+      */
+     public function profilapropos(etablissement $etablissement):Response
+     {
+         return $this->render('etablissement/profilApropos.html.twig',[
+            'etablissement' => $etablissement
+         ]);
+     }
+
+     // Désactiver compte etablissement
+     /**
+      * @Route("/profildesactiver/{id}", name="etablissement_desactiver", methods={"GET","POST"})
+      */
+     public function profildesactiver(etablissement $etablissement,Request $request):Response
+     {
+         $action=$request->request->get("desac");
+
+         if($action)
+         {
+             // Exemple : 1 = compte désactiver
+         $etablissement->setDeleted(1);
+
+         $entityManager = $this->getDoctrine()->getManager();
+         $entityManager->persist($etablissement);
+         $entityManager->flush();
 
 
-//         return $this->render('etablissement/profilEtab.html.twig',[
-//             'etablissement' => $etablissement,
-//         ]);
-//         }
-//         return $this->render('etablissement/profilDesactiver.html.twig',[
-//             'etablissement' => $etablissement,
-//         ]);
-//     }
+         return $this->render('etablissement/profilEtab.html.twig',[
+             'etablissement' => $etablissement,
+         ]);
+         }
+         return $this->render('etablissement/profilDesactiver.html.twig',[
+             'etablissement' => $etablissement,
+         ]);
+     }
 
-//     /**
-//  * @Route("/profildemande/{id}", name="etablissement_demande", methods={"GET","POST"})
-//  */
-//     public function profildemande(etablissement $etablissement):Response
-//     {
+     /**
+  * @Route("/profildemande/{id}", name="etablissement_demande", methods={"GET","POST"})
+  */
+     public function profildemande(etablissement $etablissement):Response
+     {
         
 
-//         return $this->render('etablissement/profildemande.html.twig',[
-//           'etablissement' => $etablissement
-//         ]);
-//     }
+         return $this->render('etablissement/profildemande.html.twig',[
+           'etablissement' => $etablissement
+         ]);
+     }
 }
