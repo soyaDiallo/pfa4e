@@ -15,6 +15,7 @@ use App\Repository\EtablissementRepository;
 use App\Repository\SecretaireRepository;
 use App\Repository\LaureatRepository;
 use App\Repository\DiplomeRepository;
+use App\Repository\UserRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
@@ -69,7 +70,7 @@ class LaureatController extends AbstractController
     /**
      * @Route("/profiletab/{id}", name="laureat_etablissement", methods={"GET","POST"})
      */
-    public function profiletablissement(Laureat $laureat,Request $request,EtablissementRepository $etablissementRepository,SecretaireRepository $secretaireRepository):Response
+    public function profiletablissement(Laureat $laureat,Request $request,EtablissementRepository $etablissementRepository,\Swift_Mailer $mailer,UserRepository $userRepository):Response
     {
         $diplome = new Diplome();
         $name = $request->request->get("name");
@@ -124,18 +125,18 @@ class LaureatController extends AbstractController
              $entityManager->persist($demande);
              $entityManager->flush();
 
-            // L'envoi d'un Email au secretaire 
+            // L'envoi d'un Email au secretaire
+
             /*
-            $secretaire = new Secretaire();
-            $email = $secretaireRepository->findEmail($id[0]);
+            $email = $userRepository->findEmail(intval($id));
             $message = (new \Swift_Message('Nouvelle demande !'))
-            ->setFrom('')
+            ->setFrom('kribiazakaria1@gmail.com')
             // email de la secretaire
-            ->setTo('')
-            ->setBody("Un laureat à déposé sa demande");
+            ->setTo('zikou_massari@live.fr')
+            ->setBody($email);
             $mailer->send($message);
 */
-            $this->addFlash('success', 'Demande ajoutée avec succes');
+            $this->addFlash('succes', 'Demande ajoutée avec succes');
 
            }
             else{

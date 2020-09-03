@@ -48,17 +48,5 @@ class SecretaireRepository extends ServiceEntityRepository
     }
     */
     
-    public function findEmail($id): string
-    {
-        $conn = $this->getEntityManager()->getConnection();
 
-        $sql = '
-        SELECT email FROM secretaire s
-        WHERE s.etablissement_id = :id
-        ';
-        $stmt = $conn->prepare($sql);
-        $stmt->execute(['id' => $id]);
-
-        return $stmt->fetchColumn();
-    }
 }

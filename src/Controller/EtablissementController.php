@@ -100,7 +100,7 @@ class EtablissementController extends AbstractController
     /**
      * @Route("/valide/demande/{id}", name="etablissement_valide", methods={"GET","POST"})
      */
-    public function valideDemande(DemandeRepository $demandeRepository,EtablissementRepository $etablissementRepository,$id,DiplomeRepository $diplomeRepository,LaureatRepository $laureatRepository, UserRepository $userRepository): Response
+    public function valideDemande(DemandeRepository $demandeRepository,EtablissementRepository $etablissementRepository,$id,DiplomeRepository $diplomeRepository,LaureatRepository $laureatRepository, UserRepository $userRepository,\Swift_Mailer $mailer): Response
     {
         $date = new \DateTime('now');
 
@@ -140,6 +140,18 @@ class EtablissementController extends AbstractController
 
         $diplomeRepository->updateDiplome($idDiplome,$fichier,$date);
 
+        /*
+        // L'envoi d'un Email au Laureat
+
+        $email = $userRepository->getEmailLaureat($idLaureat);
+        $message = (new \Swift_Message('Votre demande a bien été traitée'))
+        ->setFrom('')
+        // email de la secretaire
+        ->setTo($email)
+        ->setBody('Votre diplome a été Autentifié !');
+        $mailer->send($message);
+        */
+
         return $this->redirectToRoute('etablissement_profil', array(
             'id' => $idEtab));
     }
@@ -147,14 +159,24 @@ class EtablissementController extends AbstractController
     /**
      * @Route("/annuler/demande/{id}", name="etablissement_annuler", methods={"GET","POST"})
      */
-    public function annulerDemande(DemandeRepository $demandeRepository,EtablissementRepository $etablissementRepository,$id): Response
+    public function annulerDemande(DemandeRepository $demandeRepository,EtablissementRepository $etablissementRepository,UserRepository $userRepository,\Swift_Mailer $mailer,$id): Response
     {
-        $date = new \DateTime('now');
 
          $demandeRepository->annulerDemande($id,0);
 
         $idEtab = $demandeRepository->getEtab($id);
+        $idLaureat = $demandeRepository->getIdLaureat($id);
+/*
+        // L'envoi d'un Email au Laureat
 
+        $email = $userRepository->getEmailLaureat($idLaureat);
+        $message = (new \Swift_Message('Votre demande a été annulée'))
+            ->setFrom('')
+            // email de la secretaire
+            ->setTo($email)
+            ->setBody('Votre diplome a été annulé, car il ne respecte pas les régles de la direction !');
+        $mailer->send($message);
+*/
         return $this->redirectToRoute('etablissement_profil', array(
             'id' => $idEtab));
 

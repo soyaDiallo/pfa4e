@@ -92,4 +92,37 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
         // returns an array of arrays (i.e. a raw data set)
         return $stmt->fetchColumn();
     }
+
+    public function findEmail($id): string
+    {
+        $conn = $this->getEntityManager()->getConnection();
+
+        $sql = '
+        SELECT user.email        
+       FROM `user`
+       INNER JOIN secretaire
+       ON `user`.id = secretaire.id
+       INNER JOIN etablissement
+       ON secretaire.etablissement_id = etablissement.id
+       where etablissement.id = :id
+        ';
+        $stmt = $conn->prepare($sql);
+        $stmt->execute(['id' => $id]);
+
+        return $stmt->fetchColumn();
+    }
+
+    public function getEmailLaureat($id)
+    {
+        $conn = $this->getEntityManager()->getConnection();
+        $sql = '
+        SELECT email FROM `user` u
+        WHERE u.id = :id
+        ';
+        $stmt = $conn->prepare($sql);
+        $stmt->execute(['id' => $id]);
+
+        // returns an array of arrays (i.e. a raw data set)
+        return $stmt->fetchColumn();
+    }
 }
