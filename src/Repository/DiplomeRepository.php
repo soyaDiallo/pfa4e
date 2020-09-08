@@ -22,19 +22,19 @@ class DiplomeRepository extends ServiceEntityRepository
     // /**
     //  * @return Diplome[] Returns an array of Diplome objects
     //  */
-    /*
-    public function findByExampleField($value)
+    
+    public function findDiplomeByCodeField($value)
     {
         return $this->createQueryBuilder('d')
-            ->andWhere('d.exampleField = :val')
+            ->andWhere('d.code = :val')
             ->setParameter('val', $value)
             ->orderBy('d.id', 'ASC')
-            ->setMaxResults(10)
+            ->setMaxResults(1)
             ->getQuery()
             ->getResult()
         ;
     }
-    */
+    
 
     /*
     public function findOneBySomeField($value): ?Diplome

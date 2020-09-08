@@ -1,0 +1,64 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}laureat index{% endblock %}
+
+{% block body %}
+<div class="fx-section-space-8 bg-light">
+  <div class="container">
+    <div class="fx-card fx-card-tabs">
+        <div class="fx-card-head align-items-center">
+          <div class="fx-card-head-container">
+            <h3 class="fx-card-head-title text-capitalize">
+            Ajouter un laureat
+            </h3>
+          </div>
+          <div class="fx-card-head-toolbar">
+          <div>
+            {# <a href="{{ path('laureat_new') }}" class="btn btn-dark mb-0">
+              <i data-feather="plus" class="pr-1"></i>
+              <span class="pl-1 align-middle">Ajouter Nouveau</span>
+            </a> #}
+          </div>
+          </div>
+        </div>
+        <div class="fx-card-body">
+        <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Designation</th>
+                <th>Description</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for laureat in laureats %}
+            <tr>
+                <td>{{ laureat.nom }}</td>
+                <td>{{ laureat.prenom }}</td>
+                <td>{{ laureat.telephone }}</td>
+                <td>{{ laureat.datenaissance|date('Y-m-d') }}</td>
+                <td>{{ laureat.email }}</td>
+                <td>
+                  {# <a class="btn btn-brand btn-sm mb-0" href="{{ path('laureat_show', {'id': laureat.id}) }}">
+                    <i data-feather="eye" class="pr-1"></i>
+                    <span class="pl-1 align-middle"> show </span>
+                  </a>
+                  <a class="btn btn-warning btn-sm mb-0" href="{{ path('laureat_edit', {'id': laureat.id}) }}">
+                    <i data-feather="edit-3" class="pr-1"></i>
+                    <span class="pl-1 align-middle"> edit </span>
+                  </a> #}
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

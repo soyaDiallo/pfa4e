@@ -66,7 +66,7 @@ class DemandeRepository extends ServiceEntityRepository
 
         $sql = '
         Update demande
-        SET date_validation_de = :datee ,
+        SET date_validation_de = :datee,
         etat_directeur_gn = :etat
         WHERE id = :id
         ';

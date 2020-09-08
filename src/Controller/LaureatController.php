@@ -26,14 +26,49 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 
 /**
  * @Route("/laureat")
- * @IsGranted({"ROLE_LAUREAT"})
+ * @IsGranted({"ROLE_LAUREAT", "ROLE_ETABLISSEMENT"})
  */
 class LaureatController extends AbstractController
 {
 
+    // Show laureat Profile from Etablissment Account
     /**
-     * @Route("/{id}", name="laureat_delete", methods={"DELETE"})
-     */
+     * @Route("/", name="laureat_index", methods={"GET"})
+     * @IsGranted({"ROLE_ETABLISSEMENT"})
+    */
+    public function index(LaureatRepository $laureatRepository): Response
+    {
+        return $this->render('laureat/index.html.twig', [
+            'laureats' => $laureatRepository->findAll(),
+        ]);
+    }
+
+    // Edit laureat Profile from Etablissment Account
+    /**
+     * @Route("/new", name="laureat_new", methods={"GET","POST"})
+     * @IsGranted({"ROLE_ETABLISSEMENT"})
+    */
+    public function new(Request $request): Response
+    {
+        $laureat = new Laureat();
+        $form = $this->createForm(LaureatType::class, $laureat);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($laureat);
+            $entityManager->flush();
+            return $this->redirectToRoute('laureat_index');
+        }
+        return $this->render('laureat/new.html.twig', [
+            'laureat' => $laureat,
+            'form' => $form->createView(),
+        ]);
+    }
+
+    // Delete Laeaureat Account permanently 
+    /**
+    * @Route("/{id}", name="laureat_delete", methods={"DELETE"})
+    */
     public function delete(Request $request, Laureat $laureat): Response
     {
         if ($this->isCsrfTokenValid('delete'.$laureat->getId(), $request->request->get('_token'))) {
@@ -45,9 +80,11 @@ class LaureatController extends AbstractController
         return $this->redirectToRoute('laureat_index');
     }
 
-   /**
+    // Show Laureat Diplomes
+    /**
      * @Route("/profildip/{id}", name="laureat_diplome", methods={"GET"})
-     */
+     * @IsGranted({"ROLE_LAUREAT"})
+    */
     public function profildiplome(Laureat $laureat,LaureatRepository $laureatRepository,$id):Response
     {
         $diplomes = $laureatRepository->getDiplomesAuth($id);
@@ -55,7 +92,7 @@ class LaureatController extends AbstractController
         //dd($diplomes);
         if (empty($diplomes)) {
             $verif = 0;
-        }else{
+        } else {
             $verif = 1;
         }
 
@@ -69,6 +106,7 @@ class LaureatController extends AbstractController
     // Rechercher un etablissement + envoyer une demande (diplome)
     /**
      * @Route("/profiletab/{id}", name="laureat_etablissement", methods={"GET","POST"})
+     * @IsGranted({"ROLE_LAUREAT"})
      */
     public function profiletablissement(Laureat $laureat,Request $request,EtablissementRepository $etablissementRepository,\Swift_Mailer $mailer,UserRepository $userRepository):Response
     {
@@ -91,60 +129,57 @@ class LaureatController extends AbstractController
             {
                 $fileName = md5(uniqid()) . '.' . $file->guessExtension();
 
-            try {
-                $file->move($this->getParameter('diplome_directory'), $fileName);
-            } catch (FileException $e) {
-            }
+                try {
+                    $file->move($this->getParameter('diplome_directory'), $fileName);
+                } catch (FileException $e) {
+                    
+                }
 
-            // Ajout Diplome
-            $diplome->setFichier($fileName);
-            $diplome->setDateDepot(new \DateTime('now'));
-            $diplome->setCode(md5(uniqid()));
-
-
-
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($diplome);
-            $entityManager->flush();
-
-            // Ajout demande
-            $demande = new Demande();
-            $nomEtablissement = $request->request->get("id");
-
-            $id = $etablissementRepository->findIdEtablissement($nomEtablissement);
-
-            $repository = $this->getDoctrine()->getManager()->getRepository(Etablissement::class);
-             $etablissementss = $repository->find(intval($id));
+                // Ajout Diplome
+                $diplome->setFichier($fileName);
+                $diplome->setDateDepot(new \DateTime('now'));
+                $diplome->setCode(md5(uniqid()));
 
 
-             $demande->setEtablissement($etablissementss);
-             $demande->setDiplome($diplome);
-             $demande->setLaureat($laureat);
+                $entityManager = $this->getDoctrine()->getManager();
+                $entityManager->persist($diplome);
+                $entityManager->flush();
+
+                // Ajout demande
+                $demande = new Demande();
+                $nomEtablissement = $request->request->get("id");
+
+                $id = $etablissementRepository->findIdEtablissement($nomEtablissement);
+
+                $repository = $this->getDoctrine()->getManager()->getRepository(Etablissement::class);
+                $etablissementss = $repository->find(intval($id));
+
+                $demande->setEtablissement($etablissementss);
+                $demande->setDiplome($diplome);
+                $demande->setLaureat($laureat);
             
+                $entityManager->persist($demande);
+                $entityManager->flush();
 
-             $entityManager->persist($demande);
-             $entityManager->flush();
+                // L'envoi d'un Email au secretaire
 
-            // L'envoi d'un Email au secretaire
+                /*
+                $email = $userRepository->findEmail(intval($id));
+                $message = (new \Swift_Message('Nouvelle demande !'))
+                ->setFrom('kribiazakaria1@gmail.com')
+                // email de la secretaire
+                ->setTo('zikou_massari@live.fr')
+                ->setBody($email);
+                $mailer->send($message);
+                */
+                $this->addFlash('succes', 'Demande ajoutée avec succes');
 
-            /*
-            $email = $userRepository->findEmail(intval($id));
-            $message = (new \Swift_Message('Nouvelle demande !'))
-            ->setFrom('kribiazakaria1@gmail.com')
-            // email de la secretaire
-            ->setTo('zikou_massari@live.fr')
-            ->setBody($email);
-            $mailer->send($message);
-*/
-            $this->addFlash('succes', 'Demande ajoutée avec succes');
-
-           }
+            }
             else{
                 $this->addFlash('erreur', 'Erreur, probléme de format');
             }
 
-            return $this->redirectToRoute('laureat_etablissement', array(
-                'id' => $laureat->getId()));
+            return $this->redirectToRoute('laureat_etablissement', array('id' => $laureat->getId()));
         }
         
         return $this->render('laureat/profilEtab.html.twig',[
@@ -155,8 +190,10 @@ class LaureatController extends AbstractController
         ]);
     }
 
+    // Edit Laureat Account
     /**
      * @Route("/profilmodif/{id}", name="laureat_modif", methods={"GET","POST"})
+     * @IsGranted({"ROLE_LAUREAT"})
      */
     public function profilmodification(Laureat $laureat,Request $request,EtablissementRepository $etablissementRepository):Response
     {
@@ -170,35 +207,10 @@ class LaureatController extends AbstractController
 
     }
 
-    // Modifier le profil de laureat
-    /**
-     * @Route("/profilmodifier/{id}", name="laureat_modifier", methods={"GET","POST"})
-     */
-    public function profilmodifier(Laureat $laureat,Request $request):Response
-    {
-        $form = $this->createForm(LaureatType::class, $laureat);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-
-            $file = $form['photoUrl']->getData();
-            $fileName = md5(uniqid()).'.'.$file->guessExtension();
-
-            try{
-                $file->move($this->getParameter('image_directory'),$fileName);
-            }catch (FileException $e){
-
-            }
-
-            $laureat->setPhotoUrl($fileName);
-            $this->getDoctrine()->getManager()->flush();
-            $this->addFlash('success', 'Le compte a été modifié avec succes');
-            return $this->redirectToRoute('laureat_apropos',array('id' => $laureat->getId()));
-        }
-    }
-
+    //  Laureat Account Information
     /**
      * @Route("/profilapropos/{id}", name="laureat_apropos", methods={"GET"})
+     * @IsGranted({"ROLE_LAUREAT"})
      */
     public function profilapropos(Laureat $laureat):Response
     {

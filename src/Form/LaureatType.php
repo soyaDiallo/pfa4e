@@ -17,7 +17,6 @@ class LaureatType extends AbstractType
             ->add('pseudo')
             ->add('nom')
             ->add('prenom')
-            ->add('password')
             ->add('addresse')
             ->add('email')
             ->add('telephone')

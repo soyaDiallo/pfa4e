@@ -39,7 +39,6 @@ class UserFixtures extends Fixture
         $etablissement->setDeleted(false);
         $etablissement->setRoles(["ROLE_ETABLISSEMENT"]);
         $etablissement->setNomEtablissement('Etablissement Test');
-        $etablissement->setLogo('test');
         $etablissement->setPays($pays);
         $etablissement->setPhotourl('https://d1csarkz8obe9u.cloudfront.net/posterpreviews/modern-school-logo-design-template-1d88683e857f70116bf3ba828be9a84e_screen.jpg?ts=1576966343');
 
@@ -57,7 +56,6 @@ class UserFixtures extends Fixture
         $entreprise->setDeleted(false);
         $entreprise->setRoles(["ROLE_ENTREPRISE"]);
         $entreprise->setNomEntreprise('Entreprise Test');
-        $entreprise->setLogo('test');
 
         $manager->persist($entreprise);
 
