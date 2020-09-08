@@ -9,7 +9,6 @@ use App\Form\DemandeSecretaireStatusType;
 use App\Form\DemandeDirecteurStatusType;
 use App\Form\DemandeEtablStatusType;
 use App\Repository\DemandeRepository;
-use App\Repository\ DiplomeRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -117,7 +116,7 @@ class DemandeController extends AbstractController
      * @Route("/{id}/edit", name="validate_demande", methods={"GET","POST"})
      * @IsGranted({"ROLE_ETABLISSEMENT", "ROLE_SECRETAIRE", "ROLE_DIRECTEUR"})
     */
-    public function edit(Request $request, Demande $demande, DiplomeRepository $diplomeRepository): Response {
+    public function edit(Request $request, Demande $demande): Response {
         if(!$demande){
           $demande = new Demande();
         }
@@ -152,7 +151,6 @@ class DemandeController extends AbstractController
             $form = $this->createForm(DemandeEtablStatusType::class, $demande);
             $form->handleRequest($request);
             // dd($demande->getDiplome()->getDateObtention());
-            // $diplome = $diplomeRepository->findDiplomeByCodeField($demande->diplome); 
             if ($form->isSubmitted() && $form->isValid()) {
               $demande->setDateValidationDE(new \DateTime());
               $demande->setDiplome($demande->getDiplome()->setDateObtention(new \DateTime()));

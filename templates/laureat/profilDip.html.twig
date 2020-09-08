@@ -20,32 +20,50 @@
           </div> 
           <!-- card Body -->
           <div class="fx-card-body"> 
-            <h5 class="card-title">Information</h5> 
+            <h5 class="card-title mb-5">Information</h5> 
             
             {% if verif == 0 %}
               <div class="card-body">
                 <p>Aucun diplome trouvé.</p>
               </div>
             {% endif %}
+            <div class="row">
             {% for diplomes in diplomesAuth %}
-              {% if diplomes.date_obtention is null %}
-                <div class="card-body">
-                  <a>
-                    <img src="{{ asset('images/pdff.png') }}" style="width: 6%;height: 6%">
-                  </a>
-                  <b style="color: grey">Diplome En cours</b>
-                </div>
-              {% else %}
-                <div class="card-body">
-                  <a href="{{ asset('uploads/DiplomesAuthentifies/'~diplomes.fichier ) }}" target="_blanck">
-                    <img src="{{ asset('images/pdff.png') }}" style="width: 6%;height: 6%">
-                  </a>
-                  <b style="color: #5578eb">Diplome Authentifié <i class="fas fa-check-circle"></i></b>
-                  <b style="margin-left: 55%;color: grey;font-size: small">{{ diplomes.date_obtention }}</b>
-                </div>
-              {% endif %}
+              <!-- Card -->
+              <div class="col-sm-6 col-md-6">
+                {% if diplomes.date_obtention is null %}
+                  <div class="card-body">
+                    <a>
+                      <img src="{{ asset('images/pdff.png') }}" style="width: 6%;height: 6%">
+                    </a>
+                    <b style="color: grey">Diplome En cours</b>
+                  </div>
+                {% else %}
+                  <div class="fx-card border rounded mb-5">
+                    <div class="fx-card-body">
+                      <div class="text-center mb-4">
+                        <a href="{{ asset('uploads/DiplomesAuthentifies/'~diplomes.fichier ) }}" target="_blanck">
+                          <div class="fx-avatar fx-avatar-circle fx-avatar-bordered shadow-lg d-inline-block fx-avatar-lg text-center fx-bg-success">
+                            <i data-feather="download" class="text-light align-items-center h-100"></i>
+                          </div>
+                        </a>
+                        <h3 class="h6 fx-text-bold fx-text-dark mt-5 mb-3">
+                          <i data-feather="check" class="text-success" width="18" height="18"></i>
+                          <span class="pl-2"> Diplome Authentifié </span>
+                        </h3>
+                        <p class="mb-2">
+                          <a href="#" class="fx-font-size-1 text-secondary">
+                            <i data-feather="calendar" class="align-middle" width="18" height="18"></i>
+                            <span class="align-middle pr-4">{{ diplomes.date_obtention }}</span>
+                          </a>
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                {% endif %}
+              </div>
             {% endfor %}
-            
+            </div><!-- ./End Row -->
           </div>
         </div>
       </div><!-- ./End Col -->
