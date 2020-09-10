@@ -1,4 +1,99 @@
 {{ form_start(form) }}
-    {{ form_widget(form) }}
-    <button class="btn">{{ button_label|default('Save') }}</button>
+    <div class="row">
+        <!-- Name -->
+        <div class="col col-md-6 mb-5">
+            <label for="laureat-nom" class="fx-text-dark h5 col-form-label-lg"> 
+                {{ form_label(form.nom, 'Laureat Nom :') }} 
+            </label>
+            {{ form_widget(form.nom, {'attr': {'class': 'from-control form-control-lg', 'id': 'laureat-nom'}}) }}
+        </div>
+        <!-- Prenom -->
+        <div class="col col-md-6 mb-5">
+            <label for="laureat-prenom" class="fx-text-dark h5 col-form-label-lg"> 
+                {{ form_label(form.prenom, 'Laureat prenom :') }} 
+            </label>
+            {{ form_widget(form.prenom, {'attr': {'class': 'from-control form-control-lg', 'id': 'laureat-prenom'}}) }}
+        </div>
+        <!-- Pseudo -->
+        <div class="col col-md-6 mb-5">
+            <label for="laureat-pseudo" class="fx-text-dark h5 col-form-label-lg"> 
+                {{ form_label(form.pseudo, 'Laureat Pseudo Name :') }} 
+            </label>
+            {{ form_widget(form.pseudo, {'attr': {'class': 'from-control form-control-lg', 'id': 'laureat-pseudo'}}) }}
+        </div>
+        <!-- addresse -->
+        <div class="col col-md-6 mb-5">
+            <label for="laureat-addresse" class="fx-text-dark h5 col-form-label-lg"> 
+                {{ form_label(form.addresse, 'Laureat addresse Name :') }} 
+            </label>
+            {{ form_widget(form.addresse, {'attr': {'class': 'from-control form-control-lg', 'id': 'laureat-addresse'}}) }}
+        </div>
+        <!-- email -->
+        <div class="col col-md-6 mb-5">
+            <label for="laureat-email" class="fx-text-dark h5 col-form-label-lg"> 
+                {{ form_label(form.email, 'adresse email :') }} 
+            </label>
+            {{ form_widget(form.email, {'attr': {'class': 'from-control form-control-lg', 'id': 'laureat-email'}}) }}
+        </div>
+        <!-- telephone -->
+        <div class="col col-md-6 mb-5">
+            <label for="laureat-telephone" class="fx-text-dark h5 col-form-label-lg"> 
+                {{ form_label(form.telephone, 'telephone :') }} 
+            </label>
+            {{ form_widget(form.telephone, {'attr': {'class': 'from-control form-control-lg', 'id': 'laureat-telephone'}}) }}
+        </div>
+        <!-- password -->
+        <div class="col col-md-6 mb-5">
+            <label for="laureat-password" class="fx-text-dark h5 col-form-label-lg"> 
+                {{ form_label(form.password, 'Mot de passe :') }} 
+            </label>
+            {{ form_widget(form.password, {'attr': {'class': 'from-control form-control-lg', 'id': 'laureat-password'}}) }}
+        </div>
+        <!-- datenaissance -->
+        <div class="col col-md-6 mb-5">
+            <label for="laureat-datenaissance" class="fx-text-dark h5 col-form-label-lg"> 
+                {{ form_label(form.datenaissance, 'Date De Naissance :') }} 
+            </label>
+            {{ form_widget(form.datenaissance, {'attr': {'class': 'from-control form-control-lg', 'id': 'laureat-datenaissance'}}) }}
+        </div>
+        <!-- cinNumSejour -->
+        <div class="col col-md-6 mb-5">
+            <label for="laureat-cinNumSejour" class="fx-text-dark h5 col-form-label-lg"> 
+                {{ form_label(form.cinNumSejour, 'Cin :') }} 
+            </label>
+            {{ form_widget(form.cinNumSejour, {'attr': {'class': 'from-control form-control-lg', 'id': 'laureat-cinNumSejour'}}) }}
+        </div>
+        <!-- lieuNaissance -->
+        <div class="col col-md-6 mb-5">
+            <label for="laureat-lieuNaissance" class="fx-text-dark h5 col-form-label-lg"> 
+                {{ form_label(form.lieuNaissance, 'Lieu de Naissance :') }} 
+            </label>
+            {{ form_widget(form.lieuNaissance, {'attr': {'class': 'from-control form-control-lg', 'id': 'laureat-lieuNaissance'}}) }}
+        </div>
+        <!-- nationalite -->
+        <div class="col col-md-6 mb-5">
+            <label for="laureat-nationalite" class="fx-text-dark h5 col-form-label-lg"> 
+                {{ form_label(form.nationalite, 'Nationalité :') }} 
+            </label>
+            {{ form_widget(form.nationalite, {'attr': {'class': 'from-control form-control-lg', 'id': 'laureat-nationalite'}}) }}
+        </div>
+        <!-- nomArabe -->
+        <div class="col col-md-6 mb-5">
+            <label for="laureat-nomArabe" class="fx-text-dark h5 col-form-label-lg"> 
+                {{ form_label(form.nomArabe, 'Nom en Arabe :') }} 
+            </label>
+            {{ form_widget(form.nomArabe, {'attr': {'id': 'laureat-nomArabe'}}) }}
+        </div>
+        <!-- prenomArabe -->
+        <div class="col col-md-6 mb-5">
+            <label for="laureat-prenomArabe" class="fx-text-dark h5 col-form-label-lg"> 
+                {{ form_label(form.prenomArabe, 'Prenom Arabe :') }} 
+            </label>
+            {{ form_widget(form.prenomArabe, {'attr': {'id': 'laureat-prenomArabe'}}) }}
+        </div>
+    </div><!-- ./Row -->
+    <button class="btn btn-widest btn-tall btn-primary">
+        <i data-feather="save" class="pr-1"></i>
+        <span class="pr-2">{{ button_label|default('Enregistrer') }}</span>
+    </button>
 {{ form_end(form) }}

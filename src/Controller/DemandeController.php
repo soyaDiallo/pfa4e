@@ -68,47 +68,44 @@ class DemandeController extends AbstractController
     public function new(Request $request): Response {
     	// Setting appropriate user type
         switch ($this->getUser()) {
-            case $this->isGranted('ROLE_LAUREAT'):
-                $demande = new Demande();
-                $form = $this->createForm(DemandeLaureatType::class, $demande);
-                $form->handleRequest($request);
+          case $this->isGranted('ROLE_LAUREAT'):
+            $demande = new Demande();
+            $form = $this->createForm(DemandeLaureatType::class, $demande);
+            $form->handleRequest($request);
 
-                if ($form->isSubmitted() && $form->isValid()) {
-                    $demande->setLaureat($this->getUser());
-                    $entityManager = $this->getDoctrine()->getManager();
-                    $entityManager->persist($demande);
-                    $entityManager->flush();
+            if ($form->isSubmitted() && $form->isValid()) {
+              $demande->setLaureat($this->getUser());
+              $entityManager = $this->getDoctrine()->getManager();
+              $entityManager->persist($demande);
+              $entityManager->flush();
+              return $this->redirectToRoute('demande_index');
+            }
 
-                    return $this->redirectToRoute('demande_index');
-                }
+            return $this->render('demande/laureat_new.html.twig', [
+              'demande' => $demande,
+              'form' => $form->createView(),
+            ]);   
+            break;
+          case $this->isGranted('ROLE_ENTREPRISE'):
+            $demande = new Demande();
+            $form = $this->createForm(DemandeEntrepriseType::class, $demande);
+            $form->handleRequest($request);
 
-                return $this->render('demande/laureat_new.html.twig', [
-                    'demande' => $demande,
-                    'form' => $form->createView(),
-                ]);   
-                break;
-            case $this->isGranted('ROLE_ENTREPRISE'):
-                $demande = new Demande();
-		        $form = $this->createForm(DemandeEntrepriseType::class, $demande);
-		        $form->handleRequest($request);
+            if ($form->isSubmitted() && $form->isValid()) {
+              $demande->setEntreprise($this->getUser());
+              $entityManager = $this->getDoctrine()->getManager();
+              $entityManager->persist($demande);
+              $entityManager->flush();
+              return $this->redirectToRoute('demande_index');
+            }
 
-		        if ($form->isSubmitted() && $form->isValid()) {
-		        	$demande->setEntreprise($this->getUser());
-		            $entityManager = $this->getDoctrine()->getManager();
-		            $entityManager->persist($demande);
-		            $entityManager->flush();
-
-		            return $this->redirectToRoute('demande_index');
-		        }
-
-		        return $this->render('demande/entreprise_new.html.twig', [
-		            'demande' => $demande,
-		            'form' => $form->createView(),
-		        ]);      
-                break;                            
-            default:
-                
-                break;
+          return $this->render('demande/entreprise_new.html.twig', [
+            'demande' => $demande,
+            'form' => $form->createView(),
+          ]);      
+          break;                            
+        default:
+          break;
         }
     }
     

@@ -22,13 +22,15 @@
           </div>
         </div>
         <div class="fx-card-body">
-        <table class="table">
+        <table class="table table-bordered">
         <thead>
             <tr>
-                <th>Id</th>
-                <th>Designation</th>
-                <th>Description</th>
-                <th>actions</th>
+                <th>Nom</th>
+                <th>Prenom</th>
+                <th>Telephone</th>
+                <th>Date De Naissance</th>
+                <th>Email</th>
+                <th>Actions</th>
             </tr>
         </thead>
         <tbody>
@@ -39,15 +41,11 @@
                 <td>{{ laureat.telephone }}</td>
                 <td>{{ laureat.datenaissance|date('Y-m-d') }}</td>
                 <td>{{ laureat.email }}</td>
-                <td>
-                  {# <a class="btn btn-brand btn-sm mb-0" href="{{ path('laureat_show', {'id': laureat.id}) }}">
-                    <i data-feather="eye" class="pr-1"></i>
-                    <span class="pl-1 align-middle"> show </span>
+                <td class="text-center">
+                  <a class="btn btn-danger btn-sm mb-0" href="{{ path('laureat_delete', {'id': laureat.id}) }}">
+                    <i data-feather="trash" class="pr-1"></i>
+                    <span class="pl-1 align-middle"> delete </span>
                   </a>
-                  <a class="btn btn-warning btn-sm mb-0" href="{{ path('laureat_edit', {'id': laureat.id}) }}">
-                    <i data-feather="edit-3" class="pr-1"></i>
-                    <span class="pl-1 align-middle"> edit </span>
-                  </a> #}
                 </td>
             </tr>
         {% else %}

@@ -54,10 +54,7 @@ class LaureatController extends AbstractController
         $form = $this->createForm(LaureatType::class, $laureat);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($laureat);
-            $entityManager->flush();
-            return $this->redirectToRoute('laureat_index');
+            dd($request);
         }
         return $this->render('laureat/new.html.twig', [
             'laureat' => $laureat,

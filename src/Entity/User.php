@@ -91,7 +91,7 @@ class User implements UserInterface
     protected $pseudo;
 
     /**
-     * @ORM\Column(type="boolean")
+     * @ORM\Column(type="boolean", options={"default": "0"})
      */
     protected $deleted;
 

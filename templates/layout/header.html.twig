@@ -57,10 +57,10 @@
             <!-- Sub -->
             <ul class="mn-sub to-left py-4">
               <li>
-                <a href="/laureat/">Afficher les laureats</a>
+                <a href="{{path('laureat_index')}}">Afficher les laureats</a>
               </li>
               <li>
-                <a href="/laureat/new">Ajouter un laureat</a>
+                <a href="{{path('laureat_new')}}">Ajouter un laureat</a>
               </li>
             </ul>
             <!-- ./End Sub -->
@@ -195,9 +195,9 @@
               <li>
                 <a href="/demande/">afficher mes demandes</a>
               </li>
-              <li>
+              {# <li>
                 <a href="/demande/new">ajouter une demande</a>
-              </li>
+              </li> #}
             </ul>
             <!-- ./End Sub -->
           </li>
