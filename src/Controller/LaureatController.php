@@ -43,7 +43,7 @@ class LaureatController extends AbstractController
         ]);
     }
 
-    // Edit laureat Profile from Etablissment Account
+    // Add New Laureta Account from Etablissment Account
     /**
      * @Route("/new", name="laureat_new", methods={"GET","POST"})
      * @IsGranted({"ROLE_ETABLISSEMENT"})

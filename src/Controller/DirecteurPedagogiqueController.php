@@ -14,10 +14,41 @@ use Symfony\Component\HttpFoundation\File\Exception\FileException;
 
 /**
  * @Route("/directeurPedagogique")
- * @IsGranted({"ROLE_DIRECTEUR"})
+ * @IsGranted({"ROLE_DIRECTEUR","ROLE_ETABLISSEMENT"})
  */
 class DirecteurPedagogiqueController extends AbstractController
 {
+
+    // Show DirecteurProfile from Etablissment Account
+    /**
+     * @Route("/", name="directeur_pedagogique_index", methods={"GET"})
+     * @IsGranted({"ROLE_ETABLISSEMENT"})
+    */
+    public function index(DirecteurPedagogiqueRepository $directeurPedagogique): Response
+    {
+        return $this->render('directeur_pedagogique/index.html.twig', [
+            'directeurs_pedagogiques' => $directeurPedagogique->findAll(),
+        ]);
+    }
+
+    // Add New Directeur Account from Etablissment Account
+    /**
+     * @Route("/new", name="directeur_pedagogique_new", methods={"GET","POST"})
+     * @IsGranted({"ROLE_ETABLISSEMENT"})
+    */
+    public function new(Request $request): Response
+    {
+        $directeur = new DirecteurPedagogique();
+        $form = $this->createForm(DirecteurPedagogiqueType::class, $directeur);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            dd($request);
+        }
+        return $this->render('directeur_pedagogique/new.html.twig', [
+            'directeurs_pedagogiques' => $directeur,
+            'form' => $form->createView(),
+        ]);
+    }
 
     /**
      * @Route("/profile/{id}", name="directeur_pedagogique_show", methods={"GET"})

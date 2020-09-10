@@ -34,10 +34,10 @@ class DirecteurPedagogique extends User
         $this->demandes = new ArrayCollection();
     }
 
-     public function __toString()
-     {
-         return $this->nom;
-     }
+    public function __toString()
+    {
+        return $this->nom;
+    }
     
     /**
      * @return Collection|Demande[]
