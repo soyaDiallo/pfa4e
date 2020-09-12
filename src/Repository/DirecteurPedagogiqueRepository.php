@@ -47,4 +47,19 @@ class DirecteurPedagogiqueRepository extends ServiceEntityRepository
         ;
     }
     */
+
+    public function getIdEtab($id): string
+    {
+        $conn = $this->getEntityManager()->getConnection();
+        $sql = '
+       SELECT etablissement_id
+       FROM directeur_pedagogique
+       where directeur_pedagogique.id = :id
+        ';
+        $stmt = $conn->prepare($sql);
+        $stmt->execute(['id' => $id]);
+
+        // returns an array of arrays (i.e. a raw data set)
+        return $stmt->fetchColumn();
+    }
 }

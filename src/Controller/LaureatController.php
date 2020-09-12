@@ -197,6 +197,23 @@ class LaureatController extends AbstractController
         $form = $this->createForm(LaureatType::class, $laureat);
         $form->handleRequest($request);
 
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $file = $form['photoUrl']->getData();
+            $fileName = md5(uniqid()).'.'.$file->guessExtension();
+
+            try{
+                $file->move($this->getParameter('image_directory'),$fileName);
+            }catch (FileException $e){
+
+            }
+
+            $laureat->setPhotoUrl($fileName);
+            $this->getDoctrine()->getManager()->flush();
+            $this->addFlash('success', 'Le compte a été modifié avec succes');
+            return $this->redirectToRoute('laureat_apropos',array('id' => $laureat->getId()));
+        }
+
         return $this->render('laureat/profilModif.html.twig', [
             'laureat' => $laureat,
             'form' => $form->createView(),

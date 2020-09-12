@@ -1,0 +1,105 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}My Profil{% endblock %}
+
+{% block body %}
+
+    <div class="bg-light py-5">
+        <div class="container">
+            <div class="row">
+                <!-- Include Profile Information -->
+                <div class="col-lg-4">
+                    {{ include('directeur_pedagogique/layout/_profile_information.html.twig') }}
+                </div><!-- ./End Col -->
+
+                <div class="col-lg-8">
+                    <div class="fx-card fx-card-tabs">
+                        <!-- Include Profile Navigation-->
+                        <div class="fx-card-head">
+                            {{ include('directeur_pedagogique/layout/_profile_navigation.html.twig') }}
+                        </div>
+                        <!-- card Body -->
+                        <div class="fx-card-body">
+                            <div >
+                                <h2>Demandes</h2>
+                                <table class="table">
+                                    <thead>
+                                    <tr>
+                                        <th>Fichier</th>
+                                        <th>DateValidationSecretaire</th>
+                                        <th>DateValidationDP</th>
+                                        <th>DateValidationDE</th>
+                                        <th>actions</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    {% for demande in demandes %}
+                                        <tr>
+                                            <td>
+                                                {% if demande.etat_directeur_gn == 2 %}
+                                                    <a href="{{ asset('uploads/DiplomeLaureat/'~demande.fichier ) }}" target="_blanck">
+                                                        <i class="fas fa-file-pdf"></i>
+                                                    </a>
+                                                {% elseif demande.etat_directeur_gn == 1 %}
+                                                    <a href="{{ asset('uploads/DiplomesAuthentifies/'~demande.fichier ) }}" target="_blanck">
+                                                        <i class="fas fa-file-pdf"></i>
+                                                    </a>
+                                                {% else  %}
+                                                    <a href="{{ asset('uploads/DiplomeLaureat/'~demande.fichier ) }}" target="_blanck">
+                                                        <i class="fas fa-file-pdf"></i>
+                                                    </a>
+                                                {% endif %}
+                                            </td>
+
+                                            <td>
+                                                {{ demande.date_validation_secretaire ? demande.date_validation_secretaire|date('Y-m-d') : '' }}
+                                                {% if demande.etat_secretaire == 0 %}
+                                                    <span class="badge badge-danger">Annulée</span>
+                                                {% elseif  demande.etat_secretaire == 1 %}
+                                                    <span class="badge badge-success">Validée</span>
+                                                    {% endif %}
+                                            </td>
+                                            <td>{{ demande.date_validation_dp ? demande.date_validation_dp|date('Y-m-d') : '' }}</td>
+                                            <td>
+                                                {{ demande.date_validation_de ? demande.date_validation_de|date('Y-m-d') : '' }}
+                                                {% if demande.etat_directeur_gn == 0 %}
+                                                    <span class="badge badge-danger">Annulée</span>
+                                                {% elseif demande.etat_directeur_gn == 1 %}
+                                                    <span class="badge badge-success">Validée</span>
+                                                {% endif %}
+                                            </td>
+                                            {% if demande.etat_directeur_pd == 2  %}
+                                                <td>
+
+                                                    <a href="{{ path('directeurP_valide', {'id': demande.id, 'dir':directeur_pedagogique.id}) }}">
+                                                        <button type="button" class="btn btn-success btn-sm">Valider</button>
+                                                    </a>
+
+                                                    <a href="{{ path('directeurP_annuler', {'id': demande.id, 'dir':directeur_pedagogique.id}) }}">
+                                                        <button type="button" class="btn btn-danger btn-sm">Annuler</button>
+                                                    </a>
+                                                </td>
+
+                                            {% elseif demande.etat_directeur_pd == 0 %}
+                                                <td><span class="badge badge-danger">Anulée</span></td>
+                                            {% elseif demande.etat_directeur_pd == 1 %}
+                                                <td><span class="badge badge-success">Validée</span></td>
+
+                                            {% endif %}
+                                        </tr>
+                                    {% else %}
+                                        <tr>
+                                            <td colspan="6">Aucune demande trouvée.</td>
+                                        </tr>
+                                    {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+
+                        </div>
+                    </div><!-- ./End Col -->
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

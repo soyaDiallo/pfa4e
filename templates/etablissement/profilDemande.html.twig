@@ -21,10 +21,65 @@
           <!-- card Body -->
           <div class="fx-card-body"> 
             <div >
-              <h2>Demande</h2>
-      <a class="btn btn-dark" href="{{ path('etablissement_index2', {'id': etablissement.id}) }}">
-      <i class="mr-2" data-feather="edit"></i>Validate request 
-      </a>
+              <h2>Demandes</h2>
+              <table class="table">
+                <thead>
+                <tr>
+                  <th>DateValidationSecretaire</th>
+                  <th>DateValidationDP</th>
+                  <th>DateValidationDE</th>
+                  <th>actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for demande in demandes %}
+                  <tr>
+
+                    <td>
+                        {{ demande.dateValidationSecretaire ? demande.dateValidationSecretaire|date('Y-m-d') : '' }}
+                        {% if demande.EtatSecretaire == 0 %}
+                          <span class="badge badge-danger">Annulée</span>
+                        {% elseif demande.EtatSecretaire == 1 %}
+                          <span class="badge badge-success">Validée</span>
+                        {% endif %}
+                    </td>
+
+                    <td>
+                        {{ demande.dateValidationDP ? demande.dateValidationDP|date('Y-m-d') : '' }}
+                        {% if demande.EtatDirecteurPd == 0 %}
+                          <span class="badge badge-danger">Annulée</span>
+                        {% elseif demande.EtatDirecteurPd == 1 %}
+                          <span class="badge badge-success">Validée</span>
+                        {% endif %}
+                    </td>
+
+                    <td>{{ demande.dateValidationDE ? demande.dateValidationDE|date('Y-m-d') : '' }}</td>
+                      {% if demande.etatDirecteurGn == 2  %}
+                        <td>
+
+                          <a href="{{ path('etablissement_valide', {'id': demande.id}) }}">
+                            <button type="button" class="btn btn-success btn-sm">Valider </button>
+                          </a>
+
+                          <a href="{{ path('etablissement_annuler', {'id': demande.id}) }}">
+                            <button type="button" class="btn btn-danger btn-sm">Annuler</button>
+                          </a>
+                        </td>
+
+                      {% elseif demande.etatDirecteurGn == 0 %}
+                        <td><span class="badge badge-danger">Anulée</span></td>
+                      {% elseif demande.etatDirecteurGn == 1 %}
+                        <td><span class="badge badge-success">Validée</span></td>
+
+                      {% endif %}
+                  </tr>
+                {% else %}
+                  <tr>
+                    <td colspan="6">Aucune demande trouvée.</td>
+                  </tr>
+                {% endfor %}
+                </tbody>
+              </table>
             </div>
           </div>
         </div>

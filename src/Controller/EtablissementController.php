@@ -92,8 +92,10 @@ class EtablissementController extends AbstractController
      public function index2(DemandeRepository $demandeRepository,$id): Response
      {
 
-         return $this->render('etablissement/index2.html.twig', [
-             'demandes' => $demandeRepository->findBy(['etablissement' => $id]),
+
+         return $this->render('etablissement/profilDemande.html.twig', [
+             'demandes' => $demandeRepository->findBy(['etablissement' => $id])
+
          ]);
      }
 
@@ -161,11 +163,14 @@ class EtablissementController extends AbstractController
      */
     public function annulerDemande(DemandeRepository $demandeRepository,EtablissementRepository $etablissementRepository,UserRepository $userRepository,\Swift_Mailer $mailer,$id): Response
     {
+        $date = new \DateTime('now');
 
-         $demandeRepository->annulerDemande($id,0);
+
 
         $idEtab = $demandeRepository->getEtab($id);
         $idLaureat = $demandeRepository->getIdLaureat($id);
+
+        $demandeRepository->annulerDemande($id,0,$date);
 /*
         // L'envoi d'un Email au Laureat
 
@@ -235,12 +240,12 @@ class EtablissementController extends AbstractController
      /**
   * @Route("/profildemande/{id}", name="etablissement_demande", methods={"GET","POST"})
   */
-     public function profildemande(etablissement $etablissement):Response
+     public function profildemande(Etablissement $etablissement,DemandeRepository $demandeRepository,$id):Response
      {
-        
 
          return $this->render('etablissement/profildemande.html.twig',[
-           'etablissement' => $etablissement
+             'etablissement' => $etablissement,
+             'demandes' => $demandeRepository->findBy(['etablissement' => $id])
          ]);
      }
 }
