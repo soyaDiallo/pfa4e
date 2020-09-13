@@ -238,4 +238,23 @@ class DemandeRepository extends ServiceEntityRepository
         return true;
     }
 
+    public function getDiplomesEtab($id)
+    {
+        $conn = $this->getEntityManager()->getConnection();
+
+        $sql = '
+        SELECT demande.id,date_validation_secretaire,date_validation_dp,date_validation_de,etat_secretaire,etat_directeur_pd,etat_directeur_gn,diplome.fichier
+       FROM demande 
+       INNER JOIN etablissement 
+       ON demande.etablissement_id = etablissement.id 
+       INNER JOIN diplome
+       ON demande.diplome_id = diplome.id 
+       where etablissement.id = :id
+        ';
+        $stmt = $conn->prepare($sql);
+        $stmt->execute(['id' => $id]);
+
+        return $stmt->fetchAll();;
+    }
+
 }

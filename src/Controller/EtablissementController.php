@@ -93,8 +93,9 @@ class EtablissementController extends AbstractController
      {
 
 
+
          return $this->render('etablissement/profilDemande.html.twig', [
-             'demandes' => $demandeRepository->findBy(['etablissement' => $id])
+             'demandes' => $demandeRepository->getDiplomesEtab($id)
 
          ]);
      }
@@ -245,7 +246,7 @@ class EtablissementController extends AbstractController
 
          return $this->render('etablissement/profildemande.html.twig',[
              'etablissement' => $etablissement,
-             'demandes' => $demandeRepository->findBy(['etablissement' => $id])
+             'demandes' => $demandeRepository->getDiplomesEtab($id)
          ]);
      }
 }

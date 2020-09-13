@@ -9,7 +9,7 @@
     <div class="row">
       <!-- Include Profile Information -->
       <div class="col-lg-4">
-        {{ include('etablissement/_profile_information.html.twig') }}
+          {{ include('etablissement/layout/_profile_information.html.twig') }}
       </div><!-- ./End Col -->
 
       <div class="col-lg-8">
@@ -25,6 +25,7 @@
               <table class="table">
                 <thead>
                 <tr>
+                  <th>Fichier</th>
                   <th>DateValidationSecretaire</th>
                   <th>DateValidationDP</th>
                   <th>DateValidationDE</th>
@@ -34,27 +35,42 @@
                 <tbody>
                 {% for demande in demandes %}
                   <tr>
+                    <td>
+                        {% if demande.etat_directeur_gn == 2 %}
+                          <a href="{{ asset('uploads/DiplomeLaureat/'~demande.fichier ) }}" target="_blanck">
+                            <i class="fas fa-file-pdf"></i>
+                          </a>
+                        {% elseif demande.etat_directeur_gn == 1 %}
+                          <a href="{{ asset('uploads/DiplomesAuthentifies/'~demande.fichier ) }}" target="_blanck">
+                            <i class="fas fa-file-pdf"></i>
+                          </a>
+                        {% else  %}
+                          <a href="{{ asset('uploads/DiplomeLaureat/'~demande.fichier ) }}" target="_blanck">
+                            <i class="fas fa-file-pdf"></i>
+                          </a>
+                        {% endif %}
+                    </td>
 
                     <td>
-                        {{ demande.dateValidationSecretaire ? demande.dateValidationSecretaire|date('Y-m-d') : '' }}
-                        {% if demande.EtatSecretaire == 0 %}
+                        {{ demande.date_validation_secretaire ? demande.date_validation_secretaire|date('Y-m-d') : '' }}
+                        {% if demande.etat_secretaire == 0 %}
                           <span class="badge badge-danger">Annulée</span>
-                        {% elseif demande.EtatSecretaire == 1 %}
+                        {% elseif demande.etat_secretaire == 1 %}
                           <span class="badge badge-success">Validée</span>
                         {% endif %}
                     </td>
 
                     <td>
-                        {{ demande.dateValidationDP ? demande.dateValidationDP|date('Y-m-d') : '' }}
-                        {% if demande.EtatDirecteurPd == 0 %}
+                        {{ demande.date_validation_dp ? demande.date_validation_dp|date('Y-m-d') : '' }}
+                        {% if demande.etat_directeur_pd == 0 %}
                           <span class="badge badge-danger">Annulée</span>
-                        {% elseif demande.EtatDirecteurPd == 1 %}
+                        {% elseif demande.etat_directeur_pd == 1 %}
                           <span class="badge badge-success">Validée</span>
                         {% endif %}
                     </td>
 
-                    <td>{{ demande.dateValidationDE ? demande.dateValidationDE|date('Y-m-d') : '' }}</td>
-                      {% if demande.etatDirecteurGn == 2  %}
+                    <td>{{ demande.date_validation_de ? demande.date_validation_de|date('Y-m-d') : '' }}</td>
+                      {% if demande.etat_directeur_gn == 2  %}
                         <td>
 
                           <a href="{{ path('etablissement_valide', {'id': demande.id}) }}">
@@ -66,9 +82,9 @@
                           </a>
                         </td>
 
-                      {% elseif demande.etatDirecteurGn == 0 %}
+                      {% elseif demande.etat_directeur_gn == 0 %}
                         <td><span class="badge badge-danger">Anulée</span></td>
-                      {% elseif demande.etatDirecteurGn == 1 %}
+                      {% elseif demande.etat_directeur_gn == 1 %}
                         <td><span class="badge badge-success">Validée</span></td>
 
                       {% endif %}
