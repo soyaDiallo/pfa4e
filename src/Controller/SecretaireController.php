@@ -7,6 +7,7 @@ use App\Entity\Secretaire;
 use App\Form\SecretaireType;
 use App\Repository\DemandeRepository;
 use App\Repository\SecretaireRepository;
+use App\Repository\UserRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -97,14 +98,12 @@ class SecretaireController extends AbstractController {
      */
     public function valideeDemande(DemandeRepository $demandeRepository,$id,$sec): Response
     {
-
         $date = new \DateTime('now');
 
         $demandeRepository->validateDemandeBySec($id,$date,1,$sec);
 
         return $this->redirectToRoute('secretaire_demande', array(
             'id' => $sec));
-
     }
 
     /**

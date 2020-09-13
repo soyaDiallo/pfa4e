@@ -158,17 +158,39 @@ class LaureatController extends AbstractController
                 $entityManager->persist($demande);
                 $entityManager->flush();
 
-                // L'envoi d'un Email au secretaire
 
                 /*
+                //Notifier la Secretaire par un mail
                 $email = $userRepository->findEmail(intval($id));
                 $message = (new \Swift_Message('Nouvelle demande !'))
                 ->setFrom('kribiazakaria1@gmail.com')
                 // email de la secretaire
-                ->setTo('zikou_massari@live.fr')
-                ->setBody($email);
+                ->setTo($email)
+                ->setBody('Vous avez reçu une nouvelle demande, vérifiez votre espace !');
                 $mailer->send($message);
+
+
+                // Notifier le directeur pedagogique par un mail
+                $email = $userRepository->findEmailDir(intval($id));
+                $message = (new \Swift_Message('Nouvelle demande peda !'))
+                ->setFrom('kribiazakaria1@gmail.com')
+                // email directeur pedagogique
+                ->setTo($email)
+                ->setBody('Vous avez reçu une nouvelle demande, vérifiez votre espace !');
+                $mailer->send($message);
+
+                // Notifier l'Etablissement par un mail
+                $email = $userRepository->findEmailEtab(intval($id));
+                $message = (new \Swift_Message('Nouvelle demande etab !'))
+                    ->setFrom('kribiazakaria1@gmail.com')
+                    // email Etablissement
+                    ->setTo($email)
+                    ->setBody('Vous avez reçu une nouvelle demande, vérifiez votre espace !');
+                $mailer->send($message);
+
                 */
+
+
                 $this->addFlash('succes', 'Demande ajoutée avec succes');
 
             }
