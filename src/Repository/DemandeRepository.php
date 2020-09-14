@@ -137,7 +137,7 @@ class DemandeRepository extends ServiceEntityRepository
     {
         $conn = $this->getEntityManager()->getConnection();
         $sql = '
-       SELECT demande.id,date_validation_secretaire,date_validation_dp,date_validation_de,etat_secretaire,etat_directeur_pd,etat_directeur_gn,diplome.fichier
+       SELECT DISTINCT demande.id,date_validation_secretaire,date_validation_dp,date_validation_de,etat_secretaire,etat_directeur_pd,etat_directeur_gn,diplome.fichier
        FROM demande
        INNER JOIN etablissement
        ON demande.etablissement_id = etablissement.id
@@ -189,7 +189,7 @@ class DemandeRepository extends ServiceEntityRepository
     {
         $conn = $this->getEntityManager()->getConnection();
         $sql = '
-       SELECT demande.id,date_validation_secretaire,date_validation_dp,date_validation_de,etat_secretaire,etat_directeur_pd,etat_directeur_gn,diplome.fichier
+       SELECT DISTINCT demande.id,date_validation_secretaire,date_validation_dp,date_validation_de,etat_secretaire,etat_directeur_pd,etat_directeur_gn,diplome.fichier
        FROM demande 
        INNER JOIN etablissement 
        ON demande.etablissement_id = etablissement.id 
@@ -243,7 +243,7 @@ class DemandeRepository extends ServiceEntityRepository
         $conn = $this->getEntityManager()->getConnection();
 
         $sql = '
-        SELECT demande.id,date_validation_secretaire,date_validation_dp,date_validation_de,etat_secretaire,etat_directeur_pd,etat_directeur_gn,diplome.fichier
+        SELECT DISTINCT demande.id,date_validation_secretaire,date_validation_dp,date_validation_de,etat_secretaire,etat_directeur_pd,etat_directeur_gn,diplome.fichier
        FROM demande 
        INNER JOIN etablissement 
        ON demande.etablissement_id = etablissement.id 
