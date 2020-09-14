@@ -19,7 +19,6 @@ class LaureatType extends AbstractType
             ->add('prenom')
             ->add('addresse')
             ->add('email')
-            ->add('password')
             ->add('telephone')
             ->add('datenaissance',DateType::class,['widget'=>'single_text'])
             ->add('photoUrl', FileType::class,array('label'=>'Image..','data_class'=>null))

@@ -1,0 +1,54 @@
+
+{% extends 'base.html.twig' %}
+
+{% block title %}Demande index{% endblock %}
+
+{% block body %}
+    <h1>Demande index</h1>
+
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Id</th>
+            <th>DateValidationSecretaire</th>
+            <th>DateValidationDP</th>
+            <th>DateValidationDE</th>
+            <th>actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for demande in demandes %}
+            <tr>
+                <td>{{ demande.id }}</td>
+                <td>{{ demande.dateValidationSecretaire ? demande.dateValidationSecretaire|date('Y-m-d') : '' }}</td>
+                <td>{{ demande.dateValidationDP ? demande.dateValidationDP|date('Y-m-d') : '' }}</td>
+                <td>{{ demande.dateValidationDE ? demande.dateValidationDE|date('Y-m-d') : '' }}</td>
+                {% if demande.etatDirecteurGn == 2  %}
+                <td>
+
+                <a href="{{ path('etablissement_valide', {'id': demande.id}) }}">
+                <button type="button" class="btn btn-success">Valider demande</button>
+                </a>
+
+                <a href="{{ path('etablissement_annuler', {'id': demande.id}) }}">
+                <button type="button" class="btn btn-danger">Annuler demande</button>
+                </a>
+                </td>
+
+                {% elseif demande.etatDirecteurGn == 0 %}
+                    <td style='...'>Demande annulée</td>
+                {% elseif demande.etatDirecteurGn == 1 %}
+                    <td>Validée</td>
+
+                {% endif %}
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="6">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+
+{% endblock %}

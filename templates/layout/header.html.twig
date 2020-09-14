@@ -1,6 +1,12 @@
 <!-- ========== HEADER ========== --> 
-  <nav class="main-nav light-menu border-bottom">
-    <div class="relative clearfix" style="padding-left: 30px;padding-right:30px;">
+  {% if fromLoginPage %}
+    <nav class="main-nav position-fixed background-transparent">
+    <div class="container">
+  {% else %}
+    <nav class="main-nav light-menu border-bottom">
+    <div class="container-fluid">
+  {% endif %}
+    
       <!-- Logo ( * your text or image into link tag *) -->
       <div class="nav-logo-wrap local-scroll">
         <a href="/" class="logo pl-md-0 pl-3 fx-text-boldest">

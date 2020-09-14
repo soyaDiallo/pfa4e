@@ -2,7 +2,10 @@
 $(document).ready(function() {
 	"use-strict";
 
-	$body = $('body'); 
+	;
+	var $window = $(window),
+			$body = $('body'),
+    	$fullHeight = $(".full-height"); 
 	if($body.find('#ResponsiveTable').length) {
 		$('#ResponsiveTable').DataTable({
 		responsive: true,
@@ -17,5 +20,14 @@ $(document).ready(function() {
 	$('select').select2({
 		placeholder: "choose a value"
 	});
+
+    /* --------------------------------------------
+      Make header height full screen 
+    --------------------------------------------- */
+		$fullHeight.height($window.height());
+		console.log("wooow", $window.height());
+    $window.resize(function () {
+      $fullHeight.height($window.height());
+    });
 
 });

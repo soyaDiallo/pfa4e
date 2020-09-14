@@ -116,3 +116,22 @@
   background-color: var(--transparent-stripe-color);
   background-color: var(--initial-stripe-color);
 }
+
+.text-security {
+  color: #435b8c;
+}
+.security-form {
+  input.form-control {
+    height: 48px;
+    margin-bottom: 16px;
+    background-color: #f3f5f8;
+    color: #7d90b8;
+    border: none;
+    &:hover,
+    &:focus,
+    &:active {
+      box-shadow: 0px 0px 30px rgba(0, 0, 0, .05);
+    }
+  }
+  
+}

@@ -27,10 +27,11 @@ $(document).ready(function() {
   feather.replace();
 });
 
-require('datatables.net-bs4');
-require('datatables.net-responsive-bs4')();
 
 import './jquery.sticky';
 import './jquery.easing.1.3'; 
 import './header';
 import './script';
+
+require('datatables.net-bs4');
+require('datatables.net-responsive-bs4')();
