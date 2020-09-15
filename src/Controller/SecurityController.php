@@ -27,6 +27,17 @@ class SecurityController extends AbstractController
     }
 
     /**
+     * @Route("/start-registration", name="app_start_register")
+     */
+    public function startRegister(): Response
+    {
+        // if ($this->getUser()) {
+        //     return $this->redirectToRoute('home');
+        // }
+        return $this->render('registration/registration-select.html.twig');
+    }
+
+    /**
      * @Route("/logout", name="app_logout")
      */
     public function logout()

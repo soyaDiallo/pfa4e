@@ -1,0 +1,62 @@
+{% extends 'security-base.html.twig' %}
+
+{% block title %}Registration type{% endblock %}
+
+{% block body %}
+
+    <!-- Hero Section -->
+    <div class="position-relative fx-w-100 overflow-hidden"> 
+      <div class="row align-items-center justify-content-lg-between">
+
+        <!-- First Option -->
+        <div class="col-md-4 full-height fx-bg-brand px-0 position-relative column-view">
+          <a href="/register?accountType=etablissement">
+            <img src="build/registration/etablissment.png" class="position-absolute fx-bottom-0 fx-left-0 fx-right-0 fx-w-80 mx-auto" alt="etablissment image bg" />
+            <!-- Content -->
+            <div class="column-content position-relative fx-z-index-2 fx-h-100 d-flex align-items-center bg-light border-right">
+              <div class="text-left text-security px-3 px-md-5">
+                <h4 class="h1 fx-text-boldest text-primary"> 01 </h4>
+                <p class="display-4 fx-text-bolder my-5"> Etablissment </p>
+              </div>
+            </div>
+            <!-- ./End Content -->
+          </a>
+        </div>
+        <!-- ./End First Option -->
+
+        <!-- First Option -->
+        <div class="col-md-4 full-height fx-bg-danger px-0 position-relative column-view">
+          <a href="/register?accountType=laureat" class="link">
+            <img src="build/registration/laureat.png" class="position-absolute fx-bottom-0 fx-left-0 fx-right-0 mx-auto fx-w-80" alt="etablissment image bg" />
+            <!-- Content -->
+            <div class="column-content position-relative fx-z-index-2 fx-h-100 d-flex align-items-center bg-light border-right">
+              <div class="text-left text-security px-3 px-md-5">
+                <h4 class="h1 fx-text-boldest text-primary"> 02 </h4>
+                <p class="display-4 fx-text-bolder my-5"> Laureat </p>
+              </div>
+            </div>
+            <!-- ./End Content -->
+          </a>
+        </div>
+        <!-- ./End First Option -->
+
+        <!-- First Option -->
+        <div class="col-md-4 full-height fx-bg-warning px-0 position-relative column-view">
+          <a href="/register?accountType=entreprise" class="link">
+            <img src="build/registration/entreprise.png" class="position-absolute fx-bottom-0 fx-left-0 fx-right-0" alt="etablissment image bg" />
+            <!-- Content -->
+            <div class="column-content position-relative fx-z-index-2 fx-h-100 d-flex align-items-center bg-light border-right">
+              <div class="text-left text-security px-3 px-md-5">
+                <h4 class="h1 fx-text-boldest text-primary"> 03 </h4>
+                <p class="display-4 fx-text-bolder my-5"> Entreprise </p>
+              </div>
+            </div>
+            <!-- ./End Content -->
+          </a>
+        </div>
+        <!-- ./End First Option -->
+
+      </div>
+    </div>
+    <!-- ./End Hero Section --> 
+{% endblock %}

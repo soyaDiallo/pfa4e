@@ -135,3 +135,54 @@
   }
   
 }
+//registarion form 
+.registration-form {
+  max-height: 500px;
+  overflow-y: auto;
+}
+//Registration Steps 
+.column-view {
+  cursor: pointer;
+  transition: all 400ms ease-in-out;
+  img {
+    transition: transform 400ms ease-in-out;
+  }
+  &:nth-child(3) {
+    img {
+      transform: translateX(100%);
+    }
+  }
+  &:not(:nth-child(3)) {
+    img {
+      transform: translateY(100%);
+    }
+  }
+  .column-content {
+    transition: background 400ms ease-in-out;
+  }
+  &:hover {
+    .column-content {
+      background: transparent !important;
+    }
+    &:not(:nth-child(3)) {
+      img {
+        transform: translateY(0%);
+      }
+    }
+    &:nth-child(3) {
+      img {
+        transform: translateX(0%);
+      }
+    }
+  }
+  &:not(:nth-child(3)):hover {
+    .text-security {
+      h4 {
+        color: #fff !important;
+      }
+      color: #fff;
+      transition: transform 400ms ease-in-out;
+      transform: translateY(-80%);
+    }
+  }
+}

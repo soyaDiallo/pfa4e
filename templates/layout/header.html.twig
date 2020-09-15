@@ -330,81 +330,18 @@
           {% if app.user is null or app.user is empty %}
             <li class="mr-2">
               <span class="menu-link">
-                <a href="/login" class="btn btn-brand text-light">
+                <a href="/login" class="btn btn-outline-dark fx-text-hover-light rounded-0 py-3 px-4">
                   <i data-feather="log-in" class="fx-svg-icon pr-2"></i>
                   <span class="align-middle"> Connexion </span>
                 </a>
               </span>
             </li>
           <li class="mr-2">
-            <span class="mn-has-sub menu-link">
-              <a href="#" class="btn btn-brand text-light">
+            <span class="menu-link">
+              <a href="{{path('app_start_register')}}" class="btn btn-dark fx-text-light btn-hover-light fx-text-hover-dark rounded-0 py-3 px-4">
                 <span class="align-middle"> S'inscrire </span>
-                <i data-feather="chevron-down" class="fx-svg-icon pr-2"></i>
               </a>
             </span>
-            
-
-
-          
-
-            <!-- Sub Multilevel -->
-            <ul class="mn-sub to-left mn-has-multi fx-width-300" style="padding: 4px">
-            <li>
-              <div style="margin:3px">
-              <span class="">
-                <a href="/register?accountType=etablissement" class="btn btn-brand text-light p-3">
-                  <i data-feather="user" class="fx-svg-icon pr-2"></i>
-                  <span class="align-middle"> Etablissement </span>
-                </a>
-              </span>
-              </div>
-            </li>
-            <li>
-            <div style="margin:3px">
-              <span class="">
-                <a href="/register?accountType=laureat" class="btn btn-brand text-light p-3">
-                  <i data-feather="user" class="fx-svg-icon pr-2"></i>
-                  <span class="align-middle"> Laureat </span>
-                </a>
-              </span>
-              </div>
-            </li>
-            <li>
-            <div style="margin:3px">
-              <span class="">
-                <a href="/register?accountType=secretaire" class="btn btn-brand text-light p-3">
-                  <i data-feather="user" class="fx-svg-icon pr-2"></i>
-                  <span class="align-middle"> Secretaire </span>
-                </a>
-              </span>
-              </div>
-            </li>
-            <li>
-            <div style="margin:3px">
-              <span class="">
-                <a href="/register?accountType=directeur_pedagogique" class="btn btn-brand text-light p-3">
-                  <i data-feather="user" class="fx-svg-icon pr-2"></i>
-                  <span class="align-middle"> Directeur Pedagogique </span>
-                </a>
-              </span>
-              </div>
-            </li>
-            <li>
-            <div style="margin:3px">
-              <span class="">
-                <a href="/register?accountType=entreprise" class="btn btn-brand text-light p-3">
-                  <i data-feather="user" class="fx-svg-icon pr-2"></i>
-                  <span class="align-middle"> Entreprise </span>
-                </a>
-              </span>
-              </div>
-            </li>
-            </ul>
-
-
-
-
           </li>
           {% endif %}
         </ul>
