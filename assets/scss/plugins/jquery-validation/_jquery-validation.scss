@@ -1,0 +1,51 @@
+
+/* ###### 4.6 jquery Validation ###### */
+form {
+  label.error {
+    color: FX__color_state(danger, base);
+  }
+}
+.form-group {
+  input.error,
+  textarea.error {
+    border: 2px solid FX__color_state(danger, base); 
+  }
+  input.valid,
+  textarea.valid  {
+    border: 2px solid FX__color_state(success, base); 
+  }
+  label.error {
+    color: FX__color_state(danger, base);
+  }
+}
+.fx-form-error {
+  background-color: FX__color_state(danger, base);
+  color: FX__color_state(danger, inverse);
+  font-size: .9rem;
+  border-radius: 2px;
+  > label { 
+    margin-bottom: .25rem;
+    padding: 0 1.5rem;
+    position: relative;
+    &:first-child {
+      margin-top: 1rem;
+    }
+    &:last-child {
+      margin-bottom: 1rem;
+    }
+    &:after {
+      position: absolute;
+      content: "";
+      left: .7rem;
+      top: 50%;
+      margin-top: -4px;
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: #fff;
+    }
+  }
+  .error {
+    color: FX__color_state(danger, inverse);
+  }
+}

@@ -28,8 +28,8 @@ $(document).ready(function() {
 });
 
 
-import './jquery.sticky';
-import './jquery.easing.1.3'; 
+import './lib/jquery.sticky';
+import './lib/jquery.easing.1.3'; 
 import './header';
 import './script';
 

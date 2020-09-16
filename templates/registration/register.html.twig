@@ -35,13 +35,48 @@
                     <!-- ./End Left Content -->
                 
                     <!-- Right Content -->
-                    <div class="col-md-5 align-self-center space-2 space-md-3 space-lg-0 full-height d-flex align-items-center">
+                    <div class="col-md-6 align-self-center space-2 space-md-3 space-lg-0 full-height d-flex align-items-center">
                         <div class="fx-w-100 registration-form">
                             {% for flashError in app.flashes('verify_email_error') %}
                                 <div class="alert alert-danger mb-4" role="alert">{{ flashError }}</div>
                             {% endfor %}
                             <div class="security-form">
-                                {{ form(registrationForm) }}    
+                                <div>
+	
+                                {{ form(registrationForm) }} 
+                                {# <div id="fx-steps-1">
+                                    <h3>Personal Information</h3>
+                                    <section>
+                                        <p class="mg-b-20">Try the keyboard navigation by clicking arrow left or right!</p>
+                                        <div class="row row-sm">
+                                        <div class="form-group col-sm-6">
+                                            <label>Fullname</label>
+                                            <input type="text" class="form-control" placeholder="Firstname">
+                                        </div>
+                                        <div class="form-group col-sm-6 d-flex align-items-end">
+                                            <input type="text" class="form-control" placeholder="Lastname">
+                                        </div>
+                                        
+                                        </div>
+                                    </section>
+                                    <h3>Billing Information</h3>
+                                    <section>
+                                        <p class="mg-b-20">Wonderful transition effects.</p>
+                                        <div class="row row-sm">
+                                        <div class="form-group col-sm-6">
+                                            <label>Client Name</label>
+                                            <input type="text" class="form-control" placeholder="Firstname">
+                                        </div>
+                                        <div class="form-group col-sm-6 d-flex align-items-end">
+                                            <input type="text" class="form-control" placeholder="Lastname">
+                                        </div>
+                                        <div class="form-group col-12">
+                                            <label>Notes</label>
+                                            <textarea class="form-control" rows="1" placeholder="Enter some notes"></textarea>
+                                        </div>
+                                        </div>
+                                    </section>
+                                </div> #}
                             </div>
                         </div>
                     </div>

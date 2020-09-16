@@ -2,6 +2,9 @@
     "bacon/bacon-qr-code": {
         "version": "2.0.2"
     },
+    "craue/formflow-bundle": {
+        "version": "3.3.2"
+    },
     "dasprid/enum": {
         "version": "1.0.2"
     },

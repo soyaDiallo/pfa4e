@@ -26,6 +26,7 @@ Encore
     .addEntry('app', './assets/js/app.js')
     .addEntry('sweetalert', './assets/js/sweet-alert.js')
     .addEntry('arabicKeyboard', './assets/js/arabicKeyboard.js')
+    .addEntry('validationSteps', './assets/js/steps-validation.js')
 
     .copyFiles({
         from: './assets/images',
