@@ -58,11 +58,6 @@ class LaureatRegistrationFormType extends AbstractType
                         'max' => 4096,
                     ]),
                 ],
-            ], [
-            'attr' => [
-                'placeholder' => 'password',
-            ],
-            'label' => false
             ])
         ->add('addresse', null, [
             'attr' => [
@@ -104,21 +99,19 @@ class LaureatRegistrationFormType extends AbstractType
         ->add('nomArabe', null, [
             'attr' => [
                 'placeholder' => 'الاسم العائلى',
-                'dir' => 'rtl'
+                'dir' => 'rtl',
+                'class' => 'keyboardInput'
             ],
             'label' => false
         ])
         ->add('prenomArabe', null, [
             'attr' => [
                 'placeholder' => 'الاسم الشخصي',
-                'dir' => 'rtl'
+                'dir' => 'rtl',
+                'class' => 'keyboardInput'
             ],
             'label' => false
-        ])
-        ->add('inscrire', SubmitType::class, [
-            'attr' => ['class' => 'btn btn-widest btn-tall btn-primary rounded-0 shadow-sm'],
-        ]); 
-
+        ]);
     }
     
     public function configureOptions(OptionsResolver $resolver)

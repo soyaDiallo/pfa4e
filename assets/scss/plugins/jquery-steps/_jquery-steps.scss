@@ -359,7 +359,7 @@ $font-icon: "Font Awesome 5 Free";
 	border-radius: 0.25rem;
 	> {
 		.steps {
-			padding: 10px 15px;
+			padding: 10px 8px;
 			> ul {
 				padding: 0;
 				margin-bottom: 0;
@@ -680,7 +680,7 @@ $font-icon: "Font Awesome 5 Free";
 	.wizard {
 		> {
 			.steps {
-				padding: 15px 20px;
+				padding: 15px 8px;
 				a {
 					.fx-step-number {
 						width: 32px;

@@ -123,9 +123,9 @@
 .security-form {
   input.form-control {
     height: 48px;
-    margin-bottom: 16px;
+    // margin-bottom: 16px;
     background-color: #f3f5f8;
-    color: #7d90b8;
+    color: #7d90b8 !important;
     border: none;
     &:hover,
     &:focus,

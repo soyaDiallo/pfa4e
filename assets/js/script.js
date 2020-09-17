@@ -2,7 +2,6 @@
 $(document).ready(function() {
 	"use-strict";
 
-	;
 	var $window = $(window),
 			$body = $('body'),
     	$fullHeight = $(".full-height"); 
