@@ -1,11 +1,6 @@
 {% extends 'security-base.html.twig' %}
 
-{% block title %}New Account!{% endblock %}
-
-{% block stylesheets %}
-  {{ encore_entry_link_tags('app') }}
-  {{ encore_entry_link_tags('validationSteps') }}
-{% endblock %}
+{% block title %}Laureat New Account!{% endblock %}
 
 {% block body %}
 
@@ -49,7 +44,7 @@
                           <div>
                             {# {{ form(registrationForm) }}  #}
                             {{ form_start(registrationForm, {'attr': {'id': 'steps-laureat-register-form'}}) }}
-                              
+                              <div id="steps-id">
                                 <h3>Personal Information </h3>
                                 <section>
                                   <p class="mb-3">tous les champs sont obligatoires!</p>
@@ -77,6 +72,28 @@
                                     </div>
                                   </div>
                                 </section>
+                                <h3>contact Information </h3>
+                                <section>
+                                  <p class="mg-b-20">Wonderful transition effects.</p>
+                                  <div class="row row-sm">
+                                    <div class="col-12 mb-4">
+                                        {{ form_widget(registrationForm.addresse, {'attr': {'class': 'mb-0'}}) }}
+                                    </div>
+                                    <div class="col-12 mb-4">
+                                      {{ form_widget(registrationForm.telephone, {'attr': {'class': 'mb-0'}}) }}
+                                    </div>
+                                    <div class="col-12 mb-4">
+                                        {{ form_widget(registrationForm.cinNumSejour) }}
+                                    </div>
+                                    <div class="col-12 mb-4">
+                                      {{ form_widget(registrationForm.lieuNaissance) }}
+                                    </div>
+                                    <div class="col-12 mb-4">
+                                      {{ form_widget(registrationForm.nationalite) }}
+                                    </div>
+                                  </div>
+                                </section>
+                              </div>
                             {{ form_end(registrationForm) }}
                           </div>
                         </div>
@@ -87,8 +104,4 @@
         </div>
     </div>
     <!-- ./End Hero Section --> 
-{% endblock %}
-
-{% block javascripts %}
-  {{ encore_entry_script_tags('app') }}
 {% endblock %}

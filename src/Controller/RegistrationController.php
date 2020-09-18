@@ -39,6 +39,8 @@ class RegistrationController extends AbstractController
             return $this->redirectToRoute('home');
         }
 
+        $renderPage = 'registration/register.html.twig';
+
         switch ($accountType) {
             case 'directeur_pedagogique':
                 $user = new DirecteurPedagogique();
@@ -49,16 +51,19 @@ class RegistrationController extends AbstractController
                 $user = new Laureat();
                 $form = $this->createForm(LaureatRegistrationFormType::class, $user);
                 $role = ['ROLE_LAUREAT'];
+                $renderPage  = 'registration/register-laureat.html.twig';
                 break;
             case 'etablissement':
                 $user = new Etablissement();
                 $form = $this->createForm(EtablissementRegistrationFormType::class, $user);
                 $role = ['ROLE_ETABLISSEMENT'];
+                $renderPage = 'registration/register-etablissment.html.twig';
                 break;
             case 'entreprise':
                 $user = new Entreprise();
                 $form = $this->createForm(EntrepriseRegistrationFormType::class, $user);
                 $role = ['ROLE_ENTREPRISE'];
+                $renderPage  = 'registration/register-entreprise.html.twig';
                 break;
             case 'secretaire':
                 $user = new Secretaire();
@@ -99,7 +104,7 @@ class RegistrationController extends AbstractController
             );
         }
 
-        return $this->render('registration/register.html.twig', [
+        return $this->render($renderPage, [
             'registrationForm' => $form->createView(),
         ]);
     }

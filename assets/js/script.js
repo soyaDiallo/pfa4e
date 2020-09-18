@@ -20,6 +20,7 @@ $(function(){
 		placeholder: "choose a value"
 	});
 
+
     /* --------------------------------------------
       Make header height full screen 
     --------------------------------------------- */
