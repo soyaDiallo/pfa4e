@@ -1,5 +1,5 @@
 // In your Javascript (external .js resource or <script> tag)
-$(document).ready(function() {
+$(function(){
 	"use-strict";
 
 	var $window = $(window),
@@ -16,7 +16,7 @@ $(document).ready(function() {
 	});
 	}
 
-	$('select').select2({
+	$('#app-wrap select').select2({
 		placeholder: "choose a value"
 	});
 

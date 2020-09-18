@@ -23,7 +23,9 @@
   <body>
     {% include 'layout/header.html.twig' with {'fromLoginPage': false} %}
 
-    {% block body %}{% endblock %}
+    <div class="app-wrap" id="app-wrap">
+      {% block body %}{% endblock %}  
+    </div>
     
     {% include 'layout/footer.html.twig' %}
 

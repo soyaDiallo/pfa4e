@@ -5,7 +5,7 @@ namespace App\Form;
 use App\Entity\Laureat;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -44,21 +44,21 @@ class LaureatRegistrationFormType extends AbstractType
             'label' => false
         ])
         ->add('plainPassword', PasswordType::class, [
-                // instead of being set onto the object directly,
-                // this is read and encoded in the controller
-                'mapped' => false,
-                'constraints' => [
-                    new NotBlank([
-                        'message' => 'Please enter a password',
-                    ]),
-                    new Length([
-                        'min' => 6,
-                        'minMessage' => 'Your password should be at least {{ limit }} characters',
-                        // max length allowed by Symfony for security reasons
-                        'max' => 4096,
-                    ]),
-                ],
-            ])
+            // instead of being set onto the object directly,
+            // this is read and encoded in the controller
+            'mapped' => false,
+            'constraints' => [
+                new NotBlank([
+                    'message' => 'Please enter a password',
+                ]),
+                new Length([
+                    'min' => 6,
+                    'minMessage' => 'Your password should be at least {{ limit }} characters',
+                    // max length allowed by Symfony for security reasons
+                    'max' => 4096,
+                ]),
+            ],
+        ])
         ->add('addresse', null, [
             'attr' => [
                 'placeholder' => 'Addresse',
@@ -67,17 +67,11 @@ class LaureatRegistrationFormType extends AbstractType
         ])
         ->add('telephone', null, [
             'attr' => [
-                'placeholder' => '+212 XXX XXX XXX',
+                'placeholder' => '06 XXX XXX XXX',
             ],
             'label' => false
         ])
-        ->add('datenaissance')
-        ->add('photoUrl', null, [
-            'attr' => [
-                'placeholder' => 'Photo de Profile',
-            ],
-            'label' => false
-        ])
+        ->add('datenaissance',DateType::class,['widget'=>'single_text'])
         ->add('cinNumSejour', null, [
             'attr' => [
                 'placeholder' => 'CIN',
@@ -93,22 +87,6 @@ class LaureatRegistrationFormType extends AbstractType
         ->add('nationalite', null, [
             'attr' => [
                 'placeholder' => 'Nationalité',
-            ],
-            'label' => false
-        ])
-        ->add('nomArabe', null, [
-            'attr' => [
-                'placeholder' => 'الاسم العائلى',
-                'dir' => 'rtl',
-                'class' => 'keyboardInput'
-            ],
-            'label' => false
-        ])
-        ->add('prenomArabe', null, [
-            'attr' => [
-                'placeholder' => 'الاسم الشخصي',
-                'dir' => 'rtl',
-                'class' => 'keyboardInput'
             ],
             'label' => false
         ]);

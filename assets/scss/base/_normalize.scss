@@ -29,6 +29,7 @@ body {
     display: flex;
     flex-direction: column;
     color: FX__get($FX-font-color, text);
+    overflow: hidden;
 }
 
 .img-fit-cover {

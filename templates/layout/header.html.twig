@@ -253,7 +253,7 @@
                       {% if app.user.nom %} 
                         {{ app.user.nom }}
                       {% else %}
-                        {{ app.user.email }}
+                        <span> ghost </span>
                       {% endif %}
                     </h4>
                   </div>
@@ -336,13 +336,13 @@
                 </a>
               </span>
             </li>
-          <li class="mr-2">
-            <span class="menu-link">
-              <a href="{{path('app_start_register')}}" class="btn btn-dark fx-text-light btn-hover-light fx-text-hover-dark rounded-0 py-3 px-4">
-                <span class="align-middle"> S'inscrire </span>
-              </a>
-            </span>
-          </li>
+            <li class="mr-2">
+              <span class="menu-link">
+                <a href="{{path('app_start_register')}}" class="btn btn-dark fx-text-light btn-hover-light fx-text-hover-dark rounded-0 py-3 px-4">
+                  <span class="align-middle"> S'inscrire </span>
+                </a>
+              </span>
+            </li>
           {% endif %}
         </ul>
       </div>

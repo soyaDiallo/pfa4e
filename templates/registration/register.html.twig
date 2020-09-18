@@ -45,7 +45,7 @@
                             {# {{ form(registrationForm) }}  #}
                             {{ form_start(registrationForm, {'attr': {'id': 'steps-laureat-register-form'}}) }}
                               <div id="steps-id">
-                                <h3>Personal Info </h3>
+                                <h3>Personal Information </h3>
                                 <section>
                                   <p class="mb-3">tous les champs sont obligatoires!</p>
                                   <div class="row">
@@ -58,11 +58,11 @@
                                     <div class="col-12 col-md-6 mb-4">
                                       {{ form_widget(registrationForm.prenom) }}
                                     </div>
-                                    <div class="col-12 col-md-6 mb-4">
-                                      {{ form_widget(registrationForm.nomArabe) }}
-                                    </div>
-                                    <div class="col-12 col-md-6 mb-4">
-                                      {{ form_widget(registrationForm.prenomArabe) }}
+                                    <div class="col-12 mb-4">
+                                      <label for="demande_diplome" class="fx-text-dark h5 col-form-label-lg"> 
+                                        {{ form_label(registrationForm.datenaissance, 'date de Naissance :') }} 
+                                      </label>
+                                      {{ form_widget(registrationForm.datenaissance, {'attr': {'class': 'mb-0 flex-nowrap'}}) }}
                                     </div>
                                     <div class="col-12 mb-4">
                                       {{ form_widget(registrationForm.email) }}
@@ -72,7 +72,7 @@
                                     </div>
                                   </div>
                                 </section>
-                                <h3>contact Info </h3>
+                                <h3>contact Information </h3>
                                 <section>
                                   <p class="mg-b-20">Wonderful transition effects.</p>
                                   <div class="row row-sm">
@@ -90,21 +90,6 @@
                                     </div>
                                     <div class="col-12 mb-4">
                                       {{ form_widget(registrationForm.nationalite) }}
-                                    </div>
-                                  </div>
-                                </section>
-                                <h3>Account Info</h3>
-                                <section>
-                                  <p class="mg-b-20">Wonderful transition effects.</p>
-                                  <div class="row row-sm">
-                                    <div class="col-12 mb-4">
-                                      <label for="demande_diplome" class="fx-text-dark h5 col-form-label-lg"> 
-                                        {{ form_label(registrationForm.datenaissance, 'date de Naissance :') }} 
-                                      </label>
-                                      {{ form_widget(registrationForm.datenaissance, {'attr': {'class': 'mb-0 flex-nowrap'}}) }}
-                                    </div>
-                                    <div class="col-12 mb-4">
-                                      {{ form_widget(registrationForm.photoUrl) }}
                                     </div>
                                   </div>
                                 </section>
