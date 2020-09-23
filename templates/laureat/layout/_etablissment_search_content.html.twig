@@ -1,4 +1,4 @@
-{% if(etablissements | length != 0) %}
+{% if(etablissements | length != 0 and name | length != 0) %}
     <div class="row">
     {% for etablissement in etablissements %}
       <!-- Card -->
@@ -56,7 +56,7 @@
       <!-- ./End Card -->
     {% endfor %}
   </div>
-  {% elseif (etablissements | length == 0) %}
+  {% elseif (etablissements | length == 0 and name | length != 0) %}
     <div class="alert alert-danger" role="alert">
       Aucun etablissement trouvé pour le nom <b>{{ name }}</b>
     </div>

@@ -80,44 +80,4 @@ class SecretaireController extends AbstractController {
         return $this->redirectToRoute('secretaire_show',array('id' => $secretaire->getId()));
     }
 
-    /**
-     * @Route("/profildemande/{id}", name="secretaire_demande", methods={"GET","POST"})
-     */
-    public function profildemande(SecretaireRepository $secretaireRepository,DemandeRepository $demandeRepository,Secretaire $secretaire,$id):Response
-    {
-        $IdEtab = $secretaireRepository->getIdEtab(intval($id));
-
-        return $this->render('secretaire/demande.html.twig',[
-            'secretaire' => $secretaire,
-            'demandes' => $demandeRepository->getSecDemandes(intval($IdEtab))
-        ]);
-    }
-
-    /**
-     * @Route("/valide/demande/{id}/{sec}", name="secretaire_valide", methods={"GET","POST"})
-     */
-    public function valideeDemande(DemandeRepository $demandeRepository,$id,$sec): Response
-    {
-        $date = new \DateTime('now');
-
-        $demandeRepository->validateDemandeBySec($id,$date,1,$sec);
-
-        return $this->redirectToRoute('secretaire_demande', array(
-            'id' => $sec));
-    }
-
-    /**
-     * @Route("/annuler/demande/{id}/{sec}", name="secretaire_annuler", methods={"GET","POST"})
-     */
-    public function annulerDemande(DemandeRepository $demandeRepository,$id,$sec): Response
-    {
-        $date = new \DateTime('now');
-
-        $demandeRepository->annulerDemandeBySec($id,0,$date,$sec);
-
-        return $this->redirectToRoute('secretaire_demande', array(
-            'id' => $sec));
-
-    }
-
 }

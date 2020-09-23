@@ -66,7 +66,8 @@ class LaureatRepository extends ServiceEntityRepository
         $conn = $this->getEntityManager()->getConnection();
         $sql = '
        SELECT diplome.fichier,
-              diplome.date_obtention
+              diplome.date_obtention,
+              diplome.date_depot
        FROM diplome
        INNER JOIN demande
        ON diplome.id = demande.diplome_id

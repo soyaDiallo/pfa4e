@@ -31,7 +31,7 @@
               <!-- Card -->
               <div class="col-sm-6 col-md-6">
                 {% if diplomes.date_obtention is null %}
-                  <div class="fx-card border rounded mb-5 h-100">
+                  <div class="fx-card border rounded mb-5">
                     <div class="fx-card-body">
                       <div class="text-center mb-4">
                         <a href="{{ asset('uploads/DiplomeLaureat/'~diplomes.fichier ) }}" target="_blanck">
@@ -43,11 +43,18 @@
                           <i data-feather="loader" class="text-danger"></i>
                           <span class="pl-2"> Diplome En Cours De Validation </span>
                         </h3>
+                        <p class="mb-0">
+                          <a href="#" class="fx-font-size-1 text-secondary">
+                            <i data-feather="calendar" class="align-middle" width="18" height="18"></i>
+                            <span class="align-middle pl-2"> date Depot :</span>
+                            <span class="align-middle">{{ diplomes.date_depot }}</span>
+                          </a>
+                        </p>
                       </div>
                     </div>
                   </div>
                 {% else %}
-                  <div class="fx-card border rounded mb-5 h-100">
+                  <div class="fx-card border rounded mb-5">
                     <div class="fx-card-body">
                       <div class="text-center mb-4">
                         <a href="{{ asset('uploads/DiplomesAuthentifies/'~diplomes.fichier ) }}" target="_blanck">
@@ -62,7 +69,8 @@
                         <p class="mb-0">
                           <a href="#" class="fx-font-size-1 text-secondary">
                             <i data-feather="calendar" class="align-middle" width="18" height="18"></i>
-                            <span class="align-middle pl-2">{{ diplomes.date_obtention }}</span>
+                            <span class="align-middle pl-2"> date Validation :</span>
+                            <span class="align-middle">{{ diplomes.date_obtention }}</span>
                           </a>
                         </p>
                       </div>
