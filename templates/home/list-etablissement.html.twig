@@ -1,0 +1,56 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} Home Page {% endblock %}
+
+{% block body %}
+<div class="example-wrapper">
+  <section class="fx-section-space-8 position-relative">
+    <div class="container">
+      {% if(listEtablissements | length != 0) %} 
+        {% for etablissement in listEtablissements %}
+          <!-- Card --> 
+            <div class="card mb-2">
+              <div class="media p-4">
+                <!-- List of Icons -->
+                <div class="mr-4 align-self-center">
+                  <figure class="figure-img">
+                      <img class="fx-avatar fx-avatar-square shadow-lg d-inline-block fx-avatar-lg"
+                      src="
+                      {% if etablissement.photoUrl %} 
+                          {{ asset('uploads/imagesProfiles/'~ etablissement.photoUrl) }}
+                      {% else %}
+                          /build/etablissment.svg
+                      {% endif %}
+                      "
+                      alt="Image Description" />
+                    </figure>
+                </div>
+                <!-- ./End List of Icons -->
+                <!-- List of Info-->
+                <div class="media-body"> 
+                  <div class="mb-2">
+                    <span class="small text-secondary">
+                      <i data-feather="bookmark" class="fx-text-brand mr-1"></i> REF: 1274521
+                    </span>
+                  </div>
+                  <div class="mb-4">
+                    <h5 class="h5 fx-text-bold fx-text-dark mb-2">{{ etablissement.nomEtablissement }}</h5>
+                    <p class="pb-1 fx-font-size-1 align-middle mb-0">
+                      {{ etablissement.addresse }}
+                    </p>
+                  </div>
+                </div>
+                <!-- ./End List of Info-->
+              </div>
+            </div> 
+          <!-- ./End Card -->
+        {% endfor %} 
+        {% elseif (listEtablissements | length == 0) %}
+          <div class="alert alert-danger" role="alert">
+            Aucun etablissement trouvé pour le nom <b>{{ name }}</b>
+          </div>
+      {% endif %}
+    </div>
+  </section>
+</div>
+{% endblock %}

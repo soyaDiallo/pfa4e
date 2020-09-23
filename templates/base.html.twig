@@ -19,6 +19,7 @@
         <!-- Renders a link tag (if your module requires any CSS)
         <link rel="stylesheet" href="/build/app.css"> -->
     {% endblock %}
+    
   </head>
   <body>
     {% include 'layout/header.html.twig' with {'fromLoginPage': false} %}
@@ -32,10 +33,6 @@
     {% block javascripts %}
       {{ encore_entry_script_tags('app') }}
       {{ encore_entry_script_tags('sweetalert') }}
-
-      <!-- Renders app.js & a webpack runtime.js file
-          <script src="/build/runtime.js"></script>
-          <script src="/build/app.js"></script> -->
     {% endblock %}
   </body>
 </html>

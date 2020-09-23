@@ -28,6 +28,7 @@
                     <thead>
                         <tr class="text-left">
                             <th>Id</th>
+                            <th>Diplome</th>
                             <th>Etat</th>
                             <th>DateValidationSecretaire</th>
                             <th>DateValidationDP</th>
@@ -39,6 +40,17 @@
                     {% for demande in demandes %}
                         <tr>
                             <td>{{ demande.id }}</td>
+                            <td >
+                              {% if demande.etatDirecteurGn == constant('App\\Controller\\DemandeController::ETAT_VALIDE') %}
+                                <a class="btn btn-soft-warning btn-shadow fx-text-bolder" href="{{ asset('uploads/DiplomesAuthentifies/'~ demande.diplome.fichier ) }}" target="_blanck">
+                                  <i class="fas fa-file-pdf"></i> <span class="pl-2 align-middle">view</span>
+                                </a>
+                              {% else  %}
+                                <a class="btn btn-soft-warning btn-shadow fx-text-bolder" href="{{ asset('uploads/DiplomeLaureat/'~ demande.diplome.fichier ) }}" target="_blanck">
+                                  <i class="fas fa-file-pdf"></i> <span class="pl-2 align-middle">view</span>
+                                </a>
+                              {% endif %}
+                            </td>
                             <td> 
                               {% if demande.etatSecretaire == constant('App\\Controller\\DemandeController::ETAT_VALIDE') and demande.etatDirecteurPd == constant('App\\Controller\\DemandeController::ETAT_VALIDE') and demande.etatDirecteurGn == constant('App\\Controller\\DemandeController::ETAT_VALIDE') %}
                                   <span class="fx-badge fx-badge-success fx-badge-rect"> Valide Diplome </span>
@@ -62,14 +74,14 @@
                                 {{ include('demande/_delete_form.html.twig', {'button_size': 'btn-sm'}) }}
                               {% endif %}
                               {% if is_granted('ROLE_SECRETAIRE') %}
-                                <a href="{{ path('validate_demande', {'id': demande.id}) }}" class="btn btn-dark btn-soft btn-sm mb-0">
+                                <a href="{{ path('validate_demande', {'id': demande.id}) }}" class="btn btn-soft-primary btn-sm mb-0">
                                   <i data-feather="check" class="pr-1"></i>
                                   <span class="pl-1 align-middle">Valider la Demande</span>
                                 </a>
                               {% elseif is_granted('ROLE_DIRECTEUR') %}
                                 {# check if validate by secretire #}
                                 {% if demande.etatSecretaire == constant('App\\Controller\\DemandeController::ETAT_VALIDE')  %}
-                                  <a href="{{ path('validate_demande', {'id': demande.id}) }}" class="btn btn-dark btn-soft btn-sm mb-0">
+                                  <a href="{{ path('validate_demande', {'id': demande.id}) }}" class="btn btn-soft-primary btn-sm mb-0">
                                     <i data-feather="check" class="pr-1"></i>
                                     <span class="pl-1 align-middle">Valider la Demande</span>
                                   </a>
@@ -80,7 +92,7 @@
                               {% elseif is_granted('ROLE_ETABLISSEMENT') %}
                                 {# check if validate by secretire and Directeur Pedagogique if true show validate button #}
                                 {% if demande.etatSecretaire == constant('App\\Controller\\DemandeController::ETAT_VALIDE') and demande.etatDirecteurPd == constant('App\\Controller\\DemandeController::ETAT_VALIDE') %}
-                                  <a href="{{ path('validate_demande', {'id': demande.id}) }}" class="btn btn-dark btn-soft btn-sm mb-0">
+                                  <a href="{{ path('validate_demande', {'id': demande.id}) }}" class="btn btn-soft-primary btn-sm mb-0">
                                     <i data-feather="check" class="pr-1"></i>
                                     <span class="pl-1 align-middle">Valider la Demande</span>
                                   </a>

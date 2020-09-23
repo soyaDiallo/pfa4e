@@ -25,83 +25,9 @@
               </div>
               <!-- card Body -->
               <div class="fx-card-body">
+                {# {{dump(etablissements)}} #}
                 <!-- Ajouter Diplome -->
-                <form method="post" action="{{ path('laureat_etablissement',{'id': laureat.id}) }}">
-                  <div class="input-group mb-3">
-                    <input type="text" class="form-control" placeholder="Rechercher un etablissement"  name="name">
-                    <div class="input-group-append">
-                      <button class="btn btn-primary" type="submit" id="button-addon2" >
-                        <i data-feather="search" width="18" height="18" class="pr-1"></i>
-                      </button>
-                    </div>
-                  </div>
-                </form> 
-                <div>
-                  {% if(name | length != 0 and etablissements | length != 0) %}
-                  
-                    <div class="row">
-                    {% for etablissement in etablissements %}
-                      <!-- Card -->
-                      <div class="col-md-6">
-                        <div class="card mb-5">
-                          <div class="card-body p-4">
-                            <!-- List of Icons -->
-                            <div class="row justify-content-between align-items-center mb-4">
-                              <div class="col-6">
-                                <a class="small text-secondary" href="#">
-                                  <i data-feather="bookmark" class="fx-text-brand mr-1"></i> REF: 1274521
-                                </a>
-                              </div>
-                              <div class="col-6 text-right">
-                                <!-- Settings -->
-                                <div class="dropdown dropdown-inline ml-4">
-                                  <button class="btn btn-light btn-shadow btn-sm btn-rounded btn-icon" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <i data-feather="more-vertical"></i>
-                                  </button>
-                                  <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
-                                    <a class="dropdown-item disable" href="#" onclick="showForm()" id="oo" data-toggle="modal" data-target="#newdemandemodal">
-                                      <i data-feather="file" class="pr-2 align-middle"></i>
-                                      <span class="align-middle">Ajouter Diplome</span>
-                                    </a>
-                                  </div>
-                                </div>
-                                <!-- ./End Settings -->
-                              </div>
-                            </div>
-                            <!-- ./End List of Icons -->
-                            <!-- List of Info-->
-                            <div class="text-center"> 
-                              <figure class="figure-img">
-                                <img class="fx-avatar fx-avatar-squre fx-avatar-bordered shadow-lg d-inline-block fx-avatar-lg" 
-                                src="
-                                {% if laureat.photoUrl %} 
-                                    {{ asset('uploads/imagesProfiles/'~ etablissement.photoUrl) }}
-                                {% else %}
-                                    /build/etablissment.svg
-                                {% endif %}
-                                "
-                                alt="Image Description" />
-                              </figure>
-                              <div class="text-center mt-5 mb-4">
-                                <h5 class="h5 fx-text-bold fx-text-dark mb-2">{{ etablissement.nomEtablissement }}</h5>
-                                <p class="pb-1 fx-font-size-1 align-middle mb-0">
-                                  {{ etablissement.addresse }}
-                                </p>
-                              </div>
-                            </div>
-                            <!-- ./End List of Info-->
-                          </div>
-                        </div>
-                      </div>
-                      <!-- ./End Card -->
-                    {% endfor %}
-                  </div>
-                  {% elseif (etablissements | length == 0 and name | length != 0) %}
-                    <div class="alert alert-danger" role="alert">
-                      Aucun etablissement trouvé pour le nom <b>{{ name }}</b>
-                    </div>
-                  {% endif %}
-                </div> 
+                {% include('laureat/layout/_search_etablissment.html.twig') %}
               </div>
             </div>
             
@@ -124,7 +50,7 @@
       </div>
       <div class="modal-body">
           <div class="form-layer">
-           {{ form_start(form,{'action': path('laureat_etablissement', {'id': laureat.id}), 'method': 'POST'}) }}
+            {{ form_start(form,{'action': path('laureat_etablissement', {'id': laureat.id}), 'method': 'POST'}) }}
             <div class="mb-3">
               <label for="form-file">Fichier (PDF)</label>
               <div> 

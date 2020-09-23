@@ -5,7 +5,7 @@
         <img class="fx-avatar fx-avatar-squre fx-avatar-bordered shadow-lg d-inline-block fx-avatar-xl rounded-circle" 
         src="
         {% if laureat.photoUrl %} 
-            {{ asset('uploads/imagesProfiles/'~ laureat.photoUrl) }}
+            {{ asset('uploads/imagesProfiles/'~ laureat.photoUrl)|imagine_filter('my_thumb') }}
         {% else %}
             /build/avatar.jpg
         {% endif %}

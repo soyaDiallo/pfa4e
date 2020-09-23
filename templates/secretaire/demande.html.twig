@@ -37,15 +37,15 @@
                                         <tr>
                                             <td>
                                                 {% if demande.etat_directeur_gn == 2 %}
-                                                <a href="{{ asset('uploads/DiplomeLaureat/'~demande.fichier ) }}" target="_blanck">
+                                                <a href="{{ asset('uploads/diplomeLaureat/'~demande.fichier ) }}" target="_blanck">
                                                     <i class="fas fa-file-pdf"></i>
                                                 </a>
                                                 {% elseif demande.etat_directeur_gn == 1 %}
-                                                    <a href="{{ asset('uploads/DiplomesAuthentifies/'~demande.fichier ) }}" target="_blanck">
+                                                    <a href="{{ asset('uploads/diplomesAuthentifies/'~demande.fichier ) }}" target="_blanck">
                                                         <i class="fas fa-file-pdf"></i>
                                                     </a>
                                                 {% else  %}
-                                                    <a href="{{ asset('uploads/DiplomeLaureat/'~demande.fichier ) }}" target="_blanck">
+                                                    <a href="{{ asset('uploads/diplomeLaureat/'~demande.fichier ) }}" target="_blanck">
                                                         <i class="fas fa-file-pdf"></i>
                                                     </a>
                                                 {% endif %}
