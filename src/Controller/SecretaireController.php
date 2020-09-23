@@ -2,19 +2,15 @@
 
 namespace App\Controller;
 
-use App\Entity\Demande;
+
 use App\Entity\Secretaire;
 use App\Form\SecretaireType;
-use App\Repository\DemandeRepository;
-use App\Repository\SecretaireRepository;
-use App\Repository\UserRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 /**
  * @Route("/secretaire")
  * @IsGranted({"ROLE_SECRETAIRE"})
