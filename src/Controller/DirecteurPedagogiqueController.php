@@ -108,48 +108,5 @@ class DirecteurPedagogiqueController extends AbstractController
         return $this->redirectToRoute('directeur_pedagogique_show',array('id' => $directeurPedagogique->getId()));
     }
 
-    /**
-     * @Route("/profildemande/{id}", name="directeur_demande", methods={"GET","POST"})
-     */
-    public function profildemande(DemandeRepository $demandeRepository,DirecteurPedagogique $directeurPedagogique,DirecteurPedagogiqueRepository $pedagogiqueRepository,$id):Response
-    {
-        $IdEtab = $pedagogiqueRepository->getIdEtab($id);
-
-        return $this->render('directeur_pedagogique/demande.html.twig',[
-            'directeur_pedagogique' => $directeurPedagogique,
-            'demandes' => $demandeRepository->getDirDemandes(intval($IdEtab))
-        ]);
-    }
-
-    /**
-     * @Route("/valide/demande/{id}/{dir}", name="directeurP_valide", methods={"GET","POST"})
-     */
-    public function valideDemande(DemandeRepository $demandeRepository,$id,$dir): Response
-    {
-
-
-        $date = new \DateTime('now');
-
-        $demandeRepository->validateDemandeByDir($id,$date,1,$dir);
-
-
-        return $this->redirectToRoute('directeur_demande', array(
-            'id' => $dir));
-
-    }
-
-    /**
-     * @Route("/annuler/demande/{id}/{dir}", name="directeurP_annuler", methods={"GET","POST"})
-     */
-    public function annulerDemande(DemandeRepository $demandeRepository,$id,$dir): Response
-    {
-        $date = new \DateTime('now');
-
-        $demandeRepository->annulerDemandeByDir($id,0,$date,$dir);
-
-        return $this->redirectToRoute('directeur_demande', array(
-            'id' => $dir));
-
-    }
 
 }
