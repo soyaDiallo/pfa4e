@@ -1,6 +1,6 @@
 {% extends 'security-base.html.twig' %}
 
-{% block title %}Log in!{% endblock %}
+{% block title %}Password Reset Email Sent{% endblock %}
 
 {% block body %}
 
@@ -37,46 +37,9 @@
                     <!-- Right Content -->
                     <div class="col-md-5 align-self-center space-2 space-md-3 space-lg-0 full-height d-flex align-items-center">
                         <div class="fx-w-100">
-                            <form method="post" class="security-form">
-                                {% if error %}
-                                    <div class="alert alert-danger font-weight-bold">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-                                {% endif %}
-
-                                {% if app.user %}
-                                    <div class="mb-3">
-                                        You are logged in as {{ app.user.username }}, <a href="{{ path('app_logout') }}">Logout</a>
-                                    </div>
-                                {% endif %}
-
-                                <div class="mb-4">
-                                    <input type="email" value="{{ last_username }}" placeholder="email address" name="email" id="inputEmail" class="form-control form-control-lg" required autofocus>
-                                </div>
-                                <div class="mb-4">
-                                    <input type="password" name="password" placeholder="password" id="inputPassword" class="form-control form-control-lg" required>
-                                </div>
-
-                                <input type="hidden" name="_csrf_token"
-                                    value="{{ csrf_token('authenticate') }}"
-                                >
-
-                                {#
-                                    Uncomment this section and add a remember_me option below your firewall to activate remember me functionality.
-                                    See https://symfony.com/doc/current/security/remember_me.html
-
-                                    <div class="checkbox mb-3">
-                                        <label>
-                                            <input type="checkbox" name="_remember_me"> Remember me
-                                        </label>
-                                    </div>
-                                #}
-
-                                <button class="btn btn-lg btn-brand btn-block mt-4 rounded-0" type="submit">
-                                    Sign in
-                                </button>
-                            </form>
-                            <p class="text-right my-4 h6 font-weight-normal fx-text-lh-md text-lowercase">
-                                <span class="align-middle">Mot de passe oublié ?</span>
-                                <a href={{ path('app_forgot_password_request')}} class="fx-text-brand text-underline"> reset pasword </a>
+                            <p class="h6 mb-5 fx-text-lh-md">An email has been sent that contains a link that you can click to reset your password. This link will expire in <span class="fx-text-danger"> {{ tokenLifetime|date('g') }} hour(s). </span></p>
+                            <p class="h6 fx-text-lh-md">If you don't receive an email please check your spam folder or 
+                                <a href="{{ path('app_forgot_password_request') }}" class="fx-text-brand text-underline">try again</a>.
                             </p>
                         </div>
                     </div>

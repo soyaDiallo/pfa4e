@@ -1,0 +1,63 @@
+{% extends 'security-base.html.twig' %}
+
+{% block title %} reset Your Password {% endblock %}
+
+{% block body %}
+
+    <!-- Hero Section -->
+    <div class="position-relative">
+        <!-- half bachground -->
+        <div class="col-md-6 position-absolute fx-top-0 fx-left-0 full-height" style="background-color: #f3f5f8;"></div>
+        <div class="fx-h-100">
+            <div class="container">
+                <div class="row align-items-center justify-content-lg-between">
+                    <!-- Left Content -->
+                    <div class="col-md-5 full-height">
+                        <!-- Content -->
+                        <div class="position-relative fx-z-index-2 fx-h-100 d-flex align-items-center">
+                            <div class="text-left text-security">
+                                <h1 class="h1 fx-text-boldest text-primary"> Diploma </h1>
+                                <div class="fx-divider fx-divider-horizontal fx-divider-2x"></div>
+                                <p class="display-4 fx-text-bolder my-5"> Creativity & quality is our distination</p>
+                                <div class="quote-content">
+                                    <div class="quote2-module__content--author mb-4">
+                                        <img class="fx-avatar rounded-circle fx-avatar-bordered shadow-lg d-inline-block fx-avatar-lg" src="/build/envato-green.png" alt="Image Description">
+                                        <span class="pl-4 font-weight-bold">Soya Diallo,&nbsp;Chef Project</span>
+                                    </div>
+                                    <p class="h6 font-weight-normal fx-text-lh-md">
+                                        "Since the beginning our main goal was to help entrepreneurs&nbsp;build new software solution that matters. Building and shipping products that are helpful for people, making world a better place, for everyone, including ourselves."
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- ./End Content -->
+                    </div>
+                    <!-- ./End Left Content -->
+                
+                    <!-- Right Content -->
+                    <div class="col-md-5 align-self-center space-2 space-md-3 space-lg-0 full-height d-flex align-items-center">
+                        <div class="fx-w-100">
+                            {% for flashError in app.flashes('reset_password_error') %}
+                                <div class="alert alert-danger font-weight-bold" role="alert">{{ flashError }}</div>
+                            {% endfor %}
+
+                            <h2 class="fx-text-dark mb-5">Reset your password</h2>
+                            <div class="security-form">
+                                {{ form_start(requestForm) }}
+                                    {{ form_row(requestForm.email) }}
+                                    <p class="text-center fx-font-size-1">
+                                        Enter your email address and we we will send you a
+                                        link to reset your password.
+                                    </p>
+                                    <button class="btn btn-widest btn-tall btn-primary rounded-0 shadow-sm font-weight-bold">Send password reset email</button>
+                                {{ form_end(requestForm) }}
+                            </div>
+                        </div>
+                    </div>
+                    <!-- ./End Right Content -->
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- ./End Hero Section --> 
+{% endblock %}
