@@ -5,6 +5,7 @@ namespace App\Controller;
 
 use App\Entity\Secretaire;
 use App\Form\SecretaireType;
+use App\Repository\SecretaireRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -13,9 +14,21 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 /**
  * @Route("/secretaire")
- * @IsGranted({"ROLE_SECRETAIRE"})
+ * @IsGranted({"ROLE_SECRETAIRE","ROLE_ETABLISSEMENT"})
  */
 class SecretaireController extends AbstractController {
+
+    // Show DirecteurProfile from Etablissment Account
+    /**
+     * @Route("/", name="secretaire_index", methods={"GET"})
+     * @IsGranted({"ROLE_ETABLISSEMENT"})
+    */
+    public function index(SecretaireRepository $secretaire): Response
+    {
+        return $this->render('secretaire/index.html.twig', [
+            'secretaires' => $secretaire->findAll()
+        ]);
+    }
 
     /**
      * @Route("/profile/{id}", name="secretaire_show", methods={"GET"})
@@ -25,8 +38,6 @@ class SecretaireController extends AbstractController {
             'secretaire' => $secretaire,
         ]);
     }
-
-
 
     /**
      * @Route("/{id}/edit", name="secretaire_edit", methods={"GET","POST"})

@@ -162,19 +162,21 @@ class EtablissementController extends AbstractController
         }
 
         $etablissement = $this->getUser();
-
+        $compteName = '';
         switch ($accountType) {
             case 'directeur_pedagogique':
+                $compteName = 'directeur';
                 $user = new DirecteurPedagogique();
                 $form = $this->createForm(DirecteurPedagogiqueRegistrationFormType::class, $user);
                 $role = ['ROLE_DIRECTEUR'];
-                $renderPage  = 'etablissement/register/register-directeur.html.twig';
+                $renderPage  = 'etablissement/register/register-new-account.html.twig';
                 break;
             case 'secretaire':
+                $compteName = 'secretaire';
                 $user = new Secretaire();
                 $form = $this->createForm(SecretaireRegistrationFormType::class, $user);
                 $role = ['ROLE_SECRETAIRE'];
-                $renderPage  = 'etablissement/register/register-secretaire.html.twig';
+                $renderPage  = 'etablissement/register/register-new-account.html.twig';
                 break;                            
             default:
                 return $this->redirectToRoute('home');
@@ -204,19 +206,20 @@ class EtablissementController extends AbstractController
             $entityManager->flush();
 
             // We can Send Email To New Account 
-            
+
             // return $guardHandler->authenticateUserAndHandleSuccess(
             //     $user,
             //     $request,
             //     $authenticator,
             //     'main' // firewall name in security.yaml
             // );
-            $this->addFlash('success', 'Directeur Account was created Successfully!');
+            $this->addFlash('success', 'The New Account was created Successfully!');
             return $this->redirect($request->getUri());
         }
 
         return $this->render($renderPage, [
             'registrationForm' => $form->createView(),
+            'compteName' => $compteName
         ]);
     }
 }
