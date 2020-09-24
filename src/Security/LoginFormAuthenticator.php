@@ -69,14 +69,14 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator implements P
 
         $user = $this->entityManager->getRepository(User::class)->findOneBy(['email' => $credentials['email']]);
 
-        if($user->getDeleted()) {
-            // fail authentication with a custom error
-            throw new CustomUserMessageAuthenticationException('This Account Has been Desactivated');
-        }
-
         if (!$user) {
             // fail authentication with a custom error
             throw new CustomUserMessageAuthenticationException('Email could not be found.');
+        }
+
+        if($user->getDeleted()) {
+            // fail authentication with a custom error
+            throw new CustomUserMessageAuthenticationException('This Account Has been Desactivated');
         }
 
         return $user;

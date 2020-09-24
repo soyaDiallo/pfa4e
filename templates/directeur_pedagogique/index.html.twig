@@ -5,19 +5,25 @@
 {% block body %}
 <div class="fx-section-space-8 bg-light">
   <div class="container">
+    {% for flashError in app.flashes('error') %}
+      <div class="alert alert-danger mb-4" role="alert">{{ flashError }}</div>
+    {% endfor %}
+    {% for flashSeccuss in app.flashes('success') %}
+      <div class="alert alert-success mb-4" role="alert">{{ flashSeccuss }}</div>
+    {% endfor %}
     <div class="fx-card fx-card-tabs">
         <div class="fx-card-head align-items-center">
           <div class="fx-card-head-container">
             <h3 class="fx-card-head-title text-capitalize">
-            Ajouter un directeur
+            List Des directeurs
             </h3>
           </div>
           <div class="fx-card-head-toolbar">
           <div>
-            {# <a href="{{ path('directeur_new') }}" class="btn btn-dark mb-0">
+            <a href="/etablissement/register-account?accountType=directeur_pedagogique" class="btn btn-dark mb-0">
               <i data-feather="plus" class="pr-1"></i>
               <span class="pl-1 align-middle">Ajouter Nouveau</span>
-            </a> #}
+            </a>
           </div>
           </div>
         </div>
@@ -42,10 +48,25 @@
                 <td>{{ directeur.datenaissance|date('Y-m-d') }}</td>
                 <td>{{ directeur.email }}</td>
                 <td class="text-center">
-                  <a class="btn btn-danger btn-sm mb-0" href="{{ path('directeur_pedagogique_delete', {'id': directeur.id}) }}">
-                    <i data-feather="trash" class="pr-1"></i>
-                    <span class="pl-1 align-middle"> delete </span>
-                  </a>
+                  {% if directeur.deleted %}
+                    <form class="d-inline-block" method="post" action="{{ path('directeur_pedagogique_activate_again', {'id': directeur.id}) }}" onsubmit="return confirm('Are you sure you want to Activate this item Again?');">
+                      <input type="hidden" name="_method" value="DELETE">
+                      <input type="hidden" name="_token" value="{{ csrf_token('activate' ~ directeur.id) }}">
+                      <button class="btn btn-success">
+                        <i data-feather="trash" class="pr-2"></i>
+                        <span class="align-middle"> Activate </span>
+                      </button>
+                    </form>
+                  {% else %}
+                    <form class="d-inline-block" method="post" action="{{ path('directeur_pedagogique_delete_by_etab', {'id': directeur.id}) }}" onsubmit="return confirm('Are you sure you want to delete this item?');">
+                      <input type="hidden" name="_method" value="DELETE">
+                      <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ directeur.id) }}">
+                      <button class="btn btn-danger">
+                        <i data-feather="trash" class="pr-2"></i>
+                        <span class="align-middle"> desactivate </span>
+                      </button>
+                  </form>
+                  {% endif %}
                 </td>
             </tr>
         {% else %}

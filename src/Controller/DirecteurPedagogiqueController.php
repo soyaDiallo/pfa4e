@@ -108,5 +108,43 @@ class DirecteurPedagogiqueController extends AbstractController
         return $this->redirectToRoute('directeur_pedagogique_show',array('id' => $directeurPedagogique->getId()));
     }
 
+    /**
+     * @Route("/desactivate/{id}", name="directeur_pedagogique_delete_by_etab", methods={"DELETE"})
+     * @IsGranted({"ROLE_ETABLISSEMENT"})
+     */
+    public function deleteByEtab(Request $request, DirecteurPedagogique $directeurPedagogique): Response
+    {
+        if ($this->isCsrfTokenValid('delete'.$directeurPedagogique->getId(), $request->request->get('_token'))) {
+            $entityManager = $this->getDoctrine()->getManager();
+            $directeurPedagogique->setDeleted(1);
+            // $entityManager->remove($directeurPedagogique);
+            $entityManager->flush();
+            $this->addFlash('success', 'Le compte a été desactiver avec succes');
+            return $this->redirectToRoute('directeur_pedagogique_index');
+        }
+
+        $this->addFlash('error', 'there is something wrong, -_- Pls try Again later');
+        return $this->redirectToRoute('directeur_pedagogique_index');
+    }
+
+    /**
+     * @Route("/activate/{id}", name="directeur_pedagogique_activate_again", methods={"DELETE"})
+     * @IsGranted({"ROLE_ETABLISSEMENT"})
+     */
+    public function activateAgain(Request $request, DirecteurPedagogique $directeurPedagogique): Response
+    {
+        if ($this->isCsrfTokenValid('activate'.$directeurPedagogique->getId(), $request->request->get('_token'))) {
+            $entityManager = $this->getDoctrine()->getManager();
+            $directeurPedagogique->setDeleted(0);
+            // $entityManager->remove($directeurPedagogique);
+            $entityManager->flush();
+            $this->addFlash('success', 'Le compte a été Activer avec succes');
+            return $this->redirectToRoute('directeur_pedagogique_index');
+        }
+
+        $this->addFlash('error', 'there is something wrong, -_- Pls try Again later');
+        return $this->redirectToRoute('directeur_pedagogique_index');
+    }
+
 
 }
