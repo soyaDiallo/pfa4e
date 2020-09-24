@@ -213,7 +213,7 @@ class EtablissementController extends AbstractController
             //     $authenticator,
             //     'main' // firewall name in security.yaml
             // );
-            $this->addFlash('success', 'The New Account was created Successfully!');
+            $this->addFlash('success', 'Le compte a été créé avec succes');
             return $this->redirect($request->getUri());
         }
 
