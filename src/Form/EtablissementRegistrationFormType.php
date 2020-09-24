@@ -61,7 +61,7 @@ class EtablissementRegistrationFormType extends AbstractType
             ])
             ->add('pays')
             ->add('S\'inscrire', SubmitType::class, [
-                'attr' => ['class' => 'btn btn-widest btn-tall btn-primary rounded-0 shadow-sm'],
+                'attr' => ['class' => 'btn btn-widest btn-tall btn-primary rounded-0 shadow-sm font-weight-bold'],
             ])
         ;
     }
