@@ -55,21 +55,9 @@
           </li>
           <!-- ./End SubMenu -->
           <li>
-            <a href="#" class="mn-has-sub menu-link">
+            <a href="{{path('laureat_index')}}" class="menu-link">
               <span> laureats </span>
-              <i data-feather="chevron-down"></i>
             </a>
-
-            <!-- Sub -->
-            <ul class="mn-sub to-left py-4">
-              <li>
-                <a href="{{path('laureat_index')}}">Afficher les laureats</a>
-              </li>
-              <li>
-                <a href="{{path('laureat_new')}}">Ajouter un laureat</a>
-              </li>
-            </ul>
-            <!-- ./End Sub -->
           </li>
           <!-- ./End SubMenu -->
           <li>
@@ -92,17 +80,45 @@
           <!-- ./End SubMenu -->
           <li>
             <a href="#" class="mn-has-sub menu-link">
-              <span> directeurs </span>
+              <span> Gestion Comptes </span>
               <i data-feather="chevron-down"></i>
             </a>
 
             <!-- Sub -->
-            <ul class="mn-sub to-left py-4">
-              <li>
-                <a href="{{path('directeur_pedagogique_index')}}">Afficher les directeurs</a>
+            <ul class="mn-sub to-right py-4">
+              <li> 
+                <a href="#" class="mn-has-sub menu-link">
+                  <span> directeurs </span>
+                  <i data-feather="chevron-right" class="float-right"></i>
+                </a>
+
+                <!-- Sub -->
+                <ul class="mn-sub to-right py-4">
+                  <li>
+                    <a href="{{path('directeur_pedagogique_index')}}">Afficher les directeurs</a>
+                  </li>
+                  <li>
+                    <a href="/etablissement/register-account?accountType=directeur_pedagogique">Ajouter un directeur</a>
+                  </li>
+                </ul>
+                <!-- ./End SubMenu -->
               </li>
-              <li>
-                <a href="{{path('directeur_pedagogique_new')}}">Ajouter un directeur</a>
+              <li> 
+                <a href="#" class="mn-has-sub menu-link">
+                  <span> secretaire </span>
+                  <i data-feather="chevron-right" class="float-right"></i>
+                </a>
+
+                <!-- Sub -->
+                <ul class="mn-sub to-right py-4">
+                  <li>
+                    <a href="{{path('directeur_pedagogique_index')}}">Afficher les secretaire</a>
+                  </li>
+                  <li>
+                    <a href="{{path('directeur_pedagogique_new')}}">Ajouter un secretaire</a>
+                  </li>
+                </ul>
+                <!-- ./End SubMenu -->
               </li>
             </ul>
             <!-- ./End Sub -->

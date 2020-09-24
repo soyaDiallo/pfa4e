@@ -53,6 +53,7 @@ class DemandeController extends AbstractController
         case $this->isGranted(["ROLE_DIRECTEUR"]):
           // get demandes already validate by Secretaire
           $demandes = $demandeRepository->findDemandeDirecteur($this->getUser()->getEtablissement(), self::ETAT_VALIDE);
+          dd($demandes);
           break; 
         case $this->isGranted(["ROLE_ETABLISSEMENT"]):
           // get demandes already validate by Secretaire and Directeur

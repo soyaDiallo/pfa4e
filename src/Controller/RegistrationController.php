@@ -46,6 +46,7 @@ class RegistrationController extends AbstractController
                 $user = new DirecteurPedagogique();
                 $form = $this->createForm(DirecteurPedagogiqueRegistrationFormType::class, $user);
                 $role = ['ROLE_DIRECTEUR'];
+                $renderPage  = 'registration/register-directeur.html.twig';
                 break;
             case 'laureat':
                 $user = new Laureat();

@@ -3,20 +3,20 @@
 namespace App\Controller;
 
 use App\Entity\Etablissement;
+use App\Entity\DirecteurPedagogique;
+use App\Entity\Secretaire;
 use App\Form\EtablissementType;
 use App\Repository\DemandeRepository;
-use App\Repository\EtablissementRepository;
-use App\Repository\UserRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use App\Form\SecretaireRegistrationFormType;
+use App\Form\DirecteurPedagogiqueRegistrationFormType;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
-use App\Repository\DiplomeRepository;
-use App\Repository\LaureatRepository;
-use Endroid\QrCode\QrCode;
-use setasign\Fpdi\Fpdi;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Symfony\Component\Security\Guard\GuardAuthenticatorHandler;
 
 /**
  * @Route("/etablissement")
@@ -147,6 +147,76 @@ class EtablissementController extends AbstractController
         return $this->render('etablissement/profildemande.html.twig',[
             'etablissement' => $etablissement,
             'demandes' => $demandeRepository->getDiplomesEtab($id)
+        ]);
+    }
+
+    /**
+     * @Route("/register-account", name="app_etablissement_register")
+     */
+    public function register(Request $request, UserPasswordEncoderInterface $passwordEncoder, GuardAuthenticatorHandler $guardHandler): Response
+    {
+        $accountType = $request->query->get('accountType');
+
+        if($accountType == null){
+            return $this->redirectToRoute('home');
+        }
+
+        $etablissement = $this->getUser();
+
+        switch ($accountType) {
+            case 'directeur_pedagogique':
+                $user = new DirecteurPedagogique();
+                $form = $this->createForm(DirecteurPedagogiqueRegistrationFormType::class, $user);
+                $role = ['ROLE_DIRECTEUR'];
+                $renderPage  = 'etablissement/register/register-directeur.html.twig';
+                break;
+            case 'secretaire':
+                $user = new Secretaire();
+                $form = $this->createForm(SecretaireRegistrationFormType::class, $user);
+                $role = ['ROLE_SECRETAIRE'];
+                $renderPage  = 'etablissement/register/register-secretaire.html.twig';
+                break;                            
+            default:
+                return $this->redirectToRoute('home');
+                break;
+        }
+
+        
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $user->setEmail($form->get('email')->getData());
+
+            $user->setPassword(
+                $passwordEncoder->encodePassword(
+                    $user,
+                    $form->get('plainPassword')->getData()
+                )
+            );
+
+            $user->setDeleted(false);
+            
+            $user->setRoles($role);
+            $user->setEtablissement($etablissement);
+
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($user);
+            $entityManager->flush();
+
+            // We can Send Email To New Account 
+            
+            // return $guardHandler->authenticateUserAndHandleSuccess(
+            //     $user,
+            //     $request,
+            //     $authenticator,
+            //     'main' // firewall name in security.yaml
+            // );
+            $this->addFlash('success', 'Directeur Account was created Successfully!');
+            return $this->redirect($request->getUri());
+        }
+
+        return $this->render($renderPage, [
+            'registrationForm' => $form->createView(),
         ]);
     }
 }
