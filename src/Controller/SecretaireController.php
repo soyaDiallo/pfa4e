@@ -87,4 +87,40 @@ class SecretaireController extends AbstractController {
         return $this->redirectToRoute('secretaire_show',array('id' => $secretaire->getId()));
     }
 
+    /**
+     * @Route("/desactivate/{id}", name="secretaire_desactivate", methods={"DELETE"})
+     * @IsGranted({"ROLE_ETABLISSEMENT"})
+     */
+    public function desactivate(Request $request, Secretaire $secretaire): Response
+    {
+        if ($this->isCsrfTokenValid('desactivate'.$secretaire->getId(), $request->request->get('_token'))) {
+            $entityManager = $this->getDoctrine()->getManager();
+            $secretaire->setDeleted(1);
+            $entityManager->flush();
+            $this->addFlash('success', 'Le compte a été desactiver avec succes');
+            return $this->redirectToRoute('secretaire_index');
+        }
+
+        $this->addFlash('error', 'there is something wrong, -_- Pls try Again later');
+        return $this->redirectToRoute('secretaire_index');
+    }
+
+    /**
+     * @Route("/activate/{id}", name="secretaire_activate", methods={"DELETE"})
+     * @IsGranted({"ROLE_ETABLISSEMENT"})
+     */
+    public function activate(Request $request, Secretaire $secretaire): Response
+    {
+        if ($this->isCsrfTokenValid('activate'.$secretaire->getId(), $request->request->get('_token'))) {
+            $entityManager = $this->getDoctrine()->getManager();
+            $secretaire->setDeleted(0);
+            $entityManager->flush();
+            $this->addFlash('success', 'Le compte a été Activer avec succes');
+            return $this->redirectToRoute('secretaire_index');
+        }
+
+        $this->addFlash('error', 'there is something wrong, -_- Pls try Again later');
+        return $this->redirectToRoute('secretaire_index');
+    }
+
 }

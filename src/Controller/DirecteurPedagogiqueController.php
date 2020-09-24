@@ -109,12 +109,12 @@ class DirecteurPedagogiqueController extends AbstractController
     }
 
     /**
-     * @Route("/desactivate/{id}", name="directeur_pedagogique_delete_by_etab", methods={"DELETE"})
+     * @Route("/desactivate/{id}", name="directeur_pedagogique_desactivate", methods={"DELETE"})
      * @IsGranted({"ROLE_ETABLISSEMENT"})
      */
-    public function deleteByEtab(Request $request, DirecteurPedagogique $directeurPedagogique): Response
+    public function desactivate(Request $request, DirecteurPedagogique $directeurPedagogique): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$directeurPedagogique->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('desactivate'.$directeurPedagogique->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
             $directeurPedagogique->setDeleted(1);
             // $entityManager->remove($directeurPedagogique);
@@ -128,10 +128,10 @@ class DirecteurPedagogiqueController extends AbstractController
     }
 
     /**
-     * @Route("/activate/{id}", name="directeur_pedagogique_activate_again", methods={"DELETE"})
+     * @Route("/activate/{id}", name="directeur_pedagogique_activate", methods={"DELETE"})
      * @IsGranted({"ROLE_ETABLISSEMENT"})
      */
-    public function activateAgain(Request $request, DirecteurPedagogique $directeurPedagogique): Response
+    public function activate(Request $request, DirecteurPedagogique $directeurPedagogique): Response
     {
         if ($this->isCsrfTokenValid('activate'.$directeurPedagogique->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
@@ -145,6 +145,5 @@ class DirecteurPedagogiqueController extends AbstractController
         $this->addFlash('error', 'there is something wrong, -_- Pls try Again later');
         return $this->redirectToRoute('directeur_pedagogique_index');
     }
-
 
 }

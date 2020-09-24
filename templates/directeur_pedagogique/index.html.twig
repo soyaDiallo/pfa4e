@@ -49,7 +49,7 @@
                 <td>{{ directeur.email }}</td>
                 <td class="text-center">
                   {% if directeur.deleted %}
-                    <form class="d-inline-block" method="post" action="{{ path('directeur_pedagogique_activate_again', {'id': directeur.id}) }}" onsubmit="return confirm('Are you sure you want to Activate this item Again?');">
+                    <form class="d-inline-block" method="post" action="{{ path('directeur_pedagogique_activate', {'id': directeur.id}) }}" onsubmit="return confirm('Are you sure you want to Activate this item Again?');">
                       <input type="hidden" name="_method" value="DELETE">
                       <input type="hidden" name="_token" value="{{ csrf_token('activate' ~ directeur.id) }}">
                       <button class="btn btn-success">
@@ -58,9 +58,9 @@
                       </button>
                     </form>
                   {% else %}
-                    <form class="d-inline-block" method="post" action="{{ path('directeur_pedagogique_delete_by_etab', {'id': directeur.id}) }}" onsubmit="return confirm('Are you sure you want to delete this item?');">
+                    <form class="d-inline-block" method="post" action="{{ path('directeur_pedagogique_desactivate', {'id': directeur.id}) }}" onsubmit="return confirm('Are you sure you want to desactivate this item?');">
                       <input type="hidden" name="_method" value="DELETE">
-                      <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ directeur.id) }}">
+                      <input type="hidden" name="_token" value="{{ csrf_token('desactivate' ~ directeur.id) }}">
                       <button class="btn btn-danger">
                         <i data-feather="trash" class="pr-2"></i>
                         <span class="align-middle"> desactivate </span>
