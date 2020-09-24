@@ -63,21 +63,6 @@ class LaureatController extends AbstractController
         ]);
     }
 
-    // Delete Laeaureat Account permanently 
-    /**
-    * @Route("/{id}", name="laureat_delete", methods={"DELETE"})
-    */
-    public function delete(Request $request, Laureat $laureat): Response
-    {
-        if ($this->isCsrfTokenValid('delete'.$laureat->getId(), $request->request->get('_token'))) {
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->remove($laureat);
-            $entityManager->flush();
-        }
-
-        return $this->redirectToRoute('laureat_index');
-    }
-
     // Show Laureat Diplomes
     /**
      * @Route("/profildip/{id}", name="laureat_diplome", methods={"GET"})
@@ -254,25 +239,20 @@ class LaureatController extends AbstractController
         return $this->render('laureat/profilApropos.html.twig',['laureat' => $laureat]);
     }
 
-    // Désactiver compte laureat
+    // Delete Laeaureat Account permanently 
     /**
-     * @Route("/profildesactiver/{id}", name="laureat_desactiver", methods={"GET","POST"})
-     */
-    public function profildesactiver(Laureat $laureat,Request $request):Response {
-        $action=$request->request->get("desac");
-
-        if($action) {
-            // Exemple : 1 = compte désactiver
-            $laureat->setDeleted(1);
-
+    * @Route("/{id}", name="laureat_delete", methods={"DELETE"})
+    */
+    public function delete(Request $request, Laureat $laureat): Response
+    {
+        if ($this->isCsrfTokenValid('delete'.$laureat->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($laureat);
+            $laureat->setDeleted(1);
             $entityManager->flush();
             return $this->redirectToRoute('app_logout');
         }
-        return $this->render('laureat/profilDesactiver.html.twig',[
-            'laureat' => $laureat,
-        ]);
+
+        return $this->render('laureat/profilApropos.html.twig',['laureat' => $laureat]);
     }
 }
 

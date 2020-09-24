@@ -42,11 +42,11 @@
                             <td>{{ demande.id }}</td>
                             <td >
                               {% if demande.etatDirecteurGn == constant('App\\Controller\\DemandeController::ETAT_VALIDE') %}
-                                <a class="btn btn-soft-warning btn-shadow fx-text-bolder" href="{{ asset('uploads/DiplomesAuthentifies/'~ demande.diplome.fichier ) }}" target="_blanck">
+                                <a class="btn btn-soft-warning btn-shadow fx-text-bolder" href="{{ asset('uploads/diplomes-authentifies/'~ demande.diplome.fichier ) }}" target="_blanck">
                                   <i class="fas fa-file-pdf"></i> <span class="pl-2 align-middle">Fichier</span>
                                 </a>
                               {% else  %}
-                                <a class="btn btn-soft-warning btn-shadow fx-text-bolder" href="{{ asset('uploads/DiplomeLaureat/'~ demande.diplome.fichier ) }}" target="_blanck">
+                                <a class="btn btn-soft-warning btn-shadow fx-text-bolder" href="{{ asset('uploads/diplome-laureat/'~ demande.diplome.fichier ) }}" target="_blanck">
                                   <i class="fas fa-file-pdf"></i> <span class="pl-2 align-middle">Fichier</span>
                                 </a>
                               {% endif %}
