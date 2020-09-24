@@ -1,0 +1,60 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Secretaire index{% endblock %}
+
+{% block body %}
+<div class="fx-section-space-8 bg-light">
+  <div class="container">
+    <div class="fx-card fx-card-tabs">
+        <div class="fx-card-head align-items-center">
+          <div class="fx-card-head-container">
+            <h3 class="fx-card-head-title text-capitalize">
+            List Des Secretaires
+            </h3>
+          </div>
+          <div class="fx-card-head-toolbar">
+          <div>
+            <a href="/etablissement/register-account?accountType=secretaire" class="btn btn-dark mb-0">
+              <i data-feather="plus" class="pr-1"></i>
+              <span class="pl-1 align-middle">Ajouter une Nouveau</span>
+            </a>
+          </div>
+          </div>
+        </div>
+        <div class="fx-card-body">
+        <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Nom</th>
+                <th>Prenom</th>
+                <th>Telephone</th>
+                <th>Email</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for secretaire in secretaires %}
+            <tr>
+                <td>{{ secretaire.nom }}</td>
+                <td>{{ secretaire.prenom }}</td>
+                <td>{{ secretaire.telephone }}</td>
+                <td>{{ secretaire.email }}</td>
+                <td class="text-center">
+                  <a class="btn btn-danger btn-sm mb-0" href="{{ path('secretaire_delete', {'id': secretaire.id}) }}">
+                    <i data-feather="trash" class="pr-1"></i>
+                    <span class="pl-1 align-middle"> delete </span>
+                  </a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
