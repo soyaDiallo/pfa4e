@@ -16,7 +16,7 @@
   {% set Directionpath = 'secretaire_index' %}
 {% endif %}
 
-{% block title %}Neuvau Compte{% endblock %}
+{% block title %}Ajouter compte{% endblock %}
 
 {% block body %}
 <div class="fx-section-space-8 bg-light">
@@ -24,15 +24,15 @@
     <div class="fx-card fx-card-tabs">
       <div class="fx-card-head align-items-center">
         <div class="fx-card-head-container">
-          <h3 class="fx-card-head-title text-capitalize">
-            Ajouter Nouveau {{compteName}}
+          <h3 class="fx-card-head-title">
+            Ajouter un compte "{{compteName}}"
           </h3>
         </div>
         <div class="fx-card-head-toolbar">
           <div>
             <a href="{{ path(Directionpath) }}" class="btn btn-dark mb-0">
               <i data-feather="arrow-left" class="pr-1"></i>
-              <span class="pl-1 align-middle">Back to LIst</span>
+              <span class="pl-1 align-middle">Retour</span>
             </a>
           </div>
         </div>
@@ -65,7 +65,7 @@
                     {{ form_widget(registrationForm.email) }}
                   </div>
                   <div class="col-12 mb-4">
-                    {{ form_widget(registrationForm.plainPassword, {'attr': {'placeholder': 'password'}}) }}
+                    {{ form_widget(registrationForm.plainPassword, {'attr': {'placeholder': 'Mot de passe'}}) }}
                   </div>
                   <div class="col-12 mb-4">
                     {{ form_widget(registrationForm.telephone) }}
