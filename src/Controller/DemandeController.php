@@ -63,7 +63,7 @@ class DemandeController extends AbstractController
           $demandes = null;
           break;
       }
-      // dd($demandes);
+       //dd($demandes);
       return $this->render('demande/index.html.twig', [
         'demandes' => $demandes
       ]);
@@ -204,7 +204,7 @@ class DemandeController extends AbstractController
                 $this->GenerateDiplome($demandeRepository, $id, $diplomeRepository, $laureatRepository, $userRepository);
                 $email = $userRepository->getEmailLaureat($demande->getLaureat()->getId());
                 $name = $userRepository->getNom($demande->getLaureat()->getId());
-                $subject = 'Votre Demande Valide Avec Secuuss';
+                $subject = 'Votre Demande a été valider avec succes';
                 $message = 'cette Demande et valider avec Success Par votre Etablissment !';
                 $this->sentEmailValidation($email,$subject, $message, $name, $mailer);
               }
