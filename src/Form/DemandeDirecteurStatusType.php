@@ -17,9 +17,9 @@ class DemandeDirecteurStatusType extends AbstractType
         $builder
             ->add('etatDirecteurPd', ChoiceType::class, [
                 'choices' => [
-                    'Valide deplome' => DemandeController::ETAT_VALIDE,
-                    'Not Valide' => DemandeController::ETAT_NOT_VALIDE,
-                    'On Process' => DemandeController::ETAT_PROCESS
+                    'Valider' => DemandeController::ETAT_VALIDE,
+                    'Annuler' => DemandeController::ETAT_NOT_VALIDE,
+                    'En cours' => DemandeController::ETAT_PROCESS
                 ],
                 'required' => true,
                 'expanded' => false,

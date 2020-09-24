@@ -9,7 +9,7 @@
             <div class="fx-card-head align-items-center">
                 <div class="fx-card-head-container">
                 <h3 class="fx-card-head-title text-capitalize">
-                    Demande index
+                    Demandes
                 </h3>
                 </div>
                 <div class="fx-card-head-toolbar">
@@ -43,21 +43,21 @@
                             <td >
                               {% if demande.etatDirecteurGn == constant('App\\Controller\\DemandeController::ETAT_VALIDE') %}
                                 <a class="btn btn-soft-warning btn-shadow fx-text-bolder" href="{{ asset('uploads/DiplomesAuthentifies/'~ demande.diplome.fichier ) }}" target="_blanck">
-                                  <i class="fas fa-file-pdf"></i> <span class="pl-2 align-middle">view</span>
+                                  <i class="fas fa-file-pdf"></i> <span class="pl-2 align-middle">Fichier</span>
                                 </a>
                               {% else  %}
                                 <a class="btn btn-soft-warning btn-shadow fx-text-bolder" href="{{ asset('uploads/DiplomeLaureat/'~ demande.diplome.fichier ) }}" target="_blanck">
-                                  <i class="fas fa-file-pdf"></i> <span class="pl-2 align-middle">view</span>
+                                  <i class="fas fa-file-pdf"></i> <span class="pl-2 align-middle">Fichier</span>
                                 </a>
                               {% endif %}
                             </td>
                             <td> 
                               {% if demande.etatSecretaire == constant('App\\Controller\\DemandeController::ETAT_VALIDE') and demande.etatDirecteurPd == constant('App\\Controller\\DemandeController::ETAT_VALIDE') and demande.etatDirecteurGn == constant('App\\Controller\\DemandeController::ETAT_VALIDE') %}
-                                  <span class="fx-badge fx-badge-success fx-badge-rect"> Valide Diplome </span>
+                                  <span class="fx-badge fx-badge-success fx-badge-rect"> Validée </span>
                               {% elseif not demande.etatSecretaire or not demande.etatDirecteurPd or not demande.etatDirecteurGn %}
-                                  <span class="fx-badge fx-badge-warning fx-badge-rect"> Not Valide </span>
+                                  <span class="fx-badge fx-badge-danger fx-badge-rect"> Annulée </span>
                               {% else %}
-                                  <span class="fx-badge fx-badge-danger fx-badge-rect"> In process </span>
+                                  <span class="fx-badge fx-badge-danger fx-badge-rect"> En cours </span>
                               {% endif %}
                             </td>
                             <td>{{ demande.dateValidationSecretaire ? demande.dateValidationSecretaire|date('Y-m-d') : '0000-00-00' }}</td>
@@ -105,7 +105,7 @@
                         </tr>
                     {% else %}
                       <tr>
-                        <td colspan="6">no records found</td>
+                        <td colspan="6">Aucun resultat trouvé</td>
                       </tr>
                     {% endfor %}
                     </tbody>

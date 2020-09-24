@@ -13,11 +13,11 @@
 				</label>
 				{{ form_widget(form.etatSecretaire, {'attr': {'class': 'form-control form-control-lg'}}) }}
 				{% if form.etatSecretaire.vars.value == 1 %}
-					<span class="text-success"> Secretaire say that is valid </span>
+					<span class="text-success"> La demande a été validée par la Secretaire </span>
 				{% elseif form.etatSecretaire.vars.value == 0 %}
-					<span class="text-danger"> Secretaire say that is not valid </span>
-				{% elseif form.etatSecretaire.vars.value == 0 %}
-					<span class="text-warning"> in process </span>
+					<span class="text-danger"> La demande a été annulée par la Secretaire </span>
+				{% elseif form.etatSecretaire.vars.value == 2 %}
+					<span class="text-warning"> La demande est en cours de traitement </span>
 				{% endif %}
 			</div>
 		{% endif%}
@@ -29,11 +29,11 @@
 			</label>
 			{{ form_widget(form.etatDirecteurPd, {'attr': {'class': 'form-control form-control-lg'}}) }}
 			{% if form.etatDirecteurPd.vars.value == 1 %}
-				<span class="text-success"> Directeur say that is valid </span>
+				<span class="text-success"> La demande a été validée par le Directeur pedagoqique </span>
 			{% elseif form.etatDirecteurPd.vars.value == 0 %}
-				<span class="text-danger"> Directeur say that is not valid </span>
-			{% elseif form.etatDirecteurPd.vars.value == 0 %}
-				<span class="text-warning"> in process </span>
+				<span class="text-danger"> La demande a été annulée par le Directeur pedagoqique </span>
+			{% elseif form.etatDirecteurPd.vars.value == 2 %}
+				<span class="text-warning"> La demande est en cours de traitement </span>
 			{% endif %}
 		</div>
 		{% endif%}
@@ -45,11 +45,11 @@
 				</label>
 				{{ form_widget(form.etatDirecteurGn, {'attr': {'class': 'form-control form-control-lg'}}) }}
 				{% if form.etatDirecteurGn.vars.value == 1 %}
-					<span class="text-success"> Etablissment say that is valid </span>
+					<span class="text-success"> La demande a été validée par L'Etablissement </span>
 				{% elseif form.etatDirecteurGn.vars.value == 0 %}
-					<span class="text-danger"> Etablissment say that is not valid </span>
-				{% elseif form.etatDirecteurGn.vars.value == 0 %}
-					<span class="text-warning"> in process </span>
+					<span class="text-danger"> La demande a été annulée par L'Etablissement </span>
+				{% elseif form.etatDirecteurGn.vars.value == 2 %}
+					<span class="text-warning"> La demande est en cours de traitement </span>
 				{% endif %}
 			</div>
 		{% endif%}
@@ -63,8 +63,8 @@
 		
 		<object type="application/pdf" width="100%" height="100%" class="fx-height-500">
 			<param name="src" value="{{ asset('uploads/diplomeLaureat/'~ key.data.fichier) }}" />
-			<p>It appears your Web browser is not configured to display PDF files.
-				No worries, just <a href="{{ asset('uploads/diplomeLaureat/'~ key.data.fichier) }}">click here to download the PDF file.</a>
+			<p>Si le fichier n'est pas visible.
+				 <a href="{{ asset('uploads/diplomeLaureat/'~ key.data.fichier) }}">click ici pour le telecharger.</a>
 			</p>
 		</object>
 	</div>
