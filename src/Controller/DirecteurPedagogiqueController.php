@@ -28,7 +28,7 @@ class DirecteurPedagogiqueController extends AbstractController
     public function index(DirecteurPedagogiqueRepository $directeurPedagogique): Response
     {
         return $this->render('directeur_pedagogique/index.html.twig', [
-            'directeurs_pedagogiques' => $directeurPedagogique->findAll(),
+            'directeurs_pedagogiques' => $directeurPedagogique->findByEtablissement(['etablissement_id' => $this->getUser()]),
         ]);
     }
 

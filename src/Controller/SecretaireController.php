@@ -26,7 +26,7 @@ class SecretaireController extends AbstractController {
     public function index(SecretaireRepository $secretaire): Response
     {
         return $this->render('secretaire/index.html.twig', [
-            'secretaires' => $secretaire->findAll()
+            'secretaires' => $secretaire->findByEtablissement(['etablissement_id' => $this->getUser()])
         ]);
     }
 
