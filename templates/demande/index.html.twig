@@ -42,11 +42,11 @@
                             <td>{{ demande.id }}</td>
                             <td >
                               {% if demande.etatDirecteurGn == constant('App\\Controller\\DemandeController::ETAT_VALIDE') %}
-                                <a class="btn btn-soft-warning btn-shadow fx-text-bolder" href="{{ asset('uploads/diplomes-authentifies/'~ demande.diplome.fichier ) }}" target="_blanck">
+                                <a class="btn btn-soft-warning btn-shadow fx-text-bolder" href="{{ asset('uploads/diplomesAuthentifies/'~ demande.diplome.fichier ) }}" target="_blanck">
                                   <i class="fas fa-file-pdf"></i> <span class="pl-2 align-middle">Fichier</span>
                                 </a>
                               {% else  %}
-                                <a class="btn btn-soft-warning btn-shadow fx-text-bolder" href="{{ asset('uploads/diplome-laureat/'~ demande.diplome.fichier ) }}" target="_blanck">
+                                <a class="btn btn-soft-warning btn-shadow fx-text-bolder" href="{{ asset('uploads/diplomeLaureat/'~ demande.diplome.fichier ) }}" target="_blanck">
                                   <i class="fas fa-file-pdf"></i> <span class="pl-2 align-middle">Fichier</span>
                                 </a>
                               {% endif %}
@@ -57,7 +57,7 @@
                               {% elseif not demande.etatSecretaire or not demande.etatDirecteurPd or not demande.etatDirecteurGn %}
                                   <span class="fx-badge fx-badge-danger fx-badge-rect"> Annulée </span>
                               {% else %}
-                                  <span class="fx-badge fx-badge-danger fx-badge-rect"> En cours </span>
+                                  <span class="fx-badge fx-badge-warning fx-badge-rect"> En cours </span>
                               {% endif %}
                             </td>
                             <td>{{ demande.dateValidationSecretaire ? demande.dateValidationSecretaire|date('Y-m-d') : '0000-00-00' }}</td>
@@ -75,15 +75,15 @@
                               {% endif %}
                               {% if is_granted('ROLE_SECRETAIRE') %}
                                 <a href="{{ path('validate_demande', {'id': demande.id}) }}" class="btn btn-soft-primary btn-sm mb-0">
-                                  <i data-feather="check" class="pr-1"></i>
-                                  <span class="pl-1 align-middle">Valider la Demande</span>
+
+                                  <span class="pl-1 align-middle">Modifier</span>
                                 </a>
                               {% elseif is_granted('ROLE_DIRECTEUR') %}
                                 {# check if validate by secretire #}
                                 {% if demande.etatSecretaire == constant('App\\Controller\\DemandeController::ETAT_VALIDE')  %}
                                   <a href="{{ path('validate_demande', {'id': demande.id}) }}" class="btn btn-soft-primary btn-sm mb-0">
-                                    <i data-feather="check" class="pr-1"></i>
-                                    <span class="pl-1 align-middle">Valider la Demande</span>
+
+                                    <span class="pl-1 align-middle">Modifier</span>
                                   </a>
                                 {% elseif demande.etatSecretaire == constant('App\\Controller\\DemandeController::ETAT_PROCESS')%}
                                   <p> waiting Secretaire Validation </p>
@@ -91,12 +91,19 @@
                               {# Etablissment Validation button #}
                               {% elseif is_granted('ROLE_ETABLISSEMENT') %}
                                 {# check if validate by secretire and Directeur Pedagogique if true show validate button #}
-                                {% if demande.etatSecretaire == constant('App\\Controller\\DemandeController::ETAT_VALIDE') and demande.etatDirecteurPd == constant('App\\Controller\\DemandeController::ETAT_VALIDE') %}
-                                  <a href="{{ path('validate_demande', {'id': demande.id}) }}" class="btn btn-soft-primary btn-sm mb-0">
-                                    <i data-feather="check" class="pr-1"></i>
-                                    <span class="pl-1 align-middle">Valider la Demande</span>
+                              {% if demande.etatSecretaire == constant('App\\Controller\\DemandeController::ETAT_VALIDE') and demande.etatDirecteurPd == constant('App\\Controller\\DemandeController::ETAT_VALIDE') and demande.etatDirecteurGn == constant('App\\Controller\\DemandeController::ETAT_VALIDE')
+                                  or  demande.etatSecretaire == constant('App\\Controller\\DemandeController::ETAT_VALIDE') and demande.etatDirecteurPd == constant('App\\Controller\\DemandeController::ETAT_VALIDE') and demande.etatDirecteurGn == constant('App\\Controller\\DemandeController::ETAT_NOT_VALIDE')  %}
+                                  <a href="{{ path('validate_demande', {'id': demande.id}) }}" class="btn btn-soft-primary btn-sm mb-0 disabled">
+
+                                      <span class="pl-1 align-middle">Modifier</span>
                                   </a>
-                                {# if its not validate by secretire and Directeur Pedagogique show this message #}
+                                  {% elseif demande.etatSecretaire == constant('App\\Controller\\DemandeController::ETAT_VALIDE') and demande.etatDirecteurPd == constant('App\\Controller\\DemandeController::ETAT_VALIDE') %}
+                                  <a href="{{ path('validate_demande', {'id': demande.id}) }}" class="btn btn-soft-primary btn-sm mb-0">
+
+                                    <span class="pl-1 align-middle">Modifier</span>
+                                  </a>
+
+                                    {# if its not validate by secretire and Directeur Pedagogique show this message #}
                                 {% elseif demande.etatSecretaire == constant('App\\Controller\\DemandeController::ETAT_PROCESS') or demande.etatDirecteurPd == constant('App\\Controller\\DemandeController::ETAT_PROCESS') %}
                                   <p> waiting Secretaire and Diresteur Validation </p>
                                 {% endif %}
