@@ -65,19 +65,19 @@ class LaureatRepository extends ServiceEntityRepository
     {
         $conn = $this->getEntityManager()->getConnection();
         $sql = '
-       SELECT diplome.fichier,
-              diplome.date_obtention,
-              diplome.date_depot,
-              diplome.code,
-              demande.etat_secretaire,
-              demande.etat_directeur_pd,
-              demande.etat_directeur_gn
-       FROM diplome
-       INNER JOIN demande
-       ON diplome.id = demande.diplome_id
-       INNER JOIN laureat
-       ON demande.laureat_id = laureat.id
-       where laureat.id = :id
+            SELECT diplome.fichier,
+                    diplome.date_obtention,
+                    diplome.date_depot,
+                    diplome.code,
+                    demande.etat_secretaire,
+                    demande.etat_directeur_pd,
+                    demande.etat_directeur_gn
+            FROM diplome
+            INNER JOIN demande
+            ON diplome.id = demande.diplome_id
+            INNER JOIN laureat
+            ON demande.laureat_id = laureat.id
+            where laureat.id = :id
         ';
         $stmt = $conn->prepare($sql);
         $stmt->execute(['id' => $id]);

@@ -207,21 +207,9 @@
 
           {% if is_granted('ROLE_LAUREAT') %}
           <li>
-            <a href="#" class="mn-has-sub menu-link">
+            <a href="/demande/" class="menu-link">
               <span> Mes demandes </span>
-              <i data-feather="chevron-down"></i>
             </a>
-
-            <!-- Sub -->
-            <ul class="mn-sub to-left py-4">
-              <li>
-                <a href="/demande/">afficher mes demandes</a>
-              </li>
-              {# <li>
-                <a href="/demande/new">ajouter une demande</a>
-              </li> #}
-            </ul>
-            <!-- ./End Sub -->
           </li>
           {% endif %}
 
@@ -331,8 +319,8 @@
                 <a href="{{ path('app_password_modification') }}" class="p-3">
                   <div class="media align-items-center">
                     <div class="media-head mr-4">
-                      <div class="fx-badge fx-badge-transparent-success fx-badge-xl">
-                        <i data-feather="lock" class="fx-text-success"></i>
+                      <div class="fx-badge fx-badge-transparent-danger fx-badge-xl">
+                        <i data-feather="lock" class="fx-text-danger"></i>
                       </div>
                     </div>
                     <div class="media-body">

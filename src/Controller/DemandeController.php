@@ -130,7 +130,6 @@ class DemandeController extends AbstractController
             $form = $this->createForm(DemandeSecretaireStatusType::class, $demande);
             $form->handleRequest($request);
             if ($form->isSubmitted() && $form->isValid()) {
-              
               $demande->setDateValidationSecretaire(new \DateTime());
               $demande->setSecretaire($this->getUser());
               $entityManager = $this->getDoctrine()->getManager();

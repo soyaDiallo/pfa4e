@@ -26,7 +26,7 @@ class DemandeSecretaireStatusType extends AbstractType
                 'multiple' => false,
                 'label' => 'Etat de Demande' 
             ])
-            ->add('diplome',null, ['disabled' => true])
+            // ->add('diplome',null, ['disabled' => true])
         ;
     }
 
