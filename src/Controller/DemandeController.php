@@ -51,7 +51,7 @@ class DemandeController extends AbstractController
         case $this->isGranted(["ROLE_DIRECTEUR"]):
           // get demandes already validate by Secretaire
           $demandes = $demandeRepository->findDemandeDirecteur($this->getUser()->getEtablissement(), self::ETAT_VALIDE);
-          dd($demandes);
+          //dd($demandes);
           break; 
         case $this->isGranted(["ROLE_ETABLISSEMENT"]):
           // get demandes already validate by Secretaire and Directeur
@@ -187,7 +187,7 @@ class DemandeController extends AbstractController
             // dd($demande->getDiplome()->getDateObtention());
             if ($form->isSubmitted() && $form->isValid()) {
               $demande->setDateValidationDE(new \DateTime());
-              $demande->setDiplome($demande->getDiplome()->setDateObtention(new \DateTime()));
+
               $entityManager = $this->getDoctrine()->getManager();
               $entityManager->persist($demande);
               $entityManager->flush();

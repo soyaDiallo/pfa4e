@@ -20,7 +20,7 @@
           </div> 
           <!-- card Body -->
           <div class="fx-card-body"> 
-            <h5 class="card-title mb-5"> List Des Diplomes </h5>  
+            <h5 class="card-title mb-5"> Diplomes </h5>
             {% if verif == 0 %}
               <div class="fx-alert fx-alert-primary">
                 <p>Aucun diplome trouvé.</p>
@@ -30,18 +30,19 @@
             {% for diplomes in diplomesAuth %}
               <!-- Card -->
               <div class="col-sm-6 col-md-6">
-                {% if diplomes.date_obtention is null %}
+                {% if (diplomes.etat_secretaire == 0) or (diplomes.etat_directeur_pd == 0) or (diplomes.etat_directeur_gn == 0) %}
                   <div class="fx-card border rounded mb-5">
                     <div class="fx-card-body">
                       <div class="text-center mb-4">
-                        <a href="{{ asset('uploads/diplome-laureat/'~diplomes.fichier ) }}" target="_blanck">
-                          <div class="fx-avatar fx-avatar-circle fx-avatar-bordered shadow-lg d-inline-block fx-avatar-lg text-center fx-bg-warning">
+                        <a href="{{ asset('uploads/diplomeLaureat/'~diplomes.fichier ) }}" target="_blanck">
+                          <div class="fx-avatar fx-avatar-circle fx-avatar-bordered shadow-lg d-inline-block fx-avatar-lg text-center" style="background-color: #FE2626">
                             <i data-feather="download" class="text-light align-items-center h-100"></i>
                           </div>
                         </a>
                         <h3 class="h6 fx-text-bold fx-text-dark mt-5 mb-3">
-                          <i data-feather="loader" class="text-danger"></i>
-                          <span class="pl-2"> Diplome En Cours De Validation </span>
+                          <span class="badge badge-danger"><i class="fas fa-exclamation-circle"></i></span>
+
+                          <span class="pl-2"> Diplome annulé </span>
                         </h3>
                         <p class="mb-0">
                           <a href="#" class="fx-font-size-1 text-secondary">
@@ -53,11 +54,35 @@
                       </div>
                     </div>
                   </div>
+                {% elseif diplomes.date_obtention is null %}
+                  <div class="fx-card border rounded mb-5">
+                    <div class="fx-card-body">
+                      <div class="text-center mb-4">
+                        <a href="{{ asset('uploads/diplomeLaureat/'~diplomes.fichier ) }}" target="_blanck">
+                          <div class="fx-avatar fx-avatar-circle fx-avatar-bordered shadow-lg d-inline-block fx-avatar-lg text-center fx-bg-warning">
+                            <i data-feather="download" class="text-light align-items-center h-100"></i>
+                          </div>
+                        </a>
+                        <h3 class="h6 fx-text-bold fx-text-dark mt-5 mb-3">
+                          <i data-feather="loader" class="text-danger"></i>
+                          <span class="pl-2"> En cours de traitement </span>
+                        </h3>
+                        <p class="mb-0">
+                          <a href="#" class="fx-font-size-1 text-secondary">
+                            <i data-feather="calendar" class="align-middle" width="18" height="18"></i>
+                            <span class="align-middle pl-2"> date Depot :</span>
+                            <span class="align-middle">{{ diplomes.date_depot }}</span>
+                          </a>
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+
                 {% else %}
                   <div class="fx-card border rounded mb-5">
                     <div class="fx-card-body">
                       <div class="text-center mb-4">
-                        <a href="{{ asset('uploads/diplomes-authentifies/'~diplomes.fichier ) }}" target="_blanck">
+                        <a href="{{ asset('uploads/diplomesAuthentifies/'~diplomes.fichier ) }}" target="_blanck">
                           <div class="fx-avatar fx-avatar-circle fx-avatar-bordered shadow-lg d-inline-block fx-avatar-lg text-center fx-bg-success">
                             <i data-feather="download" class="text-light align-items-center h-100"></i>
                           </div>
@@ -71,6 +96,9 @@
                             <i data-feather="calendar" class="align-middle" width="18" height="18"></i>
                             <span class="align-middle pl-2"> date Validation :</span>
                             <span class="align-middle">{{ diplomes.date_obtention }}</span>
+                            <br>
+                            <span class="align-middle pl-2"> Code diplome :</span>
+                            <span class="align-middle">{{ diplomes.code }}</span>
                           </a>
                         </p>
                       </div>

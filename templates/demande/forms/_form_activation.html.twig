@@ -4,6 +4,8 @@
 		{{ form_errors(form) }}
 	</div>
 	{% set key = form.diplome.vars.choices|first %}
+	{% set sali = form.diplome %}
+
 	<div class="row">
 		
 		{% if is_granted('ROLE_SECRETAIRE') %}
@@ -62,9 +64,9 @@
 		</div>
 		
 		<object type="application/pdf" width="100%" height="100%" class="fx-height-500">
-			<param name="src" value="{{ asset('uploads/diplome-laureat/'~ key.data.fichier) }}" />
+			<param name="src" value="{{ asset('uploads/diplomeLaureat/'~ key.data.fichier) }}" />
 			<p>Si le fichier n'est pas visible.
-				<a href="{{ asset('uploads/diplome-laureat/'~ key.data.fichier) }}">click ici pour le telecharger.</a>
+				<a href="{{ asset('uploads/diplomeLaureat/'~ key.data.fichier) }}">click ici pour le telecharger.</a>
 			</p>
 		</object>
 	</div>
