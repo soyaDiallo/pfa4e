@@ -91,15 +91,13 @@ class LaureatController extends AbstractController
      * @Route("/profiletab/{id}", name="laureat_etablissement", methods={"GET","POST"})
      * @IsGranted({"ROLE_LAUREAT"})
      */
-    public function profiletablissement(Laureat $laureat,Request $request,EtablissementRepository $etablissementRepository,\Swift_Mailer $mailer,UserRepository $userRepository):Response
+    public function profiletablissement(Laureat $laureat,Request $request,EtablissementRepository $etablissementRepository):Response
     {
         $diplome = new Diplome();
-        $name = $request->request->get("name");
 
-        $repository = $this->getDoctrine()->getManager()->getRepository(Etablissement::class);
-        $etablissements = $repository->findBy(
-            ['nomEtablissement' => $name]
-        );
+        //Search Field Return Etablissment
+        $name = $request->request->get("name");
+        $etablissements = $etablissementRepository->findEtablissmentByString($name);
 
         $form = $this->createForm(DiplomeType::class, $diplome);
         $form->handleRequest($request);
@@ -143,39 +141,6 @@ class LaureatController extends AbstractController
             
                 $entityManager->persist($demande);
                 $entityManager->flush();
-
-
-                /*
-                //Notifier la Secretaire par un mail
-                $email = $userRepository->findEmail(intval($id));
-                $message = (new \Swift_Message('Nouvelle demande !'))
-                ->setFrom('kribiazakaria1@gmail.com')
-                // email de la secretaire
-                ->setTo($email)
-                ->setBody('Vous avez reçu une nouvelle demande, vérifiez votre espace !');
-                $mailer->send($message);
-
-
-                // Notifier le directeur pedagogique par un mail
-                $email = $userRepository->findEmailDir(intval($id));
-                $message = (new \Swift_Message('Nouvelle demande peda !'))
-                ->setFrom('kribiazakaria1@gmail.com')
-                // email directeur pedagogique
-                ->setTo($email)
-                ->setBody('Vous avez reçu une nouvelle demande, vérifiez votre espace !');
-                $mailer->send($message);
-
-                // Notifier l'Etablissement par un mail
-                $email = $userRepository->findEmailEtab(intval($id));
-                $message = (new \Swift_Message('Nouvelle demande etab !'))
-                    ->setFrom('kribiazakaria1@gmail.com')
-                    // email Etablissement
-                    ->setTo($email)
-                    ->setBody('Vous avez reçu une nouvelle demande, vérifiez votre espace !');
-                $mailer->send($message);
-
-                */
-
 
                 $this->addFlash('succes', 'Demande ajoutée avec succes');
 

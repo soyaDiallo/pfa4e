@@ -47,6 +47,17 @@ class EtablissementRepository extends ServiceEntityRepository
         ;
     }
     */
+
+    //Etablissment Search
+    public function findEtablissmentByString($value)
+    {
+        return $this->createQueryBuilder('e')
+            ->andWhere('e.nomEtablissement LIKE :val')
+            ->setParameter('val', '%'.$value.'%')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
     
     public function findIdEtablissement($name): string
     {
