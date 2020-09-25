@@ -79,7 +79,7 @@
               </div>
             </div>
 
-            <input type="hidden" class="form-control"  value="{{ name }}" name="id">
+            <input type="hidden" class="form-control" id="etablissment-using-id" value="{{ name }}" name="id">
             <button type="submit" class="btn btn-success btn-block">Enregistrer</button>
             {{ form_end(form) }}
           </div>
@@ -91,10 +91,9 @@
     </div>
   </div>
 </div>
-
-
 {% endblock %}
 
-
-
-
+{% block javascripts %}
+  {{ parent() }}
+  {{ encore_entry_script_tags('adddiplome') }}
+{% endblock %}

@@ -26,7 +26,7 @@ class DemandeDirecteurStatusType extends AbstractType
                 'multiple' => false,
                 'label' => 'Etat de Demande Directeur Pedagogique' 
             ])
-            ->add('diplome',null, ['disabled' => true])
+            // ->add('diplome',null, ['disabled' => true])
         ;
     }
 

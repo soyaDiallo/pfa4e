@@ -26,7 +26,7 @@ class DemandeEtablStatusType extends AbstractType
                 'multiple' => false,
                 'label' => 'Etat de Demande Directeur General' 
             ])
-            ->add('diplome',null, ['disabled' => true])
+            // ->add('diplome',null, ['disabled' => true])
         ;
     }
 

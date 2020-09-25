@@ -98,7 +98,7 @@ class LaureatController extends AbstractController
         //Search Field Return Etablissment
         $name = $request->request->get("name");
         $etablissements = $etablissementRepository->findEtablissmentByString($name);
-
+        
         $form = $this->createForm(DiplomeType::class, $diplome);
         $form->handleRequest($request);
 
@@ -128,14 +128,14 @@ class LaureatController extends AbstractController
 
                 // Ajout demande
                 $demande = new Demande();
-                $nomEtablissement = $request->request->get("id");
-
-                $id = $etablissementRepository->findIdEtablissement($nomEtablissement);
-
-                $repository = $this->getDoctrine()->getManager()->getRepository(Etablissement::class);
-                $etablissementss = $repository->find(intval($id));
-
-                $demande->setEtablissement($etablissementss);
+                $etablissementId = $request->request->get("id");
+                $etablissement = $etablissementRepository->findEtablissementByName($etablissementId);
+                // dd($id,$nomEtablissement,$request);
+                // die();
+                // $repository = $this->getDoctrine()->getManager()->getRepository(Etablissement::class);
+                // $etablissementss = $etablissementRepository->findOneBy(['id' => $id]);
+                
+                $demande->setEtablissement($etablissement);
                 $demande->setDiplome($diplome);
                 $demande->setLaureat($laureat);
             
