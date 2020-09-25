@@ -97,7 +97,7 @@ class SecretaireController extends AbstractController {
             $entityManager = $this->getDoctrine()->getManager();
             $secretaire->setDeleted(1);
             $entityManager->flush();
-            $this->addFlash('success', 'Le compte a été desactiver avec succes');
+            $this->addFlash('success', 'Le compte a été desactiver avec success');
             return $this->redirectToRoute('secretaire_index');
         }
 
@@ -115,7 +115,7 @@ class SecretaireController extends AbstractController {
             $entityManager = $this->getDoctrine()->getManager();
             $secretaire->setDeleted(0);
             $entityManager->flush();
-            $this->addFlash('success', 'Le compte a été Activer avec succes');
+            $this->addFlash('success', 'Le compte a été Activer avec success');
             return $this->redirectToRoute('secretaire_index');
         }
 
