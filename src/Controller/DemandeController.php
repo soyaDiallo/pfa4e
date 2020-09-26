@@ -120,102 +120,105 @@ class DemandeController extends AbstractController
      * @IsGranted({"ROLE_ETABLISSEMENT", "ROLE_SECRETAIRE", "ROLE_DIRECTEUR"})
     */
     public function edit(Request $request, Demande $demande, UserRepository $userRepository, \Swift_Mailer $mailer, DemandeRepository $demandeRepository,EtablissementRepository $etablissementRepository, DiplomeRepository $diplomeRepository,LaureatRepository $laureatRepository): Response {
-        if(!$demande){
-          $demande = new Demande();
-        }
+      if(!$demande){
+        $demande = new Demande();
+      }
+      if($demande->getEtatDirecteurGn() !== self::ETAT_PROCESS) {
+        return $this->redirectToRoute('demande_index');
+      }
 
-        // Setting appropriate user type
-        switch ($this->getUser()) {
-          case $this->isGranted('ROLE_SECRETAIRE'):
-            $form = $this->createForm(DemandeSecretaireStatusType::class, $demande);
-            $form->handleRequest($request);
-            if ($form->isSubmitted() && $form->isValid()) {
-              $demande->setDateValidationSecretaire(new \DateTime());
-              $demande->setSecretaire($this->getUser());
-              $entityManager = $this->getDoctrine()->getManager();
-              $entityManager->persist($demande);
-              $entityManager->flush();
-              // Sent Email 
-              // if Secretaire say that diplome is not valide send to laureat message
-              if($demande->getEtatSecretaire() == self::ETAT_NOT_VALIDE) {
-                $email = $userRepository->getEmailLaureat($demande->getLaureat()->getId());
-                $name = $userRepository->getNom($demande->getLaureat()->getId());
-                $subject = 'Votre demande a été annulée';
-                $message = 'Votre diplome a été annulé par Secretaire, car il ne respecte pas les régles de la direction !';
-                $this->sentEmailValidation($email, $subject, $message, $name, $mailer);
-              } elseif ($demande->getEtatSecretaire() == self::ETAT_VALIDE) {
-                // To DO Later need to get Directeur Id
-                // $email = $userRepository->getEmailLaureat($demande->getDirecteurPedagogique()->getId());
-                // $subject = 'Deamnde Valider Par La Secretaire';
-                // $message = 'cette Demande et Deja valider avec successe par la secraitaire il attend votre validation !';
-                // $this->sentEmailValidation($email,$subject, $message, $mailer);
-              }
-              return $this->redirectToRoute('demande_index');
+      // Setting appropriate user type
+      switch ($this->getUser()) {
+        case $this->isGranted('ROLE_SECRETAIRE'):
+          $form = $this->createForm(DemandeSecretaireStatusType::class, $demande);
+          $form->handleRequest($request);
+          if ($form->isSubmitted() && $form->isValid()) {
+            $demande->setDateValidationSecretaire(new \DateTime());
+            $demande->setSecretaire($this->getUser());
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($demande);
+            $entityManager->flush();
+            // Sent Email 
+            // if Secretaire say that diplome is not valide send to laureat message
+            if($demande->getEtatSecretaire() == self::ETAT_NOT_VALIDE) {
+              $email = $userRepository->getEmailLaureat($demande->getLaureat()->getId());
+              $name = $userRepository->getNom($demande->getLaureat()->getId());
+              $subject = 'Votre demande a été annulée';
+              $message = 'Votre diplome a été annulé par Secretaire, car il ne respecte pas les régles de la direction !';
+              $this->sentEmailValidation($email, $subject, $message, $name, $mailer);
+            } elseif ($demande->getEtatSecretaire() == self::ETAT_VALIDE) {
+              // To DO Later need to get Directeur Id
+              // $email = $userRepository->getEmailLaureat($demande->getDirecteurPedagogique()->getId());
+              // $subject = 'Deamnde Valider Par La Secretaire';
+              // $message = 'cette Demande et Deja valider avec successe par la secraitaire il attend votre validation !';
+              // $this->sentEmailValidation($email,$subject, $message, $mailer);
             }
-            break;
-          case $this->isGranted('ROLE_DIRECTEUR'):
-            $form = $this->createForm(DemandeDirecteurStatusType::class, $demande);
-            $form->handleRequest($request);
-            if ($form->isSubmitted() && $form->isValid()) {
-              $demande->setDateValidationDP(new \DateTime());
-              $demande->setDirecteurPedagogique($this->getUser());
-              $entityManager = $this->getDoctrine()->getManager();
-              $entityManager->persist($demande);
-              $entityManager->flush();
-              // Sent Email 
-              // if Directeur say that diplome is not valide send to laureat message
-              if($demande->getEtatDirecteurPd() == self::ETAT_NOT_VALIDE) {
-                $email = $userRepository->getEmailLaureat($demande->getLaureat()->getId());
-                $name = $userRepository->getNom($demande->getLaureat()->getId());
-                $subject = 'Votre demande a été annulée';
-                $message = 'Votre diplome a été annulé par Directeur, car il ne respecte pas les régles de la direction !';
-                $this->sentEmailValidation($email, $subject, $message, $name, $mailer);
-              } elseif ($demande->getEtatDirecteurPd() == self::ETAT_VALIDE) {
-                $email = $userRepository->getEmailLaureat($demande->getEtablissement()->getId());
-                $name = $userRepository->getNom($demande->getEtablissement()->getId());
-                $subject = 'Deamnde Valider Par La Directeur';
-                $message = 'cette Demande et Deja valider avec successe par la secraitaire et le Directeur pedagogique. yup !';
-                $this->sentEmailValidation($email,$subject, $message, $name, $mailer);
-              }
-              return $this->redirectToRoute('demande_index');
+            return $this->redirectToRoute('demande_index');
+          }
+          break;
+        case $this->isGranted('ROLE_DIRECTEUR'):
+          $form = $this->createForm(DemandeDirecteurStatusType::class, $demande);
+          $form->handleRequest($request);
+          if ($form->isSubmitted() && $form->isValid()) {
+            $demande->setDateValidationDP(new \DateTime());
+            $demande->setDirecteurPedagogique($this->getUser());
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($demande);
+            $entityManager->flush();
+            // Sent Email 
+            // if Directeur say that diplome is not valide send to laureat message
+            if($demande->getEtatDirecteurPd() == self::ETAT_NOT_VALIDE) {
+              $email = $userRepository->getEmailLaureat($demande->getLaureat()->getId());
+              $name = $userRepository->getNom($demande->getLaureat()->getId());
+              $subject = 'Votre demande a été annulée';
+              $message = 'Votre diplome a été annulé par Directeur, car il ne respecte pas les régles de la direction !';
+              $this->sentEmailValidation($email, $subject, $message, $name, $mailer);
+            } elseif ($demande->getEtatDirecteurPd() == self::ETAT_VALIDE) {
+              $email = $userRepository->getEmailLaureat($demande->getEtablissement()->getId());
+              $name = $userRepository->getNom($demande->getEtablissement()->getId());
+              $subject = 'Deamnde Valider Par La Directeur';
+              $message = 'cette Demande et Deja valider avec successe par la secraitaire et le Directeur pedagogique. yup !';
+              $this->sentEmailValidation($email,$subject, $message, $name, $mailer);
             }
-            break;
-          case $this->isGranted('ROLE_ETABLISSEMENT'):
-            $form = $this->createForm(DemandeEtablStatusType::class, $demande);
-            $form->handleRequest($request);
-            // dd($demande->getDiplome()->getDateObtention());
-            if ($form->isSubmitted() && $form->isValid()) {
-              $demande->setDateValidationDE(new \DateTime());
+            return $this->redirectToRoute('demande_index');
+          }
+          break;
+        case $this->isGranted('ROLE_ETABLISSEMENT'):
+          $form = $this->createForm(DemandeEtablStatusType::class, $demande);
+          $form->handleRequest($request);
+          // dd($demande->getDiplome()->getDateObtention());
+          if ($form->isSubmitted() && $form->isValid()) {
+            $demande->setDateValidationDE(new \DateTime());
 
-              $entityManager = $this->getDoctrine()->getManager();
-              $entityManager->persist($demande);
-              $entityManager->flush();
-              if($demande->getEtatDirecteurGn() == self::ETAT_NOT_VALIDE) {
-                $email = $userRepository->getEmailLaureat($demande->getLaureat()->getId());
-                $name = $userRepository->getNom($demande->getLaureat()->getId());
-                $subject = 'Votre demande a été annulée';
-                $message = 'Votre diplome a été annulé par Etablissment, car il ne respecte pas les régles de la direction !';
-                $this->sentEmailValidation($email, $subject, $message, $name, $mailer);
-              } elseif ($demande->getEtatDirecteurGn() == self::ETAT_VALIDE) {
-                $id = $demande->getId();
-                $this->GenerateDiplome($demandeRepository, $id, $diplomeRepository, $laureatRepository, $userRepository);
-                $email = $userRepository->getEmailLaureat($demande->getLaureat()->getId());
-                $name = $userRepository->getNom($demande->getLaureat()->getId());
-                $subject = 'Votre Demande a été valider avec succes';
-                $message = 'cette Demande et valider avec Success Par votre Etablissment !';
-                $this->sentEmailValidation($email,$subject, $message, $name, $mailer);
-              }
-              return $this->redirectToRoute('demande_index');
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($demande);
+            $entityManager->flush();
+            if($demande->getEtatDirecteurGn() == self::ETAT_NOT_VALIDE) {
+              $email = $userRepository->getEmailLaureat($demande->getLaureat()->getId());
+              $name = $userRepository->getNom($demande->getLaureat()->getId());
+              $subject = 'Votre demande a été annulée';
+              $message = 'Votre diplome a été annulé par Etablissment, car il ne respecte pas les régles de la direction !';
+              $this->sentEmailValidation($email, $subject, $message, $name, $mailer);
+            } elseif ($demande->getEtatDirecteurGn() == self::ETAT_VALIDE) {
+              $id = $demande->getId();
+              $this->GenerateDiplome($demandeRepository, $id, $diplomeRepository, $laureatRepository, $userRepository);
+              $email = $userRepository->getEmailLaureat($demande->getLaureat()->getId());
+              $name = $userRepository->getNom($demande->getLaureat()->getId());
+              $subject = 'Votre Demande a été valider avec succes';
+              $message = 'cette Demande et valider avec Success Par votre Etablissment !';
+              $this->sentEmailValidation($email,$subject, $message, $name, $mailer);
             }
-            break;
-          default:
-            $demande = null;
-            break;
-        }
-        return $this->render('demande/secretaire_new.html.twig', [
-          'demande' => $demande,
-          'form' => $form->createView(),
-        ]);
+            return $this->redirectToRoute('demande_index');
+          }
+          break;
+        default:
+          $demande = null;
+          break;
+      }
+      return $this->render('demande/secretaire_new.html.twig', [
+        'demande' => $demande,
+        'form' => $form->createView(),
+      ]);
     }
 
     private function sentEmailValidation($email, $subject, $template, $name, $mailer) {

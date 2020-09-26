@@ -9,7 +9,7 @@
         <div class="fx-card-head align-items-center">
           <div class="fx-card-head-container">
             <h3 class="fx-card-head-title text-capitalize">
-            Ajouter un laureat
+              list des laureat
             </h3>
           </div>
           <div class="fx-card-head-toolbar">
@@ -30,7 +30,6 @@
                 <th>Telephone</th>
                 <th>Date De Naissance</th>
                 <th>Email</th>
-                <th>Actions</th>
             </tr>
         </thead>
         <tbody>
@@ -41,16 +40,10 @@
                 <td>{{ laureat.telephone }}</td>
                 <td>{{ laureat.datenaissance|date('Y-m-d') }}</td>
                 <td>{{ laureat.email }}</td>
-                <td class="text-center">
-                  <a class="btn btn-danger btn-sm mb-0" href="{{ path('laureat_delete', {'id': laureat.id}) }}">
-                    <i data-feather="trash" class="pr-1"></i>
-                    <span class="pl-1 align-middle"> delete </span>
-                  </a>
-                </td>
             </tr>
         {% else %}
             <tr>
-                <td colspan="4">no records found</td>
+              <td colspan="4">no records found</td>
             </tr>
         {% endfor %}
         </tbody>
