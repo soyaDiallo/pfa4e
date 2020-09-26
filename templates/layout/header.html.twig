@@ -243,7 +243,7 @@
                     <img class="fx-avatar fx-avatar-md rounded-circle fx-avatar-bordered shadow-lg d-inline-block" 
                     src="
                       {% if app.user.photoUrl %} 
-                        {{ asset('uploads/images-profiles/'~ app.user.photoUrl)|imagine_filter('my_thumb') }}
+                        {{ asset('uploads/imagesProfiles/'~ app.user.photoUrl)|imagine_filter('my_thumb') }}
                       {% else %}
                         /build/avatar.jpg
                       {% endif %}
