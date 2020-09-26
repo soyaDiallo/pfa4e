@@ -5,14 +5,14 @@
 	</div>
 	{# {{dump(form)}} #}
 	{# {% set key = form.diplome.vars.choices|first %} #}
-	{# {% set sali = form.diplome %} #}
+
 
 	<div class="row">
 		
 		{% if is_granted('ROLE_SECRETAIRE') %}
 			<div class="col col-md-6 mb-5">
 				<label for="demande_etat" class="fx-text-dark h5 col-form-label-lg"> 
-					{{ form_label(form.etatSecretaire, 'Demande Etat :') }}
+					{{ form_label(form.etatSecretaire, 'Etat de la demande :') }}
 				</label>
 				{{ form_widget(form.etatSecretaire, {'attr': {'class': 'form-control form-control-lg'}}) }}
 				{% if form.etatSecretaire.vars.value == 1 %}
@@ -28,7 +28,7 @@
 		{% if is_granted('ROLE_DIRECTEUR') %}
 		<div class="col col-md-6 mb-5">
 			<label for="demande_etat" class="fx-text-dark h5 col-form-label-lg"> 
-				{{ form_label(form.etatDirecteurPd, 'Demande Etat :') }} 
+				{{ form_label(form.etatDirecteurPd, 'Etat de la demande :') }}
 			</label>
 			{{ form_widget(form.etatDirecteurPd, {'attr': {'class': 'form-control form-control-lg'}}) }}
 			{% if form.etatDirecteurPd.vars.value == 1 %}
@@ -44,7 +44,7 @@
 		{% if is_granted('ROLE_ETABLISSEMENT') %}
 			<div class="col col-md-6 mb-5">
 				<label for="demande_etat" class="fx-text-dark h5 col-form-label-lg"> 
-					{{ form_label(form.etatDirecteurGn, 'Demande Etat :') }} 
+					{{ form_label(form.etatDirecteurGn, 'Etat de la demande :') }}
 				</label>
 				{{ form_widget(form.etatDirecteurGn, {'attr': {'class': 'form-control form-control-lg'}}) }}
 				{% if form.etatDirecteurGn.vars.value == 1 %}
