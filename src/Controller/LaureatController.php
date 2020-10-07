@@ -119,7 +119,7 @@ class LaureatController extends AbstractController
                 // Ajout Diplome
                 $diplome->setFichier($fileName);
                 $diplome->setDateDepot(new \DateTime('now'));
-                $diplome->setCode(md5(uniqid()));
+                $diplome->setCode(uniqid());
 
 
                 $entityManager = $this->getDoctrine()->getManager();
