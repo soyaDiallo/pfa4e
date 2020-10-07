@@ -1,0 +1,86 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}My Profil{% endblock %}
+
+{% block body %}
+
+    <div class="fx-section-space-8 bg-light">
+        <div class="container">
+            <div class="row">
+                <!-- Include Profile Information -->
+                <div class="col-lg-4">
+                    {{ include('entreprise/layout/_profile_information.html.twig') }}
+                </div><!-- ./End Col -->
+
+                <div class="col-lg-8">
+                    <div class="fx-card fx-card-tabs">
+                        <!-- Include Profile Navigation-->
+                        <div class="fx-card-head">
+                            {{ include('entreprise/layout/_profile_navigation.html.twig') }}
+                        </div>
+                        <!-- card Body -->
+                        <div class="fx-card-body">
+                            <form id="search-form" method="post" action="{{ path('entreprise_verif',{'id': entreprise.id}) }}">
+                            <div>
+                                <div class="input-group mb-3">
+                                    <input type="text" class="form-control" placeholder="Code diplome" name="codeDip">
+                                    <div class="input-group-append">
+                                        <button class="btn btn-outline-secondary" type="submit" id="button-addon2">
+                                            <i class="fas fa-search"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            </form>
+                         {% if (codeDip | length == 0) %}
+                             <div class="card">
+                                 <div class="card-body">
+                                    <p align="center" style="color: grey">Vérifier l'existence de diplome.</p>
+                                 </div>
+                             </div>
+                                {% elseif not searchLaureat %}
+                                    <div class="alert alert-danger" role="alert">
+                                        Aucun resultat trouvé pour le code  <b>{{ codeDip }}</b>
+                                    </div>
+                                    {% elseif searchLaureat %}
+                                {% for searchLaureats in searchLaureat %}
+
+                                    <div class="card mb-3" style="max-width: 540px;">
+                                        <div class="row no-gutters">
+                                            <div class="col-md-4">
+                                                <br>
+                                                <img src="{{ asset('images/user.png') }}" class="card-img" alt="...">
+                                            </div>
+                                            <div class="col-md-8">
+                                                <div class="card-body">
+                                                    <h5 class="card-title">{{ searchLaureats.prenom }} {{ searchLaureats.nom }}</h5>
+                                                    <h5 class="card-title">{{ searchLaureats.prenom_arabe }} {{ searchLaureats.nom_arabe }}</h5>
+                                                    <p class="card-text" style="color: grey">
+                                                        <i class="fas fa-map-marker-alt"></i> {{ searchLaureats.addresse }}
+                                                    </p>
+                                                    <p class="card-text" style="color: grey">
+                                                         CIN - Numéro séjour : {{ searchLaureats.cin_num_sejour }}
+                                                    </p>
+                                                    <p class="card-text" style="color: grey">
+                                                        <i class="fas fa-globe-americas"></i> {{ searchLaureats.nationalite }}
+                                                    </p>
+                                                    <p class="card-text" style="color: grey">
+                                                    <a class="btn btn-soft-warning btn-shadow fx-text-bolder" href="{{ asset('uploads/diplomesAuthentifies/'~ searchLaureats.fichier ) }}" target="_blanck">
+                                                        <i class="fas fa-file-pdf"></i> <span class="pl-2 align-middle">Diplome</span>
+                                                    </a>&nbsp;&nbsp;&nbsp;
+                                                    <small class="text-muted">Validé le {{ searchLaureats.date_obtention|date('d-m-Y') }}</small>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                             {% endfor %}
+                           {% endif %}
+                        </div>
+                    </div><!-- ./End Col -->
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

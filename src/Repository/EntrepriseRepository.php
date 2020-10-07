@@ -47,4 +47,25 @@ class EntrepriseRepository extends ServiceEntityRepository
         ;
     }
     */
+
+    public function serachLaureat($code)
+    {
+        $conn = $this->getEntityManager()->getConnection();
+        $sql = '
+            SELECT `user`.prenom,`user`.nom,`user`.addresse,`user`.photo_url,laureat.cin_num_sejour,laureat.nationalite,laureat.nom_arabe,laureat.prenom_arabe,diplome.fichier,diplome.date_obtention
+            FROM demande
+            INNER JOIN `user`
+            ON demande.laureat_id = `user`.id
+            INNER JOIN laureat
+            ON demande.laureat_id = laureat.id
+            INNER JOIN diplome
+            ON demande.diplome_id = diplome.id
+            where diplome.code = :code
+        ';
+        $stmt = $conn->prepare($sql);
+        $stmt->execute(['code' => $code]);
+
+        // returns an array of arrays (i.e. a raw data set)
+        return $stmt->fetchAll();
+    }
 }

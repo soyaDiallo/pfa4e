@@ -71,4 +71,23 @@ class EntrepriseController extends AbstractController
         }
         return $this->redirectToRoute('entreprise_show',array('id' => $entreprise->getId()));
     }
+
+    /**
+     * @Route("/verifDiplom/{id}", name="entreprise_verif", methods={"GET","POST"})
+     */
+    public function chekcDiplom(Request $request, Entreprise $entreprise,EntrepriseRepository $entrepriseRepository): Response
+    {
+        $codeDip = $request->request->get("codeDip");
+
+        $searchLaureat = $entrepriseRepository->serachLaureat($codeDip);
+
+        //dd($searchLaureat);
+
+        return $this->render('entreprise/checkDip.html.twig', [
+            'entreprise' => $entreprise,
+            'searchLaureat' => $searchLaureat,
+            'codeDip'=> $codeDip
+        ]);
+
+    }
 }

@@ -6,9 +6,18 @@
 <div class="fx-card-head-toolbar">
   <ul class="nav nav-tabs nav-tabs-line nav-tabs-line-right nav-tabs-line-2x">
     <li class="nav-item">
+      <a class="nav-link active" href="{{ path('entreprise_verif', {'id': entreprise.id}) }}">
+        Vérifier diplome
+      </a>
+    </li>
+  </ul>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  <ul class="nav nav-tabs nav-tabs-line nav-tabs-line-right nav-tabs-line-2x">
+    <li class="nav-item">
       <a class="nav-link active" href="{{ path('entreprise_edit', {'id': entreprise.id}) }}">
         À propos
       </a>
     </li>
   </ul>
 </div>
+
